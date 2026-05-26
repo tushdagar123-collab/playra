@@ -1,0 +1,141 @@
+/* ══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════ */
+
+@media (max-width: 960px) {
+  .features-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .footer-content { flex-direction: column; align-items: flex-start; }
+  .footer-links { gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  :root { --section-py: 80px; }
+
+  .nav-toggle { display: flex; }
+
+  .nav-menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 24px;
+    gap: 8px;
+    transform: translateY(-110%);
+    opacity: 0;
+    transition: transform var(--transition-medium), opacity var(--transition-medium);
+    box-shadow: var(--shadow-lg);
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+  }
+
+  .nav-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .nav-logout { margin-left: 0; }
+
+  .hero { min-height: auto; padding: calc(var(--nav-height) + 60px) 24px 60px; }
+  .hero-title { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .hero-cta .btn { width: 100%; max-width: 280px; justify-content: center; }
+  .hero-stats { gap: 24px; }
+  .stat-divider { display: none; }
+
+  .contact-form { grid-template-columns: 1fr; }
+
+  .footer-links { flex-wrap: wrap; gap: 32px; }
+
+  .nav-signup-link {
+    margin-left: 0 !important;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .auth-modal {
+    padding: 36px 24px 28px;
+    border-radius: var(--radius-lg);
+  }
+
+  .auth-icon { width: 52px; height: 52px; }
+  .auth-icon svg { width: 24px; height: 24px; }
+
+  .dashboard-body { flex-direction: column; }
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 8px 16px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .dashboard-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+  .sidebar-link {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .dashboard-content { padding: 24px 20px; }
+  .dashboard-topbar { padding: 0 16px; }
+  .dashboard-cards { grid-template-columns: 1fr; }
+
+  .auth-toast {
+    top: auto;
+    bottom: 24px;
+    right: 16px;
+    left: 16px;
+  }
+
+  .qe-slide-panel { display: none; }
+  .qe-editor { padding: 20px 16px; }
+  .qe-topbar { flex-wrap: wrap; gap: 10px; padding-bottom: 16px; }
+  .qe-topbar-actions { width: 100%; justify-content: flex-end; }
+  .qe-options-grid { grid-template-columns: 1fr; }
+  .qe-ai-row { grid-template-columns: 1fr; }
+  .qe-body { height: calc(100vh - var(--nav-height) - 120px); }
+
+  .jq-mode-buttons { grid-template-columns: 1fr; }
+  .jq-mode-btn { font-size: 0.85rem; }
+  .lobby-card { padding: 32px 24px 28px; }
+  .lobby-code-badge { font-size: 1.4rem; padding: 10px 20px; }
+  .lobby-title { font-size: 1.4rem; }
+  .lobby-info-grid { gap: 20px; }
+  .lobby-topbar { padding: 0 16px; }
+  .lobby-body { padding: 24px 16px; gap: 24px; }
+  .lobby-participants-list { max-height: 140px; }
+}
+
+@media (max-width: 480px) {
+  .hero-badge { font-size: 0.78rem; }
+  .hero-desc { font-size: 1rem; }
+  .section-title { font-size: clamp(1.6rem, 6vw, 2rem); }
+  .section-subtitle { font-size: 0.95rem; }
+  .feature-card { padding: 28px 24px; }
+  .pricing-card { padding: 28px 24px; }
+  .lobby-code-badge { font-size: 1.2rem; letter-spacing: 0.2em; }
+  .lobby-info-grid { gap: 16px; }
+
+  .query-card { padding: 20px 18px; }
+  .query-card-header { flex-direction: column; gap: 10px; }
+  .query-card-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .queries-search-wrap { max-width: 100%; }
+}

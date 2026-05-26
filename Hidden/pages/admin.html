@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Playra</title>
+  <meta name="description" content="Playra administration panel - manage users, quizzes, and platform settings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Full screen permission check loader -->
+  <div id="admin-auth-loader" style="position:fixed; inset:0; background:var(--color-bg); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;">
+    <div class="admin-loading-spinner"></div>
+    <span style="font-weight:600; color:var(--color-text-secondary);">Verifying Admin Permissions...</span>
+  </div>
+
+  <div class="dashboard-page" style="display:none;" id="admin-main-content">
+    <div class="dashboard-topbar">
+      <a href="/" class="nav-logo" id="admin-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra <span class="admin-badge-label">Admin</span></a>
+      <div class="dashboard-topbar-right">
+        <span class="dashboard-user">🛡️ Administrator</span>
+        <button class="btn btn--outline dashboard-logout-btn" id="btn-admin-logout">Logout</button>
+      </div>
+    </div>
+    <div class="dashboard-body">
+      <div class="dashboard-sidebar">
+        <a href="#" class="sidebar-link active" id="admin-sidebar-overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview</a>
+        <a href="#" class="sidebar-link" id="admin-sidebar-users"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Users</a>
+        <a href="#" class="sidebar-link" id="admin-sidebar-quizzes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> All Quizzes</a>
+        <a href="#" class="sidebar-link" id="admin-sidebar-queries"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Customer Queries <span class="queries-badge" id="queries-unread-badge" style="display:none;">0</span></a>
+        <a href="#" class="sidebar-link" id="admin-sidebar-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</a>
+      </div>
+      <div class="dashboard-content">
+        
+        <!-- ── VIEW 1: Overview ── -->
+        <div id="admin-view-overview" class="admin-view active">
+          <h1 class="dashboard-title">Admin Panel</h1>
+          <p class="dashboard-subtitle">Manage users, quizzes, and platform settings</p>
+          <div class="dashboard-cards">
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">👥</div>
+              <h3>Total Users</h3>
+              <p class="dash-stat-number" id="admin-stat-users">—</p>
+            </div>
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">📝</div>
+              <h3>Active Quizzes</h3>
+              <p class="dash-stat-number" id="admin-stat-quizzes">—</p>
+            </div>
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">📈</div>
+              <h3>Sessions Today</h3>
+              <p class="dash-stat-number" id="admin-stat-sessions">—</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIEW 2: Users ── -->
+        <div id="admin-view-users" class="admin-view">
+          <h1 class="dashboard-title">User Accounts</h1>
+          <p class="dashboard-subtitle">Manage registered users, their roles, and access statuses.</p>
+          
+          <div class="admin-table-container">
+            <div class="admin-table-header">
+              <div class="admin-search-wrap">
+                <svg class="admin-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="user-search-input" class="admin-search-input" placeholder="Search by name or email..." />
+              </div>
+            </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Join Date</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-table-body">
+                <!-- User rows injected by JS -->
+              </tbody>
+            </table>
+            <div class="admin-pagination">
+              <div class="admin-pagination-info" id="user-pagination-info">Showing 0-0 of 0 users</div>
+              <div class="admin-pagination-btns">
+                <button class="admin-btn" id="btn-user-prev" disabled>Previous</button>
+                <button class="admin-btn" id="btn-user-next" disabled>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIEW 3: All Quizzes ── -->
+        <div id="admin-view-quizzes" class="admin-view">
+          <h1 class="dashboard-title">All Quizzes</h1>
+          <p class="dashboard-subtitle">Monitor and manage quizzes created across the platform.</p>
+          
+          <div class="admin-table-container">
+            <div class="admin-table-header">
+              <div class="admin-search-wrap">
+                <svg class="admin-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="quiz-search-input" class="admin-search-input" placeholder="Search by quiz title..." />
+              </div>
+            </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Quiz Title</th>
+                  <th>Category</th>
+                  <th>Questions</th>
+                  <th>Created Date</th>
+                  <th>Attempts</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-quizzes-table-body">
+                <!-- Quiz rows grouped by user injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ── VIEW 5: Customer Queries ── -->
+        <div id="admin-view-queries" class="admin-view">
+          <h1 class="dashboard-title">Customer Queries</h1>
+          <p class="dashboard-subtitle">View and manage messages submitted through the Contact Us form.</p>
+          
+          <div class="queries-search-wrap">
+            <svg class="queries-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="queries-search-input" class="queries-search-input" placeholder="Search by name, email, or message..." />
+          </div>
+
+          <div class="queries-list" id="admin-queries-list">
+            <!-- Query cards injected by JS -->
+          </div>
+        </div>
+
+        <!-- ── VIEW 6: Settings ── -->
+        <div id="admin-view-settings" class="admin-view">
+          <h1 class="dashboard-title">Settings</h1>
+          <p class="dashboard-subtitle">Manage administrative privileges, platform-wide configurations, and maintenance mode.</p>
+          
+          <div class="settings-grid">
+            <!-- Admin Profile Settings -->
+            <div class="settings-card">
+              <h3 class="settings-card-title">Admin Profile</h3>
+              <form id="admin-profile-form">
+                <div class="settings-form-group" style="margin-bottom:16px;">
+                  <label for="admin-profile-name">Display Name</label>
+                  <input type="text" id="admin-profile-name" class="settings-input" placeholder="Administrator" required />
+                </div>
+                <button type="submit" class="btn btn--primary btn--sm" style="width:100%;">Update Profile</button>
+              </form>
+              
+              <form id="admin-password-form" style="border-top: 1px solid var(--color-border); padding-top:20px; margin-top:4px;">
+                <div class="settings-form-group" style="margin-bottom:16px;">
+                  <label for="admin-new-password">New Password</label>
+                  <input type="password" id="admin-new-password" class="settings-input" placeholder="Min. 8 characters" required minlength="8" />
+                </div>
+                <button type="submit" class="btn btn--outline btn--sm" style="width:100%;">Change Password</button>
+              </form>
+            </div>
+
+            <!-- Platform Settings -->
+            <div class="settings-card">
+              <h3 class="settings-card-title">Platform Config</h3>
+              
+              <div class="settings-toggle-row">
+                <div class="toggle-label-wrap">
+                  <span class="toggle-label-title">Maintenance Mode</span>
+                  <span class="toggle-label-desc">Lock client apps and show maintenance notice</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-maintenance" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-toggle-row">
+                <div class="toggle-label-wrap">
+                  <span class="toggle-label-title">Allow AI Generation</span>
+                  <span class="toggle-label-desc">Permit hosts to use Gemini AI for questions</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="toggle-allow-ai" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settings-form-group">
+                <label for="settings-max-questions">Max Questions per Quiz</label>
+                <input type="number" id="settings-max-questions" class="settings-input" value="30" min="5" max="100" />
+              </div>
+            </div>
+
+            <!-- Roles and Permissions -->
+            <div class="settings-card">
+              <h3 class="settings-card-title">Role Management</h3>
+              <p style="font-size:0.85rem; color:var(--color-text-secondary); line-height:1.5;">
+                Enter a user's email to promote them to Administrator. Admin users have full access to management features.
+              </p>
+              <form id="admin-promote-form">
+                <div class="settings-form-group" style="margin-bottom:16px;">
+                  <label for="promote-email">User Email</label>
+                  <input type="email" id="promote-email" class="settings-input" placeholder="user@example.com" required />
+                </div>
+                <button type="submit" class="btn btn--accent btn--sm" style="width:100%;">Grant Admin Role</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- User Delete Confirmation Modal -->
+  <div class="admin-modal-overlay" id="overlay-delete-user">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Delete Account</h3>
+        <button class="admin-modal-close" id="btn-close-delete-modal">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <p>Are you sure you want to permanently delete the account for <strong id="delete-user-name">—</strong>?</p>
+        <p style="margin-top: 8px; color: #ef4444; font-weight: 600;">This action cannot be undone. All quizzes and data associated with this user will also be removed from the database.</p>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" id="btn-cancel-delete">Cancel</button>
+        <button class="admin-btn admin-btn--danger" id="btn-confirm-delete">Yes, Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Detail / Editor Modal -->
+  <div class="admin-modal-overlay" id="overlay-quiz-edit">
+    <div class="admin-modal admin-modal--large">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="quiz-modal-title">Quiz Details</h3>
+        <button class="admin-modal-close" id="btn-close-quiz-modal">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <div class="settings-form-group" style="margin-bottom: 16px;">
+          <label for="quiz-edit-title">Quiz Title</label>
+          <input type="text" id="quiz-edit-title" class="settings-input" />
+        </div>
+        <div class="settings-form-group" style="margin-bottom: 20px;">
+          <label>Questions</label>
+          <div class="admin-quiz-qlist" id="quiz-edit-qlist">
+            <!-- Questions list rendered here -->
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" id="btn-close-quiz-edit">Close</button>
+        <button class="admin-btn admin-btn--success" id="btn-save-quiz-edit">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

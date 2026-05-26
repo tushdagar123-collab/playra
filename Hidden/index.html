@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playra — Where Knowledge Meets Live Experience</title>
+  <meta name="description"
+    content="Playra is an interactive quiz platform for classrooms, auditoriums, and live events. Host live quizzes, team battles, and engage your audience in real-time." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <!-- CSS loaded via Vite JS modules -->
+</head>
+
+<body>
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" id="nav-logo">
+        <img src="/images/logo.png" class="logo-img" alt="" /> Playra
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link active" id="nav-home">Home</a></li>
+        <li><a href="#pricing" class="nav-link" id="nav-pricing">Pricing</a></li>
+        <li><a href="#contact" class="nav-link" id="nav-contact">Contact Us</a></li>
+        <li><a href="#" class="nav-link nav-auth-link" id="nav-admin-login">Admin Login</a></li>
+        <li><a href="#" class="nav-link nav-auth-link nav-signup-link" id="nav-signup">Sign Up</a></li>
+        <li><a href="#" class="nav-link nav-logout" id="nav-logout" style="display:none;">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-glow hero-glow--1"></div>
+    <div class="hero-glow hero-glow--2"></div>
+    <div class="hero-glow hero-glow--3"></div>
+
+    <!-- Silhouette Characters -->
+    <div class="hero-silhouette hero-silhouette--left">
+      <div class="hero-silhouette-accent hero-silhouette-accent--1"></div>
+      <div class="hero-silhouette-accent hero-silhouette-accent--2"></div>
+      <div class="hero-silhouette-accent hero-silhouette-accent--3"></div>
+      <img src="/images/silhouette-male.png" alt="" aria-hidden="true" />
+    </div>
+    <div class="hero-silhouette hero-silhouette--right">
+      <div class="hero-silhouette-accent hero-silhouette-accent--1"></div>
+      <div class="hero-silhouette-accent hero-silhouette-accent--2"></div>
+      <div class="hero-silhouette-accent hero-silhouette-accent--3"></div>
+      <img src="/images/silhouette-female.png" alt="" aria-hidden="true" />
+    </div>
+
+    <div class="container hero-content">
+      <p class="hero-badge fade-up">🚀 The future of live engagement</p>
+      <div class="hero-title-container fade-up delay-1">
+        <img src="/images/logo.png" class="hero-logo-img" alt="" />
+        <h1 class="hero-title">Playra</h1>
+      </div>
+      <p class="hero-tagline fade-up delay-2">Where Knowledge Meets Live Experience</p>
+      <p class="hero-desc fade-up delay-3">
+        Turn any classroom, auditorium, or live event into an interactive experience. Launch real-time quizzes, spark
+        healthy competition, and watch participation soar — all from one beautifully simple platform.
+      </p>
+
+      <div class="hero-cta fade-up delay-4">
+        <a href="#" class="btn btn--primary" id="btn-join-quiz">
+          <span class="btn-icon">🎯</span> Join Quiz
+        </a>
+        <a href="#" class="btn btn--secondary" id="btn-host-quiz">
+          <span class="btn-icon">🎙️</span> Host Quiz
+        </a>
+        <a href="#" class="btn btn--accent" id="btn-team-battle">
+          <span class="btn-icon">⚔️</span> Team Battle
+        </a>
+      </div>
+
+      <div class="hero-stats fade-up delay-5">
+        <div class="stat">
+          <span class="stat-number" data-target="50000">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Quizzes Hosted</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-target="200000">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Participants</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number" data-target="120">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Countries</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEATURES ═══════════ -->
+  <section class="features" id="features">
+    <div class="container">
+      <p class="section-badge reveal">Features</p>
+      <h2 class="section-title reveal">Everything you need for<br /><span class="gradient-text">live engagement</span>
+      </h2>
+      <p class="section-subtitle reveal">Three powerful modes designed for every scenario — from intimate classrooms to
+        packed auditoriums.</p>
+
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card reveal" id="feature-live-quiz">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon feature-icon--live">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Live Quiz Mode</h3>
+          <p class="feature-desc">Real-time interaction at its finest. Launch quizzes that sync across hundreds of
+            devices instantly. See live leaderboards, timed questions, and instant feedback — all with zero lag.</p>
+          <ul class="feature-list">
+            <li>Real-time sync across devices</li>
+            <li>Live leaderboard &amp; analytics</li>
+            <li>Custom timer per question</li>
+          </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card reveal" id="feature-team-battle">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon feature-icon--team">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Team Battle Mode</h3>
+          <p class="feature-desc">Divide your audience into teams and ignite competition. Collaborative answering, team
+            scores, and head‑to‑head rounds create unforgettable group experiences.</p>
+          <ul class="feature-list">
+            <li>Auto or manual team assignment</li>
+            <li>Collaborative scoring system</li>
+            <li>Head-to-head battle rounds</li>
+          </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card reveal" id="feature-classroom">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon feature-icon--class">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+          </div>
+          <h3 class="feature-title">Classroom Mode</h3>
+          <p class="feature-desc">Designed for educators. Control the pace, review answers together, and track
+            individual student progress. Turn every lesson into an engaging, data‑driven experience.</p>
+          <ul class="feature-list">
+            <li>Teacher-controlled pacing</li>
+            <li>Individual progress tracking</li>
+            <li>Exportable performance reports</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRICING ═══════════ -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <p class="section-badge reveal">Pricing</p>
+      <h2 class="section-title reveal">Simple, transparent<br /><span class="gradient-text">pricing</span></h2>
+      <p class="section-subtitle reveal">Start free, upgrade when you're ready. No hidden fees, cancel anytime.</p>
+
+      <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="pricing-card reveal" id="pricing-free">
+          <div class="pricing-header">
+            <span class="pricing-badge">Free</span>
+            <div class="pricing-price">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-amount">0</span>
+              <span class="pricing-period">/ month</span>
+            </div>
+            <p class="pricing-desc">Perfect for getting started and trying things out.</p>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Up to 20 participants per quiz</li>
+            <li><span class="check">✓</span> 5 quizzes per month</li>
+            <li><span class="check">✓</span> Basic question types</li>
+            <li><span class="check">✓</span> Real-time leaderboard</li>
+            <li><span class="check">✓</span> Community support</li>
+            <li class="disabled"><span class="x">✕</span> Team Battle Mode</li>
+            <li class="disabled"><span class="x">✕</span> Classroom analytics</li>
+            <li class="disabled"><span class="x">✕</span> Priority support</li>
+          </ul>
+          <a href="#" class="btn btn--outline" id="btn-get-free">Get Started Free</a>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card pricing-card--pro reveal" id="pricing-pro">
+          <div class="pricing-popular">Most Popular</div>
+          <div class="pricing-header">
+            <span class="pricing-badge pricing-badge--pro">Pro</span>
+            <div class="pricing-price">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-amount">12</span>
+              <span class="pricing-period">/ month</span>
+            </div>
+            <p class="pricing-desc">For educators, presenters, and event organizers who need more.</p>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Unlimited participants</li>
+            <li><span class="check">✓</span> Unlimited quizzes</li>
+            <li><span class="check">✓</span> All question types + media</li>
+            <li><span class="check">✓</span> Live Quiz Mode</li>
+            <li><span class="check pro-highlight">✓</span> Team Battle Mode</li>
+            <li><span class="check pro-highlight">✓</span> Classroom Mode + analytics</li>
+            <li><span class="check pro-highlight">✓</span> Exportable reports</li>
+            <li><span class="check pro-highlight">✓</span> Priority support</li>
+          </ul>
+          <a href="#" class="btn btn--primary" id="btn-get-pro">Upgrade to Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CONTACT ═══════════ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <p class="section-badge reveal">Contact</p>
+      <h2 class="section-title reveal">Get in <span class="gradient-text">touch</span></h2>
+      <p class="section-subtitle reveal">Have a question, partnership idea, or need help? Drop us a message.</p>
+
+      <form class="contact-form reveal" id="contact-form">
+        <div class="form-group">
+          <label for="contact-name">Name</label>
+          <input type="text" id="contact-name" name="name" placeholder="Your full name" required />
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email</label>
+          <input type="email" id="contact-email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group form-group--full">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="5" placeholder="Tell us what's on your mind…"
+            required></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--submit" id="btn-send-message">
+          Send Message
+          <span class="btn-arrow">→</span>
+        </button>
+      </form>
+
+      <!-- Follow Us -->
+      <div class="follow-us reveal" id="follow-us">
+        <div class="follow-us-divider"></div>
+        <p class="follow-us-label">Follow us on Instagram</p>
+        <a href="https://www.instagram.com/rocket_ug09?igsh=dnc1M2gwMWp5YnZh" target="_blank" rel="noopener noreferrer"
+          class="follow-us-link" id="follow-instagram" aria-label="Follow us on Instagram">
+          <span class="follow-us-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2" />
+              <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="follow-us-handle">@rocket_ug09</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" id="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+        <p>Making live engagement simple, fun, and unforgettable.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Playra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════ AUTH MODALS ═══════════ -->
+
+  <!-- Host Quiz Login Modal -->
+  <div class="auth-overlay" id="overlay-host-login">
+    <div class="auth-modal">
+      <button class="auth-close" id="close-host-login" aria-label="Close">✕</button>
+      <div class="auth-modal-header">
+        <div class="auth-icon auth-icon--host">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+        </div>
+        <h2 class="auth-title">Host a Quiz</h2>
+        <p class="auth-subtitle">Log in to create and manage your quizzes</p>
+      </div>
+      <form class="auth-form" id="form-host-login">
+        <div class="auth-form-group">
+          <label for="host-email">Email / Username</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <input type="text" id="host-email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="auth-form-group">
+          <label for="host-password">Password</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <input type="password" id="host-password" placeholder="••••••••" required />
+          </div>
+        </div>
+        <div class="auth-error" id="host-login-error"></div>
+        <button type="submit" class="btn btn--primary auth-btn" id="btn-host-login-submit">
+          Login & Create Quiz
+          <span class="btn-arrow">→</span>
+        </button>
+        <div class="auth-divider"><span>or</span></div>
+        <button type="button" class="auth-google-btn" id="btn-google-host">
+          <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4" />
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853" />
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+              fill="#FBBC05" />
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335" />
+          </svg>
+          Continue with Google
+        </button>
+        <p class="auth-footer-text">Don't have an account? <a href="#" id="host-to-signup" class="auth-link">Sign Up</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div class="auth-overlay" id="overlay-admin-login">
+    <div class="auth-modal">
+      <button class="auth-close" id="close-admin-login" aria-label="Close">✕</button>
+      <div class="auth-modal-header">
+        <div class="auth-icon auth-icon--admin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <h2 class="auth-title">Admin Login</h2>
+        <p class="auth-subtitle">Access the administration panel</p>
+      </div>
+      <form class="auth-form" id="form-admin-login">
+        <div class="auth-form-group">
+          <label for="admin-email">Email</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <input type="email" id="admin-email" placeholder="admin@playra.com" required />
+          </div>
+        </div>
+        <div class="auth-form-group">
+          <label for="admin-password">Password</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <input type="password" id="admin-password" placeholder="••••••••" required />
+          </div>
+        </div>
+        <div class="auth-error" id="admin-login-error"></div>
+        <p class="auth-footer-text">Don't have an account? <a href="#" id="admin-to-signup" class="auth-link">Sign
+            Up</a></p>
+        <button type="submit" class="btn btn--primary auth-btn" id="btn-admin-login-submit">
+          Access Admin Panel
+          <span class="btn-arrow">→</span>
+        </button>
+        <div class="auth-divider"><span>or</span></div>
+        <button type="button" class="auth-google-btn" id="btn-google-admin">
+          <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4" />
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853" />
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+              fill="#FBBC05" />
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335" />
+          </svg>
+          Continue with Google
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div class="auth-overlay" id="overlay-signup">
+    <div class="auth-modal">
+      <button class="auth-close" id="close-signup" aria-label="Close">✕</button>
+      <div class="auth-modal-header">
+        <div class="auth-icon auth-icon--signup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <line x1="20" y1="8" x2="20" y2="14" />
+            <line x1="23" y1="11" x2="17" y2="11" />
+          </svg>
+        </div>
+        <h2 class="auth-title">Create Account</h2>
+        <p class="auth-subtitle">Join Playra and start hosting quizzes</p>
+      </div>
+      <form class="auth-form" id="form-signup">
+        <div class="auth-form-group">
+          <label for="signup-name">Full Name</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <input type="text" id="signup-name" placeholder="John Doe" required />
+          </div>
+        </div>
+        <div class="auth-form-group">
+          <label for="signup-email">Email</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <input type="email" id="signup-email" placeholder="you@example.com" required />
+          </div>
+        </div>
+        <div class="auth-form-group">
+          <label for="signup-password">Password</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <input type="password" id="signup-password" placeholder="Min. 8 characters" required minlength="8" />
+          </div>
+        </div>
+        <div class="auth-error" id="signup-error"></div>
+        <button type="submit" class="btn btn--primary auth-btn" id="btn-signup-submit">
+          Create Account
+          <span class="btn-arrow">→</span>
+        </button>
+        <div class="auth-divider"><span>or</span></div>
+        <button type="button" class="auth-google-btn" id="btn-google-signup">
+          <svg class="google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              fill="#4285F4" />
+            <path
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              fill="#34A853" />
+            <path
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"
+              fill="#FBBC05" />
+            <path
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              fill="#EA4335" />
+          </svg>
+          Continue with Google
+        </button>
+        <p class="auth-footer-text">Already have an account? <a href="#" id="signup-to-login" class="auth-link">Log
+            In</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════ JOIN QUIZ MODAL ═══════════ -->
+  <div class="auth-overlay" id="overlay-join-quiz">
+    <div class="auth-modal jq-modal">
+      <button class="auth-close" id="close-join-quiz" aria-label="Close">✕</button>
+      <div class="auth-modal-header">
+        <img src="/images/logo.png" class="auth-logo-img" alt="Playra Logo" />
+        <h2 class="auth-title">Join a Quiz</h2>
+        <p class="auth-subtitle">Enter your name and quiz code to join the session</p>
+      </div>
+      <form class="auth-form" id="form-join-quiz">
+        <div class="auth-form-group">
+          <label for="jq-name">Your Name</label>
+          <div class="auth-input-wrap">
+            <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <input type="text" id="jq-name" placeholder="Enter your name" required />
+          </div>
+        </div>
+        <div class="auth-form-group">
+          <label for="jq-code">Quiz Code</label>
+          <div class="jq-code-wrap">
+            <div class="auth-input-wrap jq-code-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <input type="text" id="jq-code" placeholder="4-digit code" maxlength="4" inputmode="numeric"
+                pattern="[0-9]{4}" required />
+            </div>
+            <button type="button" class="jq-scan-btn" id="jq-scan-btn" title="Scan QR Code">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <line x1="7" y1="7" x2="7" y2="7.01" />
+                <line x1="17" y1="7" x2="17" y2="7.01" />
+                <line x1="7" y1="17" x2="7" y2="17.01" />
+                <line x1="17" y1="17" x2="17" y2="17.01" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="auth-error" id="jq-error"></div>
+        <div class="jq-mode-buttons">
+          <button type="submit" class="btn btn--primary jq-mode-btn" id="jq-classic-btn" data-mode="classic">
+            <span class="btn-icon">🎯</span> Classic Mode
+          </button>
+          <button type="submit" class="btn btn--accent jq-mode-btn" id="jq-team-btn" data-mode="team">
+            <span class="btn-icon">⚔️</span> Team Battle
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="dashboard-overlay" id="overlay-lobby" style="display:none;">
+    <div class="lobby-page">
+      <div class="lobby-topbar">
+        <a href="#" class="nav-logo" id="lobby-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+        <button class="btn btn--outline dashboard-logout-btn" id="btn-lobby-leave">Leave Lobby</button>
+      </div>
+      <div class="lobby-body">
+        <!-- LEFT PANEL -->
+        <div class="lobby-left">
+          <div class="lobby-left-scroll">
+            <div class="lobby-card">
+              <div class="lobby-card-glow"></div>
+              <div class="lobby-header">
+                <div class="lobby-code-badge" id="lobby-code">----</div>
+              </div>
+              <div class="lobby-info-grid">
+                <div class="lobby-info-item">
+                  <span class="lobby-info-label">Player</span>
+                  <span class="lobby-info-value" id="lobby-player-name">—</span>
+                </div>
+                <div class="lobby-info-item">
+                  <span class="lobby-info-label">Mode</span>
+                  <span class="lobby-info-value" id="lobby-mode">—</span>
+                </div>
+                <div class="lobby-info-item" id="lobby-team-wrap" style="display:none;">
+                  <span class="lobby-info-label">Team</span>
+                  <span class="lobby-info-value lobby-team-badge" id="lobby-team">—</span>
+                </div>
+              </div>
+              <div class="lobby-status" id="lobby-status">
+                <span class="lobby-pulse"></span>
+                Waiting for host to start...
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT PANEL -->
+        <div class="lobby-right">
+          <div class="lobby-participants-header">
+            <h3 class="lobby-participants-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="width:20px;height:20px;">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              Live Participants <span class="lobby-count" id="lobby-count">0</span>
+            </h3>
+          </div>
+          <ul class="lobby-participants-list" id="lobby-participants-list">
+            <!-- Live participants injected by JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CREATE QUIZ DASHBOARD ═══════════ -->
+  <div class="dashboard-overlay" id="overlay-quiz-dashboard" style="display:none;">
+    <div class="dashboard-page">
+      <div class="dashboard-topbar">
+        <a href="#" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" />
+          Playra</a>
+        <div class="dashboard-topbar-right">
+          <span class="dashboard-user" id="dashboard-user">👋 Welcome back!</span>
+          <button class="btn btn--outline dashboard-logout-btn" id="btn-dashboard-logout">Logout</button>
+        </div>
+      </div>
+      <div class="dashboard-body">
+        <div class="dashboard-sidebar">
+          <a href="#" class="sidebar-link active" id="sidebar-dashboard"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg> Dashboard</a>
+          <a href="#" class="sidebar-link" id="sidebar-create"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg> Create Quiz</a>
+          <a href="#" class="sidebar-link" id="sidebar-my-quizzes"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg> My Quizzes</a>
+          <a href="#" class="sidebar-link" id="sidebar-analytics"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg> Analytics</a>
+        </div>
+        <div class="dashboard-content">
+
+          <!-- ── VIEW 1: Dashboard Home ── -->
+          <div id="view-dash-home">
+            <h1 class="dashboard-title">Create Quiz Dashboard</h1>
+            <p class="dashboard-subtitle">Welcome to your quiz creation workspace. Start building engaging quizzes!</p>
+            <div class="dashboard-cards">
+              <div class="dash-card dash-card--create">
+                <div class="dash-card-icon">➕</div>
+                <h3>New Quiz</h3>
+                <p>Start from scratch and create a new interactive quiz</p>
+                <button class="btn btn--primary btn--sm" id="btn-new-quiz">Create Now</button>
+              </div>
+              <div class="dash-card dash-card--templates">
+                <div class="dash-card-icon">📋</div>
+                <h3>Templates</h3>
+                <p>Choose from pre-built templates to get started quickly</p>
+                <button class="btn btn--outline btn--sm">Browse</button>
+              </div>
+              <div class="dash-card dash-card--recent">
+                <div class="dash-card-icon">🕐</div>
+                <h3>Recent Quizzes</h3>
+                <p>No quizzes yet. Create your first one to see it here!</p>
+                <button class="btn btn--outline btn--sm" id="btn-view-all-quizzes">View All</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── VIEW 2: Quiz Editor ── -->
+          <div id="view-quiz-editor" style="display:none;">
+            <div class="qe-topbar">
+              <button class="qe-back-btn" id="qe-back" title="Back to Dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <div class="qe-topbar-info">
+                <input type="text" class="qe-quiz-title" id="qe-quiz-title" value="Untitled Quiz"
+                  placeholder="Quiz Title" />
+                <span class="qe-progress" id="qe-progress">Question 1 of 1</span>
+              </div>
+              <div class="qe-topbar-actions">
+                <div class="qe-timer-wrap">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="qe-timer-icon">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <select id="qe-timer" class="qe-timer-select">
+                    <option value="10">10 sec</option>
+                    <option value="20" selected>20 sec</option>
+                    <option value="30">30 sec</option>
+                    <option value="60">60 sec</option>
+                  </select>
+                </div>
+                <button class="btn btn--primary btn--sm" id="btn-save-quiz">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:16px;height:16px;">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                    <polyline points="17 21 17 13 7 13 7 21" />
+                    <polyline points="7 3 7 8 15 8" />
+                  </svg>
+                  Save Quiz
+                </button>
+                <button class="btn btn--accent btn--sm" id="btn-start-quiz">
+                  ▶ Start Quiz
+                </button>
+                <button class="btn btn--sm" id="btn-start-team-battle"
+                  style="background: linear-gradient(135deg, #f97316, #ef4444); color: #fff; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);">
+                  ⚔️ Team Battle
+                </button>
+              </div>
+            </div>
+            <div class="qe-body">
+              <div class="qe-slide-panel">
+                <div class="qe-slide-list" id="qe-slide-list"></div>
+                <button class="qe-add-slide" id="qe-add-slide" title="Add Question">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  Add Question
+                </button>
+                <div class="qe-ai-trigger">
+                  <button class="btn btn--accent btn--sm qe-ai-btn" id="qe-ai-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      style="width:16px;height:16px;">
+                      <path d="M12 2a4 4 0 0 1 4 4c0 1.1-.9 2-2 2h-4a2 2 0 0 1-2-2 4 4 0 0 1 4-4z" />
+                      <path d="M8 8v2a4 4 0 0 0 8 0V8" />
+                      <rect x="5" y="14" width="14" height="8" rx="2" />
+                      <line x1="9" y1="18" x2="9" y2="18.01" />
+                      <line x1="15" y1="18" x2="15" y2="18.01" />
+                    </svg>
+                    Generate with Llama AI
+                  </button>
+                </div>
+              </div>
+              <div class="qe-editor" id="qe-editor">
+                <div class="qe-editor-inner" id="qe-editor-inner"></div>
+              </div>
+            </div>
+            <div class="qe-ai-panel" id="qe-ai-panel" style="display:none;">
+              <div class="qe-ai-card">
+                <div class="qe-ai-header">
+                  <div class="qe-ai-icon">✨</div>
+                  <div>
+                    <h3>Llama Question Generator</h3>
+                    <p>Generate quiz questions with Groq Llama AI</p>
+                  </div>
+                  <button class="auth-close qe-ai-close" id="qe-ai-close">✕</button>
+                </div>
+                <div class="qe-ai-form">
+                  <div class="qe-ai-field">
+                    <label for="ai-topic">Topic</label>
+                    <input type="text" id="ai-topic" placeholder='e.g., "Java OOP", "Physics Laws"' />
+                  </div>
+                  <div class="qe-ai-row">
+                    <div class="qe-ai-field">
+                      <label for="ai-count">Number of Questions</label>
+                      <select id="ai-count">
+                        <option value="3">3 questions</option>
+                        <option value="5" selected>5 questions</option>
+                        <option value="10">10 questions</option>
+                      </select>
+                    </div>
+                    <div class="qe-ai-field">
+                      <label for="ai-difficulty">Difficulty</label>
+                      <div class="qe-difficulty-btns" id="ai-difficulty">
+                        <button type="button" class="qe-diff-btn" data-diff="easy">Easy</button>
+                        <button type="button" class="qe-diff-btn active" data-diff="medium">Medium</button>
+                        <button type="button" class="qe-diff-btn" data-diff="hard">Hard</button>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn--primary qe-ai-generate" id="qe-ai-generate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      style="width:18px;height:18px;">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                    Generate Questions
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══ TEAM BATTLE CONFIG PANEL ═══ -->
+          <div class="qe-ai-panel" id="qe-team-panel" style="display:none;">
+            <div class="qe-ai-card team-config-card">
+              <div class="qe-ai-header">
+                <div class="qe-ai-icon">⚔️</div>
+                <div>
+                  <h3>Team Battle Setup</h3>
+                  <p>Configure teams and start a team battle</p>
+                </div>
+                <button class="auth-close qe-ai-close" id="qe-team-close">✕</button>
+              </div>
+              <div class="qe-ai-form">
+                <div class="qe-ai-row">
+                  <div class="qe-ai-field">
+                    <label for="team-num-teams">Number of Teams</label>
+                    <select id="team-num-teams">
+                      <option value="2" selected>2 teams</option>
+                      <option value="3">3 teams</option>
+                      <option value="4">4 teams</option>
+                      <option value="5">5 teams</option>
+                      <option value="6">6 teams</option>
+                    </select>
+                  </div>
+                  <div class="qe-ai-field">
+                    <label for="team-max-members">Max Members per Team</label>
+                    <select id="team-max-members">
+                      <option value="2">2 players</option>
+                      <option value="3">3 players</option>
+                      <option value="5" selected>5 players</option>
+                      <option value="10">10 players</option>
+                      <option value="15">15 players</option>
+                      <option value="20">20 players</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="qe-ai-field">
+                  <label>Team Names</label>
+                  <div class="team-config-list" id="team-config-list">
+                    <!-- Team name rows rendered by JS -->
+                  </div>
+                </div>
+                <button class="btn btn--accent qe-ai-generate" id="qe-team-start">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:18px;height:18px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  Start Team Battle
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── VIEW 3: My Quizzes ── -->
+          <div id="view-my-quizzes" style="display:none;">
+            <div class="mq-header-container">
+              <div>
+                <h1 class="dashboard-title">My Quizzes</h1>
+                <p class="dashboard-subtitle">Manage your saved quizzes. Start them live or review results.</p>
+              </div>
+              <div class="mq-controls">
+                <div class="mq-search-wrap">
+                  <svg class="mq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" id="mq-search-input" placeholder="Search quizzes by title..." />
+                </div>
+                <select id="mq-filter-status" class="mq-filter-select">
+                  <option value="all">All Statuses</option>
+                  <option value="draft">Drafts</option>
+                  <option value="live">Live</option>
+                  <option value="ended">Ended</option>
+                </select>
+              </div>
+            </div>
+            <div id="my-quizzes-list" class="mq-list"></div>
+          </div>
+
+          <!-- ── VIEW 4: Analytics ── -->
+          <div id="view-analytics" style="display:none;">
+            <h1 class="dashboard-title">Analytics</h1>
+            <p class="dashboard-subtitle">Track your quiz performance and engagement metrics.</p>
+            <div class="analytics-grid">
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">📊</div>
+                <h3>Total Quizzes</h3>
+                <p class="dash-stat-number" id="stat-total-quizzes">—</p>
+              </div>
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">👥</div>
+                <h3>Total Attempts</h3>
+                <p class="dash-stat-number" id="stat-total-participants">—</p>
+              </div>
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">⚡</div>
+                <h3>Live Sessions</h3>
+                <p class="dash-stat-number" id="stat-live-sessions">—</p>
+              </div>
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">🏆</div>
+                <h3>Avg Score</h3>
+                <p class="dash-stat-number" id="stat-avg-score">—</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ ADMIN PANEL ═══════════ -->
+  <div class="dashboard-overlay" id="overlay-admin-panel" style="display:none;">
+    <!-- Permission check loader inside overlay -->
+    <div id="admin-overlay-auth-loader"
+      style="position:absolute; inset:0; background:var(--color-bg); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px;">
+      <div class="admin-loading-spinner"></div>
+      <span style="font-weight:600; color:var(--color-text-secondary);">Verifying Admin Permissions...</span>
+    </div>
+
+    <div class="dashboard-page" style="display:none;" id="admin-overlay-main-content">
+      <div class="dashboard-topbar">
+        <a href="#" class="nav-logo" id="admin-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra <span
+            class="admin-badge-label">Admin</span></a>
+        <div class="dashboard-topbar-right">
+          <span class="dashboard-user">🛡️ Administrator</span>
+          <button class="btn btn--outline dashboard-logout-btn" id="btn-admin-overlay-logout">Logout</button>
+        </div>
+      </div>
+      <div class="dashboard-body">
+        <div class="dashboard-sidebar">
+          <a href="#" class="sidebar-link active" id="admin-sidebar-overview"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg> Overview</a>
+          <a href="#" class="sidebar-link" id="admin-sidebar-users"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg> Users</a>
+          <a href="#" class="sidebar-link" id="admin-sidebar-quizzes"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg> All Quizzes</a>
+          <a href="#" class="sidebar-link" id="admin-sidebar-queries"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg> Customer Queries <span class="queries-badge" id="queries-unread-badge"
+              style="display:none;">0</span></a>
+          <a href="#" class="sidebar-link" id="admin-sidebar-settings"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg> Settings</a>
+        </div>
+        <div class="dashboard-content">
+
+          <!-- ── VIEW 1: Overview ── -->
+          <div id="admin-view-overview" class="admin-view active">
+            <h1 class="dashboard-title">Admin Panel</h1>
+            <p class="dashboard-subtitle">Manage users, quizzes, and platform settings</p>
+            <div class="dashboard-cards">
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">👥</div>
+                <h3>Total Users</h3>
+                <p class="dash-stat-number" id="admin-stat-users">—</p>
+              </div>
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">📝</div>
+                <h3>Active Quizzes</h3>
+                <p class="dash-stat-number" id="admin-stat-quizzes">—</p>
+              </div>
+              <div class="dash-card dash-card--stat">
+                <div class="dash-card-icon">📈</div>
+                <h3>Sessions Today</h3>
+                <p class="dash-stat-number" id="admin-stat-sessions">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── VIEW 2: Users ── -->
+          <div id="admin-view-users" class="admin-view">
+            <h1 class="dashboard-title">User Accounts</h1>
+            <p class="dashboard-subtitle">Manage registered users, their roles, and access statuses.</p>
+
+            <div class="admin-table-container">
+              <div class="admin-table-header">
+                <div class="admin-search-wrap">
+                  <svg class="admin-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input type="text" id="user-search-input" class="admin-search-input"
+                    placeholder="Search by name or email..." />
+                </div>
+              </div>
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Join Date</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-table-body">
+                  <!-- User rows injected by JS -->
+                </tbody>
+              </table>
+              <div class="admin-pagination">
+                <div class="admin-pagination-info" id="user-pagination-info">Showing 0-0 of 0 users</div>
+                <div class="admin-pagination-btns">
+                  <button class="admin-btn" id="btn-user-prev" disabled>Previous</button>
+                  <button class="admin-btn" id="btn-user-next" disabled>Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── VIEW 3: All Quizzes ── -->
+          <div id="admin-view-quizzes" class="admin-view">
+            <h1 class="dashboard-title">All Quizzes</h1>
+            <p class="dashboard-subtitle">Monitor and manage quizzes created across the platform.</p>
+
+            <div class="admin-table-container">
+              <div class="admin-table-header">
+                <div class="admin-search-wrap">
+                  <svg class="admin-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input type="text" id="quiz-search-input" class="admin-search-input"
+                    placeholder="Search by quiz title..." />
+                </div>
+              </div>
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Quiz Title</th>
+                    <th>Category</th>
+                    <th>Questions</th>
+                    <th>Created Date</th>
+                    <th>Attempts</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-quizzes-table-body">
+                  <!-- Quiz rows grouped by user injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ── VIEW 5: Customer Queries ── -->
+          <div id="admin-view-queries" class="admin-view">
+            <h1 class="dashboard-title">Customer Queries</h1>
+            <p class="dashboard-subtitle">View and manage messages submitted through the Contact Us form.</p>
+
+            <div class="queries-search-wrap">
+              <svg class="queries-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="queries-search-input" class="queries-search-input"
+                placeholder="Search by name, email, or message..." />
+            </div>
+
+            <div class="queries-list" id="admin-queries-list">
+              <!-- Query cards injected by JS -->
+            </div>
+          </div>
+
+          <!-- ── VIEW 6: Settings ── -->
+          <div id="admin-view-settings" class="admin-view">
+            <h1 class="dashboard-title">Settings</h1>
+            <p class="dashboard-subtitle">Manage administrative privileges, platform-wide configurations, and
+              maintenance mode.</p>
+
+            <div class="settings-grid">
+              <!-- Admin Profile Settings -->
+              <div class="settings-card">
+                <h3 class="settings-card-title">Admin Profile</h3>
+                <form id="admin-profile-form">
+                  <div class="settings-form-group" style="margin-bottom:16px;">
+                    <label for="admin-profile-name">Display Name</label>
+                    <input type="text" id="admin-profile-name" class="settings-input" placeholder="Administrator"
+                      required />
+                  </div>
+                  <button type="submit" class="btn btn--primary btn--sm" style="width:100%;">Update Profile</button>
+                </form>
+
+                <form id="admin-password-form"
+                  style="border-top: 1px solid var(--color-border); padding-top:20px; margin-top:4px;">
+                  <div class="settings-form-group" style="margin-bottom:16px;">
+                    <label for="admin-new-password">New Password</label>
+                    <input type="password" id="admin-new-password" class="settings-input"
+                      placeholder="Min. 8 characters" required minlength="8" />
+                  </div>
+                  <button type="submit" class="btn btn--outline btn--sm" style="width:100%;">Change Password</button>
+                </form>
+              </div>
+
+              <!-- Platform Settings -->
+              <div class="settings-card">
+                <h3 class="settings-card-title">Platform Config</h3>
+
+                <div class="settings-toggle-row">
+                  <div class="toggle-label-wrap">
+                    <span class="toggle-label-title">Maintenance Mode</span>
+                    <span class="toggle-label-desc">Lock client apps and show maintenance notice</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-maintenance" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="settings-toggle-row">
+                  <div class="toggle-label-wrap">
+                    <span class="toggle-label-title">Allow AI Generation</span>
+                    <span class="toggle-label-desc">Permit hosts to use Gemini AI for questions</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="toggle-allow-ai" checked />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="settings-form-group">
+                  <label for="settings-max-questions">Max Questions per Quiz</label>
+                  <input type="number" id="settings-max-questions" class="settings-input" value="30" min="5"
+                    max="100" />
+                </div>
+              </div>
+
+              <!-- Roles and Permissions -->
+              <div class="settings-card">
+                <h3 class="settings-card-title">Role Management</h3>
+                <p style="font-size:0.85rem; color:var(--color-text-secondary); line-height:1.5;">
+                  Enter a user's email to promote them to Administrator. Admin users have full access to management
+                  features.
+                </p>
+                <form id="admin-promote-form">
+                  <div class="settings-form-group" style="margin-bottom:16px;">
+                    <label for="promote-email">User Email</label>
+                    <input type="email" id="promote-email" class="settings-input" placeholder="user@example.com"
+                      required />
+                  </div>
+                  <button type="submit" class="btn btn--accent btn--sm" style="width:100%;">Grant Admin Role</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Delete Confirmation Modal (Shared/Common) -->
+  <div class="admin-modal-overlay" id="overlay-delete-user">
+    <div class="admin-modal">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Delete Account</h3>
+        <button class="admin-modal-close" id="btn-close-delete-modal">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <p>Are you sure you want to permanently delete the account for <strong id="delete-user-name">—</strong>?</p>
+        <p style="margin-top: 8px; color: #ef4444; font-weight: 600;">This action cannot be undone. All quizzes and data
+          associated with this user will also be removed from the database.</p>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" id="btn-cancel-delete">Cancel</button>
+        <button class="admin-btn admin-btn--danger" id="btn-confirm-delete">Yes, Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Detail / Editor Modal (Shared/Common) -->
+  <div class="admin-modal-overlay" id="overlay-quiz-edit">
+    <div class="admin-modal admin-modal--large">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="quiz-modal-title">Quiz Details</h3>
+        <button class="admin-modal-close" id="btn-close-quiz-modal">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <div class="settings-form-group" style="margin-bottom: 16px;">
+          <label for="quiz-edit-title">Quiz Title</label>
+          <input type="text" id="quiz-edit-title" class="settings-input" />
+        </div>
+        <div class="settings-form-group" style="margin-bottom: 20px;">
+          <label>Questions</label>
+          <div class="admin-quiz-qlist" id="quiz-edit-qlist">
+            <!-- Questions list rendered here -->
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" id="btn-close-quiz-edit">Close</button>
+        <button class="admin-btn admin-btn--success" id="btn-save-quiz-edit">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+
+</html>

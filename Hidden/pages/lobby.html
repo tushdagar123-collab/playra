@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Lobby — Playra</title>
+  <meta name="description" content="Waiting lobby for a Playra quiz session." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="lobby-page">
+    <div class="lobby-topbar">
+      <a href="/" class="nav-logo" id="lobby-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+      <a href="/" class="btn btn--outline dashboard-logout-btn" id="btn-lobby-leave">Leave Lobby</a>
+    </div>
+
+    <div class="lobby-body">
+      <!-- ═══ LEFT PANEL — role-dynamic content ═══ -->
+      <div class="lobby-left">
+        <div class="lobby-left-scroll">
+
+          <!-- ── SCREEN: WAITING LOBBY (gameStatus = "waiting") ── -->
+          <div id="screen-waiting" class="game-screen">
+            <div class="lobby-card">
+              <div class="lobby-card-glow"></div>
+              <div class="lobby-header">
+                <h2 class="lobby-quiz-title" id="lobby-quiz-title">Quiz</h2>
+                <div class="lobby-code-badge" id="lobby-code">----</div>
+              </div>
+              <div class="lobby-info-grid">
+                <div class="lobby-info-item">
+                  <span class="lobby-info-label">Player</span>
+                  <span class="lobby-info-value" id="lobby-player-name">—</span>
+                </div>
+                <div class="lobby-info-item">
+                  <span class="lobby-info-label">Mode</span>
+                  <span class="lobby-info-value" id="lobby-mode">—</span>
+                </div>
+                <div class="lobby-info-item" id="lobby-team-wrap" style="display:none;">
+                  <span class="lobby-info-label">Team</span>
+                  <span class="lobby-info-value lobby-team-badge" id="lobby-team">—</span>
+                </div>
+              </div>
+              <div class="lobby-status" id="lobby-status">
+                <span class="lobby-pulse"></span>
+                Waiting for host to start...
+              </div>
+            </div>
+
+            <!-- Participant waiting state (hidden for host) -->
+            <div class="lobby-waiting-state" id="lobby-waiting-state" style="display:none;">
+              <div class="lobby-waiting-spinner"></div>
+              <h3 class="lobby-waiting-title">Waiting for host to start the quiz…</h3>
+              <p class="lobby-waiting-desc">Sit tight! The host will kick things off any moment now.</p>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: PLAY (gameStatus = "question" | "results") ── -->
+          <div id="screen-play" class="game-screen" style="display:none;">
+            <div class="lobby-card game-question-card">
+              <div class="lobby-card-glow"></div>
+              <div class="game-question-header">
+                <span class="game-q-number" id="game-q-number">Q1</span>
+                <span class="game-q-of" id="game-q-of">of 5</span>
+                <div class="game-timer" id="game-timer">20s</div>
+              </div>
+              <h2 class="game-question-text" id="game-question-text">Loading question…</h2>
+              
+              <div class="game-options" id="game-options">
+                <!-- Options rendered dynamically -->
+              </div>
+              
+              <!-- Submit Button for Player -->
+              <div class="game-submit-container" id="game-submit-container" style="display:none; margin-top: 24px; justify-content: center; width: 100%;">
+                 <button class="btn btn--primary btn--lg" id="btn-submit-answer" disabled style="min-width: 240px;">Submit Answer</button>
+              </div>
+
+              <!-- Participant Feedback Message / Host Status -->
+              <div class="game-answer-status" id="game-answer-status" style="display:none;">
+                <span class="game-answer-icon" id="game-answer-icon">✓</span>
+                <span class="game-answer-msg" id="game-answer-msg">Answer submitted!</span>
+              </div>
+              
+              <!-- Results Stats (only visible in results state) -->
+              <div class="game-results-stats" id="game-results-stats" style="display:none; margin-top: 24px;">
+                <!-- Stats rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: LEADERBOARD (gameStatus = "leaderboard") ── -->
+          <div id="screen-leaderboard" class="game-screen" style="display:none;">
+            <div class="lobby-card game-leaderboard-card">
+              <div class="lobby-card-glow"></div>
+              <h2 class="game-ended-title">📊 Leaderboard</h2>
+              <div class="game-leaderboard-chart" id="game-leaderboard-chart">
+                <!-- Histogram rendered dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: ENDED (gameStatus = "ended") ── -->
+          <div id="screen-ended" class="game-screen" style="display:none;">
+            <div class="lobby-card game-ended-card">
+              <div class="lobby-card-glow"></div>
+              <h2 class="game-ended-title">🏆 Quiz Complete!</h2>
+              <p class="game-ended-subtitle" id="ended-quiz-title">Quiz Title</p>
+              <div class="game-leaderboard" id="game-leaderboard">
+                <!-- Leaderboard rendered dynamically -->
+              </div>
+              <div class="game-ended-actions">
+                <a href="/" class="btn btn--primary">Back to Home</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: TEAM SELECT (team mode, player has no team yet) ── -->
+          <div id="screen-team-select" class="game-screen" style="display:none;">
+            <div class="lobby-card team-select-card">
+              <div class="lobby-card-glow"></div>
+              <h2 class="game-ended-title">⚔️ Choose Your Team</h2>
+              <p class="game-ended-subtitle">Pick a team to join the battle!</p>
+              <div class="team-select-grid" id="team-select-grid">
+                <!-- Team cards rendered by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: TEAM LEADERBOARD (team mode) ── -->
+          <div id="screen-team-leaderboard" class="game-screen" style="display:none;">
+            <div class="lobby-card game-leaderboard-card">
+              <div class="lobby-card-glow"></div>
+              <h2 class="game-ended-title">⚔️ Team Standings</h2>
+              <div class="team-lb-chart" id="team-lb-chart">
+                <!-- Team bars rendered dynamically -->
+              </div>
+              <div class="team-lb-details" id="team-lb-details">
+                <!-- Top players per team -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SCREEN: TEAM ENDED (team mode final results) ── -->
+          <div id="screen-team-ended" class="game-screen" style="display:none;">
+            <div class="lobby-card game-ended-card" style="max-width: 680px;">
+              <div class="lobby-card-glow"></div>
+              <h2 class="game-ended-title" id="team-winner-title">🏆 Team Battle Complete!</h2>
+              <div class="team-winner-banner" id="team-winner-banner">
+                <!-- Winner team rendered by JS -->
+              </div>
+              <div class="team-final-standings" id="team-final-standings">
+                <!-- All teams final ranking -->
+              </div>
+              <div class="game-ended-actions">
+                <a href="/" class="btn btn--primary">Back to Home</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Host: controls pinned at bottom of left panel -->
+        <div class="lobby-bottom-bar" id="lobby-host-controls" style="display:none;">
+          <!-- Buttons change depending on game state -->
+          <div class="host-controls-row" style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+            <button class="btn btn--primary" id="btn-start-game">
+              🚀 Start Game
+            </button>
+            <button class="btn btn--primary" id="btn-show-answer" style="display:none;">
+              👁️ Show Answer
+            </button>
+            <button class="btn btn--primary" id="btn-show-leaderboard" style="display:none;">
+              📊 Leaderboard
+            </button>
+            <button class="btn btn--primary" id="btn-next-question" style="display:none;">
+              ➡️ Next Question
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ RIGHT PANEL — live participants ═══ -->
+      <div class="lobby-right">
+        <div class="lobby-participants-header">
+          <h3 class="lobby-participants-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Live Participants <span class="lobby-count" id="lobby-count">0</span>
+          </h3>
+        </div>
+        <ul class="lobby-participants-list" id="lobby-participants-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/lobby.js"></script>
+</body>
+</html>

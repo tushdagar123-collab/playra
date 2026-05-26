@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Playra</title>
+  <meta name="description" content="Create and manage your interactive quizzes on Playra." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="dashboard-page">
+    <div class="dashboard-topbar">
+      <a href="/" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+      <div class="dashboard-topbar-right">
+        <span class="dashboard-user" id="dashboard-user">👋 Welcome back!</span>
+        <a href="/" class="btn btn--outline dashboard-logout-btn" id="btn-dashboard-logout">Back to Home</a>
+      </div>
+    </div>
+    <div class="dashboard-body">
+      <div class="dashboard-sidebar">
+        <a href="#" class="sidebar-link active" id="sidebar-dashboard"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="14" y="14" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+          </svg> Dashboard</a>
+        <a href="#" class="sidebar-link" id="sidebar-create"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg> Create Quiz</a>
+        <a href="#" class="sidebar-link" id="sidebar-my-quizzes"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+          </svg> My Quizzes</a>
+        <a href="#" class="sidebar-link" id="sidebar-analytics"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg> Analytics</a>
+      </div>
+      <div class="dashboard-content">
+
+        <!-- ── VIEW 1: Dashboard Home ── -->
+        <div id="view-dash-home">
+          <h1 class="dashboard-title">Create Quiz Dashboard</h1>
+          <p class="dashboard-subtitle">Welcome to your quiz creation workspace. Start building engaging quizzes!</p>
+          <div class="dashboard-cards">
+            <div class="dash-card dash-card--create">
+              <div class="dash-card-icon">➕</div>
+              <h3>New Quiz</h3>
+              <p>Start from scratch and create a new interactive quiz</p>
+              <button class="btn btn--primary btn--sm" id="btn-new-quiz">Create Now</button>
+            </div>
+            <div class="dash-card dash-card--templates">
+              <div class="dash-card-icon">📋</div>
+              <h3>Templates</h3>
+              <p>Choose from pre-built templates to get started quickly</p>
+              <button class="btn btn--outline btn--sm">Browse</button>
+            </div>
+            <div class="dash-card dash-card--recent">
+              <div class="dash-card-icon">🕐</div>
+              <h3>Recent Quizzes</h3>
+              <p>No quizzes yet. Create your first one to see it here!</p>
+              <button class="btn btn--outline btn--sm" id="btn-view-all-quizzes">View All</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIEW 2: Quiz Editor ── -->
+        <div id="view-quiz-editor" style="display:none;">
+          <div class="qe-topbar">
+            <button class="qe-back-btn" id="qe-back" title="Back to Dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div class="qe-topbar-info">
+              <input type="text" class="qe-quiz-title" id="qe-quiz-title" value="Untitled Quiz"
+                placeholder="Quiz Title" />
+              <span class="qe-progress" id="qe-progress">Question 1 of 1</span>
+            </div>
+            <div class="qe-topbar-actions">
+              <div class="qe-timer-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="qe-timer-icon">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <select id="qe-timer" class="qe-timer-select">
+                  <option value="10">10 sec</option>
+                  <option value="20" selected>20 sec</option>
+                  <option value="30">30 sec</option>
+                  <option value="60">60 sec</option>
+                </select>
+              </div>
+              <button class="btn btn--primary btn--sm" id="btn-save-quiz">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  style="width:16px;height:16px;">
+                  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                  <polyline points="17 21 17 13 7 13 7 21" />
+                  <polyline points="7 3 7 8 15 8" />
+                </svg>
+                Save Quiz
+              </button>
+              <button class="btn btn--accent btn--sm" id="btn-start-quiz">
+                ▶ Start Quiz
+              </button>
+              <button class="btn btn--sm" id="btn-start-team-battle"
+                style="background: linear-gradient(135deg, #f97316, #ef4444); color: #fff; box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);">
+                ⚔️ Team Battle
+              </button>
+            </div>
+          </div>
+          <div class="qe-body">
+            <div class="qe-slide-panel">
+              <div class="qe-slide-list" id="qe-slide-list"></div>
+              <button class="qe-add-slide" id="qe-add-slide" title="Add Question">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add Question
+              </button>
+              <div class="qe-ai-trigger">
+                <button class="btn btn--accent btn--sm qe-ai-btn" id="qe-ai-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:16px;height:16px;">
+                    <path d="M12 2a4 4 0 0 1 4 4c0 1.1-.9 2-2 2h-4a2 2 0 0 1-2-2 4 4 0 0 1 4-4z" />
+                    <path d="M8 8v2a4 4 0 0 0 8 0V8" />
+                    <rect x="5" y="14" width="14" height="8" rx="2" />
+                    <line x1="9" y1="18" x2="9" y2="18.01" />
+                    <line x1="15" y1="18" x2="15" y2="18.01" />
+                  </svg>
+                  Generate with Llama AI
+                </button>
+              </div>
+            </div>
+            <div class="qe-editor" id="qe-editor">
+              <div class="qe-editor-inner" id="qe-editor-inner"></div>
+            </div>
+          </div>
+          <div class="qe-ai-panel" id="qe-ai-panel" style="display:none;">
+            <div class="qe-ai-card">
+              <div class="qe-ai-header">
+                <div class="qe-ai-icon">✨</div>
+                <div>
+                  <h3>Llama Question Generator</h3>
+                  <p>Generate quiz questions with Groq Llama AI</p>
+                </div>
+                <button class="auth-close qe-ai-close" id="qe-ai-close">✕</button>
+              </div>
+              <div class="qe-ai-form">
+                <div class="qe-ai-field">
+                  <label for="ai-topic">Topic</label>
+                  <input type="text" id="ai-topic" placeholder='e.g., "Java OOP", "Physics Laws"' />
+                </div>
+                <div class="qe-ai-row">
+                  <div class="qe-ai-field">
+                    <label for="ai-count">Number of Questions</label>
+                    <select id="ai-count">
+                      <option value="3">3 questions</option>
+                      <option value="5" selected>5 questions</option>
+                      <option value="10">10 questions</option>
+                    </select>
+                  </div>
+                  <div class="qe-ai-field">
+                    <label for="ai-difficulty">Difficulty</label>
+                    <div class="qe-difficulty-btns" id="ai-difficulty">
+                      <button type="button" class="qe-diff-btn" data-diff="easy">Easy</button>
+                      <button type="button" class="qe-diff-btn active" data-diff="medium">Medium</button>
+                      <button type="button" class="qe-diff-btn" data-diff="hard">Hard</button>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn--primary qe-ai-generate" id="qe-ai-generate">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    style="width:18px;height:18px;">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
+                  Generate Questions
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ TEAM BATTLE CONFIG PANEL ═══ -->
+        <div class="qe-ai-panel" id="qe-team-panel" style="display:none;">
+          <div class="qe-ai-card team-config-card">
+            <div class="qe-ai-header">
+              <div class="qe-ai-icon">⚔️</div>
+              <div>
+                <h3>Team Battle Setup</h3>
+                <p>Configure teams and start a team battle</p>
+              </div>
+              <button class="auth-close qe-ai-close" id="qe-team-close">✕</button>
+            </div>
+            <div class="qe-ai-form">
+              <div class="qe-ai-row">
+                <div class="qe-ai-field">
+                  <label for="team-num-teams">Number of Teams</label>
+                  <select id="team-num-teams">
+                    <option value="2" selected>2 teams</option>
+                    <option value="3">3 teams</option>
+                    <option value="4">4 teams</option>
+                    <option value="5">5 teams</option>
+                    <option value="6">6 teams</option>
+                  </select>
+                </div>
+                <div class="qe-ai-field">
+                  <label for="team-max-members">Max Members per Team</label>
+                  <select id="team-max-members">
+                    <option value="2">2 players</option>
+                    <option value="3">3 players</option>
+                    <option value="5" selected>5 players</option>
+                    <option value="10">10 players</option>
+                    <option value="15">15 players</option>
+                    <option value="20">20 players</option>
+                  </select>
+                </div>
+              </div>
+              <div class="qe-ai-field">
+                <label>Team Names</label>
+                <div class="team-config-list" id="team-config-list">
+                  <!-- Team name rows rendered by JS -->
+                </div>
+              </div>
+              <button class="btn btn--accent qe-ai-generate" id="qe-team-start">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  style="width:18px;height:18px;">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Start Team Battle
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIEW 3: My Quizzes ── -->
+        <div id="view-my-quizzes" style="display:none;">
+          <div class="mq-header-container">
+            <div>
+              <h1 class="dashboard-title">My Quizzes</h1>
+              <p class="dashboard-subtitle">Manage your saved quizzes. Start them live or review results.</p>
+            </div>
+            <div class="mq-controls">
+              <div class="mq-search-wrap">
+                <svg class="mq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="mq-search-input" placeholder="Search quizzes by title..." />
+              </div>
+              <select id="mq-filter-status" class="mq-filter-select">
+                <option value="all">All Statuses</option>
+                <option value="draft">Drafts</option>
+                <option value="live">Live</option>
+                <option value="ended">Ended</option>
+              </select>
+            </div>
+          </div>
+          <div id="my-quizzes-list" class="mq-list"></div>
+        </div>
+
+        <!-- ── VIEW 4: Analytics ── -->
+        <div id="view-analytics" style="display:none;">
+          <h1 class="dashboard-title">Analytics</h1>
+          <p class="dashboard-subtitle">Track your quiz performance and engagement metrics.</p>
+          <div class="analytics-grid">
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">📊</div>
+              <h3>Total Quizzes</h3>
+              <p class="dash-stat-number">—</p>
+            </div>
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">👥</div>
+              <h3>Total Participants</h3>
+              <p class="dash-stat-number">—</p>
+            </div>
+            <div class="dash-card dash-card--stat">
+              <div class="dash-card-icon">⚡</div>
+              <h3>Live Sessions</h3>
+              <p class="dash-stat-number">—</p>
+            </div>
+          </div>
+          <div class="analytics-placeholder">
+            <div class="analytics-placeholder-icon">📈</div>
+            <h3>Analytics Coming Soon</h3>
+            <p>Detailed insights into your quiz performance will appear here once you start hosting quizzes.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+
+</html>
