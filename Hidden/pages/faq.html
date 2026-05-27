@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Playra | Frequently Asked Questions</title>
+  <meta name="description"
+    content="Find answers to frequently asked questions about Playra — Team Battle mode, quiz creation, participant limits, leaderboards, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Inline critical styles to avoid flash of unstyled content -->
+  <style>
+    /* Minimal above-fold styles while JS modules load */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8f9fc; color: #1a1a2e; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo" id="nav-logo">
+        <img src="../images/logo.png" class="logo-img" alt="Playra Logo" /> Playra
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="../index.html#hero" class="nav-link" id="faq-nav-home">Home</a></li>
+        <li><a href="../index.html#pricing" class="nav-link" id="faq-nav-pricing">Pricing</a></li>
+        <li><a href="../index.html#contact" class="nav-link" id="faq-nav-contact">Contact Us</a></li>
+        <li><a href="faq.html" class="nav-link active" id="faq-nav-qa">Q&amp;A</a></li>
+        <li><a href="#" class="nav-link nav-auth-link" id="faq-nav-admin-login">Admin Login</a></li>
+        <li><a href="#" class="nav-link nav-auth-link nav-signup-link" id="faq-nav-signup">Sign Up</a></li>
+        <li><a href="#" class="nav-link nav-logout" id="faq-nav-logout" style="display:none;">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════ FAQ HERO ═══════════ -->
+  <section class="faq-hero" id="faq-hero">
+    <div class="container">
+      <p class="faq-hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        &nbsp;Frequently Asked Questions
+      </p>
+      <h1 class="faq-hero-title">
+        Got questions? <br />
+        <span class="gradient-text">We've got answers.</span>
+      </h1>
+      <p class="faq-hero-subtitle">
+        Everything you need to know about Playra — from quiz creation to Team Battle mode, limits, and more.
+      </p>
+
+      <!-- Search -->
+      <div class="faq-search-wrap" id="faq-search-wrap">
+        <svg class="faq-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          type="search"
+          class="faq-search-input"
+          id="faq-search"
+          placeholder="Search questions..."
+          autocomplete="off"
+          aria-label="Search FAQ"
+        />
+        <button class="faq-search-clear" id="faq-search-clear" aria-label="Clear search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ CONTENT ═══════════ -->
+  <section class="faq-section" id="faq-section">
+    <div class="container">
+
+      <!-- Stats bar -->
+      <div class="faq-stats" id="faq-stats">
+        <div class="faq-stat-item">
+          <span class="faq-stat-dot"></span>
+          <span>8 questions answered</span>
+        </div>
+        <div class="faq-stat-item">
+          <span class="faq-stat-dot"></span>
+          <span>Covers all plan types</span>
+        </div>
+        <div class="faq-stat-item">
+          <span class="faq-stat-dot"></span>
+          <span>Updated regularly</span>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion List -->
+      <div class="faq-list" id="faq-list" role="list">
+
+        <!-- Q1 -->
+        <div class="faq-item" id="faq-item-1" data-question="How does Team Battle mode work?" role="listitem">
+          <button class="faq-question" id="faq-btn-1" aria-expanded="false" aria-controls="faq-answer-1">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">How does Team Battle mode work?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-1">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-btn-1">
+                Team Battle mode allows players to compete in teams during live quizzes. Each team earns points based
+                on correct answers and response speed. Scores are updated in real-time on the leaderboard, making the
+                competition interactive and engaging for classrooms, events, and multiplayer quiz sessions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item" id="faq-item-2" data-question="How do I create a quiz?" role="listitem">
+          <button class="faq-question" id="faq-btn-2" aria-expanded="false" aria-controls="faq-answer-2">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">How do I create a quiz?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-2">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-btn-2">
+                Login to your account and click on "Create Quiz" from your dashboard. You'll be taken to the quiz
+                editor where you can add questions, set timers, choose quiz modes, and customize your session.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item" id="faq-item-3" data-question="How many participants are allowed in free plan?" role="listitem">
+          <button class="faq-question" id="faq-btn-3" aria-expanded="false" aria-controls="faq-answer-3">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">How many participants are allowed in free plan?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-3">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-btn-3">
+                Free users can host up to 50 participants in Classic Mode. For larger audiences or unlimited
+                participants, upgrading to a Pro plan is recommended.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item" id="faq-item-4" data-question="How many Team Battle quizzes are allowed?" role="listitem">
+          <button class="faq-question" id="faq-btn-4" aria-expanded="false" aria-controls="faq-answer-4">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">How many Team Battle quizzes are allowed?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-4">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-4" role="region" aria-labelledby="faq-btn-4">
+                Free users can create only 3 Team Battle quizzes per account. Once this limit is reached, you'll
+                need to upgrade to a Pro plan to unlock unlimited Team Battle sessions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item" id="faq-item-5" data-question="What happens after free limit is exhausted?" role="listitem">
+          <button class="faq-question" id="faq-btn-5" aria-expanded="false" aria-controls="faq-answer-5">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">What happens after free limit is exhausted?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-5">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-5" role="region" aria-labelledby="faq-btn-5">
+                You will see an upgrade message asking you to move to Premium. Your existing quizzes and data remain
+                safe — you simply won't be able to create new quizzes until you upgrade or your quota resets.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item" id="faq-item-6" data-question="Does Playra support live leaderboard?" role="listitem">
+          <button class="faq-question" id="faq-btn-6" aria-expanded="false" aria-controls="faq-answer-6">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">Does Playra support live leaderboard?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-6">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-6" role="region" aria-labelledby="faq-btn-6">
+                Yes, live leaderboard is available in all quizzes — including Classic Mode, Team Battle, and Classroom
+                Mode. Scores update in real-time so participants can see rankings as they answer.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="faq-item" id="faq-item-7" data-question="Can I export quiz reports?" role="listitem">
+          <button class="faq-question" id="faq-btn-7" aria-expanded="false" aria-controls="faq-answer-7">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">Can I export quiz reports?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-7">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-7" role="region" aria-labelledby="faq-btn-7">
+                Export reports are available for Premium users only. Premium users can export detailed performance
+                analytics, including individual scores, response times, and question-by-question breakdowns.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="faq-item" id="faq-item-8" data-question="Why is my quiz not loading?" role="listitem">
+          <button class="faq-question" id="faq-btn-8" aria-expanded="false" aria-controls="faq-answer-8">
+            <div class="faq-question-icon" aria-hidden="true">Q</div>
+            <span class="faq-question-text">Why is my quiz not loading?</span>
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          <div class="faq-answer-wrap" id="faq-answer-wrap-8">
+            <div class="faq-answer-inner">
+              <p class="faq-answer" id="faq-answer-8" role="region" aria-labelledby="faq-btn-8">
+                Check your internet connection or refresh the page. If the issue persists, try clearing your browser
+                cache or opening Playra in a different browser. You can also reach out to our support team for help.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- No results state -->
+      <div class="faq-no-results" id="faq-no-results" aria-live="polite">
+        <div class="faq-no-results-icon">🔍</div>
+        <h3>No results found</h3>
+        <p>Try a different search term or browse all questions above.</p>
+      </div>
+
+      <!-- Footer CTA -->
+      <div class="faq-footer-cta">
+        <div class="faq-footer-cta-card reveal" id="faq-cta-card">
+          <div class="faq-cta-emoji">💬</div>
+          <h2 class="faq-cta-title">Still have questions?</h2>
+          <p class="faq-cta-desc">Contact our support team — we're happy to help you get the most out of Playra.</p>
+          <div class="faq-cta-actions">
+            <a href="../index.html#contact" class="btn btn--primary" id="faq-btn-contact">
+              <span class="btn-icon">✉️</span> Contact Support
+            </a>
+            <a href="../index.html#pricing" class="btn btn--outline" id="faq-btn-pricing">
+              View Pricing Plans
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="footer" id="faq-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <a href="../index.html" class="nav-logo"><img src="../images/logo.png" class="logo-img" alt="" /> Playra</a>
+        <p>Making live engagement simple, fun, and unforgettable.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="../index.html#features">Features</a>
+          <a href="../index.html#pricing">Pricing</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="../index.html#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="faq.html">FAQ</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Playra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════ FAQ SCRIPT ═══════════ -->
+  <script type="module" src="../js/faq.js"></script>
+
+</body>
+</html>
