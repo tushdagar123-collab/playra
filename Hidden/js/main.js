@@ -16,6 +16,7 @@ import '../css/quiz-editor.css';
 import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/admin.css';
+import '../css/faq.css';
 import '../css/responsive.css';
 
 // Module imports
@@ -203,4 +204,89 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuizEditor();
   initJoinQuiz();
   initAdminController(true);
+
+  // ─── FAQ Accordion ───
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.faq-question');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      // Close all others
+      faqItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('open');
+          const ob = other.querySelector('.faq-question');
+          if (ob) ob.setAttribute('aria-expanded', 'false');
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // ─── FAQ Search ───
+  const faqSearch = document.getElementById('faq-search');
+  const faqClear = document.getElementById('faq-search-clear');
+  const faqNoResults = document.getElementById('faq-no-results');
+
+  function faqDoSearch(query) {
+    const q = query.trim().toLowerCase();
+    let visible = 0;
+
+    faqItems.forEach(item => {
+      const qEl = item.querySelector('.faq-question-text');
+      const aEl = item.querySelector('.faq-answer');
+      if (!qEl || !aEl) return;
+
+      // Cache originals once
+      if (!item.dataset.question) item.dataset.question = qEl.textContent;
+      if (!aEl.dataset.orig) aEl.dataset.orig = aEl.textContent;
+
+      const origQ = item.dataset.question;
+      const origA = aEl.dataset.orig;
+
+      if (!q) {
+        item.classList.remove('hidden-search');
+        qEl.textContent = origQ;
+        aEl.textContent = origA;
+        item.classList.remove('open');
+        const ib = item.querySelector('.faq-question');
+        if (ib) ib.setAttribute('aria-expanded', 'false');
+        visible++;
+      } else {
+        const esc = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(${esc})`, 'gi');
+        if (origQ.toLowerCase().includes(q) || origA.toLowerCase().includes(q)) {
+          item.classList.remove('hidden-search');
+          qEl.innerHTML = origQ.replace(re, '<mark class="faq-highlight">$1</mark>');
+          aEl.innerHTML = origA.replace(re, '<mark class="faq-highlight">$1</mark>');
+          // Auto-open on search
+          item.classList.add('open');
+          const ib = item.querySelector('.faq-question');
+          if (ib) ib.setAttribute('aria-expanded', 'true');
+          visible++;
+        } else {
+          item.classList.add('hidden-search');
+          item.classList.remove('open');
+          const ib = item.querySelector('.faq-question');
+          if (ib) ib.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    if (faqNoResults) faqNoResults.classList.toggle('visible', visible === 0 && q.length > 0);
+    if (faqClear) faqClear.classList.toggle('visible', q.length > 0);
+  }
+
+  if (faqSearch) {
+    faqSearch.addEventListener('input', e => faqDoSearch(e.target.value));
+    faqSearch.addEventListener('search', e => { if (!e.target.value) faqDoSearch(''); });
+  }
+  if (faqClear) {
+    faqClear.addEventListener('click', () => {
+      if (faqSearch) { faqSearch.value = ''; faqSearch.focus(); }
+      faqDoSearch('');
+    });
+  }
 });
