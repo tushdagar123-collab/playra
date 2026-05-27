@@ -2,23 +2,60 @@
    RESPONSIVE BREAKPOINTS
    ══════════════════════════════════════════ */
 
+/* ─────────────────────────────────────────
+   960px — TABLET
+   ───────────────────────────────────────── */
 @media (max-width: 960px) {
-  .features-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
-  .footer-content { flex-direction: column; align-items: flex-start; }
-  .footer-links { gap: 40px; }
+  /* Features: 2 columns on tablet, readable text */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Pricing: single column */
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    gap: 40px;
+  }
 }
 
-@media (max-width: 768px) {
-  :root { --section-py: 80px; }
 
-  .nav-toggle { display: flex; }
+/* ─────────────────────────────────────────
+   768px — MOBILE
+   ───────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── Global ── */
+  :root {
+    --section-py: 80px;
+  }
+
+  /* Belt & suspenders: kill any rogue horizontal scroll */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* ── Navbar ── */
+  .nav-toggle {
+    display: flex;
+  }
 
   .nav-menu {
     position: fixed;
     top: var(--nav-height);
     left: 0;
     right: 0;
+    z-index: 1200;
     background: rgba(255, 255, 255, 0.97);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -44,18 +81,9 @@
     padding: 12px;
   }
 
-  .nav-logout { margin-left: 0; }
-
-  .hero { min-height: auto; padding: calc(var(--nav-height) + 60px) 24px 60px; }
-  .hero-title { font-size: clamp(2.8rem, 12vw, 4rem); }
-  .hero-cta { flex-direction: column; align-items: center; }
-  .hero-cta .btn { width: 100%; max-width: 280px; justify-content: center; }
-  .hero-stats { gap: 24px; }
-  .stat-divider { display: none; }
-
-  .contact-form { grid-template-columns: 1fr; }
-
-  .footer-links { flex-wrap: wrap; gap: 32px; }
+  .nav-logout {
+    margin-left: 0;
+  }
 
   .nav-signup-link {
     margin-left: 0 !important;
@@ -64,40 +92,77 @@
     justify-content: center;
   }
 
+  /* ── Hero ── */
+  .hero {
+    min-height: auto;
+    padding: calc(var(--nav-height) + 60px) 24px 60px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    gap: 24px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .hero-silhouette {
+    display: none;
+  }
+
+  /* ── Features: 1 column on mobile ── */
+  .features-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ── Contact ── */
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Footer ── */
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  /* ── Auth Modal ── */
   .auth-modal {
     padding: 36px 24px 28px;
     border-radius: var(--radius-lg);
+    margin: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
-  .auth-icon { width: 52px; height: 52px; }
-  .auth-icon svg { width: 24px; height: 24px; }
+  .auth-icon {
+    width: 52px;
+    height: 52px;
+  }
 
-  .dashboard-body { flex-direction: column; }
-  .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 8px 16px;
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
-    overflow-x: auto;
-    white-space: nowrap;
-    gap: 8px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .auth-icon svg {
+    width: 24px;
+    height: 24px;
   }
-  .dashboard-sidebar::-webkit-scrollbar {
-    display: none;
-  }
-  .sidebar-link {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-  }
-  .dashboard-content { padding: 24px 20px; }
-  .dashboard-topbar { padding: 0 16px; }
-  .dashboard-cards { grid-template-columns: 1fr; }
 
+  /* Auth toast: bottom-anchored on mobile */
   .auth-toast {
     top: auto;
     bottom: 24px;
@@ -105,37 +170,428 @@
     left: 16px;
   }
 
-  .qe-slide-panel { display: none; }
-  .qe-editor { padding: 20px 16px; }
-  .qe-topbar { flex-wrap: wrap; gap: 10px; padding-bottom: 16px; }
-  .qe-topbar-actions { width: 100%; justify-content: flex-end; }
-  .qe-options-grid { grid-template-columns: 1fr; }
-  .qe-ai-row { grid-template-columns: 1fr; }
-  .qe-body { height: calc(100vh - var(--nav-height) - 120px); }
+  /* Join Quiz mode buttons */
+  .jq-mode-buttons {
+    grid-template-columns: 1fr;
+  }
 
-  .jq-mode-buttons { grid-template-columns: 1fr; }
-  .jq-mode-btn { font-size: 0.85rem; }
-  .lobby-card { padding: 32px 24px 28px; }
-  .lobby-code-badge { font-size: 1.4rem; padding: 10px 20px; }
-  .lobby-title { font-size: 1.4rem; }
-  .lobby-info-grid { gap: 20px; }
-  .lobby-topbar { padding: 0 16px; }
-  .lobby-body { padding: 24px 16px; gap: 24px; }
-  .lobby-participants-list { max-height: 140px; }
+  .jq-mode-btn {
+    font-size: 0.85rem;
+  }
+
+  /* ══════════════════════════════════════════
+     DASHBOARD
+     ══════════════════════════════════════════ */
+
+  /* Topbar: reduce padding, allow wrapping */
+  .dashboard-topbar {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--nav-height);
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .dashboard-topbar-right {
+    gap: 8px;
+  }
+
+  /* Truncate welcome text so it doesn't push logout off-screen */
+  .dashboard-user {
+    font-size: 0.8rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dashboard-logout-btn {
+    padding: 6px 14px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Dashboard body: column layout */
+  .dashboard-body {
+    flex-direction: column;
+  }
+
+  /* Sidebar: horizontal scrollable pill strip */
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 8px 12px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    gap: 4px;
+    flex-shrink: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .dashboard-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar-link {
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    gap: 6px;
+  }
+
+  .sidebar-link svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Content area */
+  .dashboard-content {
+    padding: 24px 16px 32px;
+  }
+
+  /* Dashboard cards: 1 column */
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* My Quizzes list: 1 column */
+  .mq-list {
+    grid-template-columns: 1fr;
+  }
+
+  .mq-header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .mq-controls {
+    width: 100%;
+  }
+
+  .mq-search-wrap {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .mq-filter-select {
+    flex-shrink: 0;
+  }
+
+  /* Analytics grid: 1 column */
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ══════════════════════════════════════════
+     QUIZ EDITOR
+     ══════════════════════════════════════════ */
+
+  /* Topbar: wrap into 2 rows */
+  .qe-topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  /* Back button + title info takes full first row */
+  .qe-topbar-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .qe-quiz-title {
+    font-size: 1rem;
+  }
+
+  /* Actions row: full width, scroll if needed */
+  .qe-topbar-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Shrink action buttons to fit mobile */
+  .qe-topbar-actions .btn--sm {
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* Timer wrap: compact */
+  .qe-timer-wrap {
+    padding: 5px 8px;
+  }
+
+  /* Editor body: hide slide panel, show editor full-width */
+  .qe-body {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - var(--nav-height) - 140px);
+    overflow: visible;
+  }
+
+  /* Hide the left slide panel thumbnail strip — space too precious */
+  .qe-slide-panel {
+    display: none;
+  }
+
+  /* Editor pane fills full width */
+  .qe-editor {
+    padding: 20px 16px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  /* Answer options: 1 column */
+  .qe-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* AI modal row: 1 column */
+  .qe-ai-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* AI card: fits mobile */
+  .qe-ai-card {
+    padding: 28px 20px;
+    margin: 16px;
+    max-width: calc(100vw - 32px);
+  }
+
+  /* ══════════════════════════════════════════
+     LOBBY
+     ══════════════════════════════════════════ */
+  /* (lobby.css already handles this, re-affirming here for specificity) */
+  .lobby-topbar {
+    padding: 0 16px;
+  }
+
+  .lobby-body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .lobby-left {
+    flex: none;
+    max-height: 55vh;
+  }
+
+  .lobby-left-scroll {
+    padding: 24px 16px;
+    gap: 20px;
+    min-height: auto;
+  }
+
+  .lobby-right {
+    flex: 1;
+    min-height: 200px;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .lobby-card {
+    padding: 28px 20px 24px;
+  }
+
+  .lobby-code-badge {
+    font-size: 1.4rem;
+    padding: 10px 20px;
+    letter-spacing: 0.25em;
+  }
+
+  .lobby-title {
+    font-size: 1.4rem;
+  }
+
+  .lobby-info-grid {
+    gap: 20px;
+  }
+
+  .lobby-bottom-bar {
+    padding: 12px 16px 16px;
+  }
+
+  .lobby-bottom-bar .btn--lg {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .lobby-participants-header {
+    padding: 16px 16px 12px;
+  }
+
+  .lobby-participants-list {
+    padding: 12px 16px;
+    max-height: 180px;
+  }
+
+  /* Game screens: options 1 column */
+  .game-options {
+    grid-template-columns: 1fr;
+  }
+
+  .game-question-text {
+    font-size: 1.05rem;
+  }
+
+  .game-ended-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .game-ended-actions .btn {
+    justify-content: center;
+  }
 }
 
-@media (max-width: 480px) {
-  .hero-badge { font-size: 0.78rem; }
-  .hero-desc { font-size: 1rem; }
-  .section-title { font-size: clamp(1.6rem, 6vw, 2rem); }
-  .section-subtitle { font-size: 0.95rem; }
-  .feature-card { padding: 28px 24px; }
-  .pricing-card { padding: 28px 24px; }
-  .lobby-code-badge { font-size: 1.2rem; letter-spacing: 0.2em; }
-  .lobby-info-grid { gap: 16px; }
 
-  .query-card { padding: 20px 18px; }
-  .query-card-header { flex-direction: column; gap: 10px; }
-  .query-card-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .queries-search-wrap { max-width: 100%; }
+/* ─────────────────────────────────────────
+   480px — SMALL MOBILE
+   ───────────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Hero */
+  .hero-badge {
+    font-size: 0.78rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+  }
+
+  /* Section typography */
+  .section-title {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Feature cards */
+  .feature-card {
+    padding: 28px 20px;
+  }
+
+  /* Pricing cards */
+  .pricing-card {
+    padding: 28px 20px 24px;
+  }
+
+  /* Auth modal */
+  .auth-modal {
+    padding: 28px 16px 24px;
+    margin: 8px;
+  }
+
+  /* Dashboard topbar: stack logo + right side */
+  .dashboard-topbar {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0 12px;
+  }
+
+  .dashboard-user {
+    max-width: 100px;
+    font-size: 0.75rem;
+  }
+
+  .dashboard-logout-btn {
+    padding: 5px 10px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Dashboard content */
+  .dashboard-content {
+    padding: 20px 12px 28px;
+  }
+
+  /* Dashboard cards: tighten */
+  .dash-card {
+    padding: 24px 20px;
+  }
+
+  /* Quiz editor topbar buttons: smaller still */
+  .qe-topbar-actions .btn--sm {
+    padding: 6px 10px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .qe-quiz-title {
+    font-size: 0.95rem;
+  }
+
+  /* Lobby */
+  .lobby-code-badge {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+  }
+
+  .lobby-info-grid {
+    gap: 16px;
+  }
+
+  .lobby-card {
+    padding: 24px 16px 20px;
+  }
+
+  /* FAQ */
+  .query-card {
+    padding: 20px 18px;
+  }
+
+  .query-card-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .query-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .queries-search-wrap {
+    max-width: 100%;
+  }
+
+  /* FAQ answer: reduce indent */
+  .faq-answer {
+    padding: 0 14px 16px 14px;
+  }
+
+  .faq-question {
+    padding: 14px 16px;
+  }
+
+  .faq-question-icon {
+    display: none;
+  }
+
+  /* My Quiz card actions wrap nicely */
+  .mq-card-actions {
+    gap: 6px;
+  }
+
+  .mq-card-actions .btn {
+    padding: 7px 12px !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* Team battle grid: 1 column */
+  .team-select-grid {
+    grid-template-columns: 1fr;
+  }
 }

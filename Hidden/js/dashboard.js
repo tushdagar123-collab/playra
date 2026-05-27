@@ -6,6 +6,8 @@ import '../css/global.css';
 import '../css/navbar.css';
 import '../css/dashboard.css';
 import '../css/quiz-editor.css';
+import '../css/lobby.css';
+import '../css/team-battle.css';
 import '../css/auth.css';
 import '../css/responsive.css';
 
