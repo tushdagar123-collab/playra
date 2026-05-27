@@ -9,6 +9,7 @@ export default defineConfig({
         dashboard: resolve(__dirname, 'pages/dashboard.html'),
         admin: resolve(__dirname, 'pages/admin.html'),
         lobby: resolve(__dirname, 'pages/lobby.html'),
+        faq: resolve(__dirname, 'pages/faq.html'),
       },
     },
   },
