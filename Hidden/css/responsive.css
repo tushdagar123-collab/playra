@@ -6,10 +6,7 @@
    960px — TABLET
    ───────────────────────────────────────── */
 @media (max-width: 960px) {
-  /* Features: 2 columns on tablet, readable text */
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  /* Features: auto-fit grid handles columns naturally (3→2→1) */
 
   /* Pricing: single column */
   .pricing-grid {
@@ -135,21 +132,14 @@
     display: none;
   }
 
-  /* ── Features: 1 column on mobile ── */
+  /* ── Features: auto-fit grid collapses to 1 col automatically ── */
+  /* Only override padding and ensure no overflow */
   .features-grid {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-    width: 100%;
-    margin: 0 auto;
     gap: 16px;
-    overflow: hidden;
   }
 
   .feature-card {
     padding: 28px 20px;
-    /* Prevent cards from ever exceeding viewport */
-    max-width: 100%;
-    box-sizing: border-box;
   }
 
   /* ── Contact ── */
