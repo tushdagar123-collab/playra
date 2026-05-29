@@ -292,7 +292,78 @@
   opacity: 0.92;
 }
 
-/* ─── Responsive ─── */
+/* ─── Payment Button Loading State ─── */
+.btn--loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btnSpin 0.65s linear infinite;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Premium Active Card State ─── */
+.pricing-card--active {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 4px rgba(0, 212, 170, 0.15), 0 0 40px rgba(0, 212, 170, 0.1), var(--shadow-lg) !important;
+}
+
+.pricing-card--active::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.05), rgba(99, 91, 255, 0.05));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Premium Active Button */
+.btn--premium-active {
+  background: linear-gradient(135deg, #00d4aa 0%, #00b893 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3) !important;
+  cursor: default !important;
+  transform: none !important;
+  font-weight: 700;
+}
+
+.btn--premium-active:hover {
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.btn--premium-active::after {
+  display: none;
+}
+
+.premium-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-right: 2px;
+}
+
+
 @media (max-width: 900px) {
   .pricing-grid {
     grid-template-columns: 1fr;

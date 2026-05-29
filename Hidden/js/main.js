@@ -27,6 +27,7 @@ import { initAdminController } from './admin-controller.js';
 import { db } from './firebase-config.js';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { showToast } from './utils.js';
+import { initRazorpay } from './razorpay.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // ─── Mobile Navigation ───
@@ -204,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuizEditor();
   initJoinQuiz();
   initAdminController(true);
+  initRazorpay();
 
   // ─── FAQ Accordion ───
   const faqItems = document.querySelectorAll('.faq-item');
