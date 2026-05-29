@@ -125,6 +125,18 @@ export function initQuizEditor() {
     });
   }
 
+  // ── Mobile My Quizzes back button → Dashboard home ──
+  const mqBackBtn = document.getElementById('mq-back-btn');
+  if (mqBackBtn) {
+    mqBackBtn.addEventListener('click', () => showDashHomeView());
+  }
+
+  // ── Mobile My Quizzes "+ New" quick-create button ──
+  const mqMobileCreateBtn = document.getElementById('mq-mobile-create-btn');
+  if (mqMobileCreateBtn) {
+    mqMobileCreateBtn.addEventListener('click', () => initNewQuiz());
+  }
+
   // Wire up My Quizzes Search and Filters
   const mqSearchInput = document.getElementById('mq-search-input');
   const mqFilterStatus = document.getElementById('mq-filter-status');

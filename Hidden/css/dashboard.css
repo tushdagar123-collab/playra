@@ -191,6 +191,96 @@
 }
 
 /* ══════════════════════════════════════════
+   MY QUIZZES — MOBILE BACK NAV
+   ══════════════════════════════════════════ */
+
+/* Hidden on desktop — shown only on mobile via media query */
+.mq-mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mq-mobile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 16px;
+    margin: -20px -16px 20px;   /* bleed to content edges */
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+}
+
+@media (max-width: 480px) {
+  .mq-mobile-nav {
+    margin: -20px -12px 16px;
+  }
+}
+
+/* Back button */
+.mq-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 7px 12px 7px 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mq-back-btn svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.mq-back-btn:hover {
+  background: var(--color-primary-bg);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.mq-back-btn:active {
+  transform: translateX(-2px);
+}
+
+/* Centered title */
+.mq-mobile-nav-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Create button */
+.mq-mobile-create-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 7px 12px !important;
+  font-size: 0.82rem !important;
+}
+
+/* ══════════════════════════════════════════
    MY QUIZZES VIEW
    ══════════════════════════════════════════ */
 .mq-header-container {
