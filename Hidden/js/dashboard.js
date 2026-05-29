@@ -25,6 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('dashboard-sidebar-toggle');
   const closeBtn = document.getElementById('dashboard-sidebar-close');
 
+  // On mobile: move sidebar to <body> so overflow:hidden on .dashboard-page
+  // doesn't clip the position:fixed sidebar
+  function setupSidebarForMobile() {
+    if (window.innerWidth <= 768 && sidebar && sidebar.parentElement !== document.body) {
+      document.body.appendChild(sidebar);
+    }
+  }
+
+  setupSidebarForMobile();
+  window.addEventListener('resize', setupSidebarForMobile);
+
   function openSidebar() {
     sidebar?.classList.add('open');
     document.body.classList.add('sidebar-overlay-active');
@@ -35,7 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('sidebar-overlay-active');
   }
 
-  toggleBtn?.addEventListener('click', openSidebar);
+  toggleBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openSidebar();
+  });
+
   closeBtn?.addEventListener('click', closeSidebar);
 
   // Close sidebar when a nav link is clicked (mobile)
@@ -45,15 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Close sidebar when clicking the backdrop
+  // Close sidebar when clicking outside (backdrop)
   document.addEventListener('click', (e) => {
     if (
       sidebar?.classList.contains('open') &&
       !sidebar.contains(e.target) &&
-      e.target !== toggleBtn &&
       !toggleBtn?.contains(e.target)
     ) {
       closeSidebar();
     }
   });
-});
+});
