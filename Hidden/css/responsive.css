@@ -190,28 +190,23 @@
   }
 
   /* ══════════════════════════════════════════
-     DASHBOARD
+     DASHBOARD — topbar only (sidebar handled in dashboard.css)
      ══════════════════════════════════════════ */
 
-  /* Topbar: reduce padding, allow wrapping */
+  /* Topbar: reduce padding */
   .dashboard-topbar {
     padding: 0 16px;
-    flex-wrap: wrap;
-    height: auto;
-    min-height: var(--nav-height);
     gap: 8px;
-    padding-top: 8px;
-    padding-bottom: 8px;
   }
 
   .dashboard-topbar-right {
     gap: 8px;
   }
 
-  /* Truncate welcome text so it doesn't push logout off-screen */
+  /* Truncate welcome text */
   .dashboard-user {
     font-size: 0.8rem;
-    max-width: 160px;
+    max-width: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -224,49 +219,8 @@
     flex-shrink: 0;
   }
 
-  /* Dashboard body: column layout */
-  .dashboard-body {
-    flex-direction: column;
-  }
 
-  /* Sidebar: horizontal scrollable pill strip */
-  .dashboard-sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 8px 12px;
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    gap: 4px;
-    flex-shrink: 0;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
 
-  .dashboard-sidebar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .sidebar-link {
-    padding: 8px 14px;
-    font-size: 0.82rem;
-    flex-shrink: 0;
-    border-radius: var(--radius-full);
-    gap: 6px;
-  }
-
-  .sidebar-link svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Content area */
-  .dashboard-content {
-    padding: 24px 16px 32px;
-  }
 
   /* Dashboard cards: 1 column */
   .dashboard-cards {

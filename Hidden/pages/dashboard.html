@@ -15,14 +15,20 @@
 <body>
   <div class="dashboard-page">
     <div class="dashboard-topbar">
-      <a href="/" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+      <div class="dashboard-topbar-left">
+        <a href="/" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
+        <button class="dashboard-sidebar-toggle" id="dashboard-sidebar-toggle" aria-label="Toggle sidebar">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
       <div class="dashboard-topbar-right">
         <span class="dashboard-user" id="dashboard-user">👋 Welcome back!</span>
         <a href="/" class="btn btn--outline dashboard-logout-btn" id="btn-dashboard-logout">Back to Home</a>
       </div>
     </div>
     <div class="dashboard-body">
-      <div class="dashboard-sidebar">
+      <div class="dashboard-sidebar" id="dashboard-sidebar">
+        <button class="dashboard-sidebar-close" id="dashboard-sidebar-close" aria-label="Close sidebar">✕</button>
         <a href="#" class="sidebar-link active" id="sidebar-dashboard"><svg viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7" />
