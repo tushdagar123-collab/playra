@@ -6,6 +6,7 @@
   text-align: center;
   background: var(--color-bg);
   position: relative;
+  overflow: hidden;
 }
 
 .features-grid {
