@@ -16,6 +16,8 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
-    "firebase": "^12.12.1"
+    "dotenv": "^16.4.7",
+    "firebase": "^12.12.1",
+    "razorpay": "^2.9.5"
   }
 }
