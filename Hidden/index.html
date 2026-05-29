@@ -801,15 +801,21 @@
   <div class="dashboard-overlay" id="overlay-quiz-dashboard" style="display:none;">
     <div class="dashboard-page">
       <div class="dashboard-topbar">
-        <a href="#" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" />
-          Playra</a>
+        <div class="dashboard-topbar-left">
+          <a href="#" class="nav-logo" id="dashboard-logo"><img src="/images/logo.png" class="logo-img" alt="" />
+            Playra</a>
+          <button class="dashboard-sidebar-toggle" id="dashboard-sidebar-toggle" aria-label="Toggle sidebar">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
         <div class="dashboard-topbar-right">
           <span class="dashboard-user" id="dashboard-user">👋 Welcome back!</span>
           <button class="btn btn--outline dashboard-logout-btn" id="btn-dashboard-logout">Logout</button>
         </div>
       </div>
       <div class="dashboard-body">
-        <div class="dashboard-sidebar">
+        <div class="dashboard-sidebar" id="dashboard-sidebar">
+          <button class="dashboard-sidebar-close" id="dashboard-sidebar-close" aria-label="Close sidebar">✕</button>
           <a href="#" class="sidebar-link active" id="sidebar-dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg> Dashboard</a>
           <a href="#" class="sidebar-link" id="sidebar-create"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg> Create Quiz</a>
           <a href="#" class="sidebar-link" id="sidebar-my-quizzes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg> My Quizzes</a>
@@ -885,6 +891,24 @@
 
           <!-- VIEW 3: My Quizzes -->
           <div id="view-my-quizzes" style="display:none;">
+
+            <!-- Mobile-only back navigation bar -->
+            <div class="mq-mobile-nav" id="mq-mobile-nav">
+              <button class="mq-back-btn" id="mq-back-btn" aria-label="Back to Dashboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+                <span>Dashboard</span>
+              </button>
+              <span class="mq-mobile-nav-title">My Quizzes</span>
+              <button class="btn btn--primary btn--sm mq-mobile-create-btn" id="mq-mobile-create-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;">
+                  <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                New
+              </button>
+            </div>
+
             <div class="mq-header-container">
               <div><h1 class="dashboard-title">My Quizzes</h1><p class="dashboard-subtitle">Manage your saved quizzes. Start them live or review results.</p></div>
               <div class="mq-controls">
