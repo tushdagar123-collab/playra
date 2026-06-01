@@ -1,0 +1,470 @@
+/* ══════════════════════════════════════════
+   PLAYRA — PREMIUM SYSTEM STYLES
+   Upgrade modal, lock overlays, badges
+   ══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════
+   UPGRADE MODAL
+   ═══════════════════════════════════════════ */
+
+.premium-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 37, 64, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease-out), visibility 0.35s;
+}
+
+.premium-modal-overlay.premium-modal--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.premium-modal {
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  animation: premiumModalIn 0.4s var(--ease-spring) both;
+}
+
+.premium-modal--visible .premium-modal {
+  animation: premiumModalIn 0.4s var(--ease-spring) both;
+}
+
+@keyframes premiumModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Header ── */
+
+.premium-modal-header {
+  position: relative;
+  padding: 32px 32px 0;
+  text-align: center;
+}
+
+.premium-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.premium-modal-close:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+}
+
+.premium-modal-icon {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.premium-modal-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.premium-modal-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── Context message ── */
+
+.premium-modal-context {
+  display: none;
+  margin: 16px 32px 0;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, rgba(99, 91, 255, 0.08), rgba(0, 212, 170, 0.06));
+  border: 1px solid rgba(99, 91, 255, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+/* ── Plan cards ── */
+
+.premium-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px 32px;
+}
+
+.premium-plan-card {
+  position: relative;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  text-align: center;
+  transition: all var(--transition-medium);
+  cursor: default;
+}
+
+.premium-plan-card:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 8px 32px rgba(99, 91, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.premium-plan-card--popular {
+  border-color: var(--color-primary);
+  background: linear-gradient(180deg, rgba(99, 91, 255, 0.04) 0%, var(--color-bg) 100%);
+}
+
+.premium-plan-popular-tag {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 14px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: var(--gradient-primary);
+  color: #fff;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.premium-plan-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin-bottom: 8px;
+}
+
+.premium-plan-price {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.premium-plan-price-currency {
+  font-size: 1.2rem;
+  font-weight: 700;
+  vertical-align: top;
+  margin-right: 2px;
+}
+
+.premium-plan-period {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+}
+
+.premium-plan-savings {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(0, 212, 170, 0.12);
+  color: var(--color-accent-dark);
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+}
+
+.premium-plan-btn {
+  width: 100%;
+  padding: 12px 20px !important;
+  font-size: 0.88rem !important;
+  justify-content: center;
+}
+
+/* ── Benefits list ── */
+
+.premium-benefits {
+  padding: 0 32px 8px;
+}
+
+.premium-benefits-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.premium-benefits-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+}
+
+.premium-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--color-text);
+  padding: 6px 0;
+}
+
+.premium-benefit-check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 212, 170, 0.12);
+  color: var(--color-accent-dark);
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+/* ── Footer ── */
+
+.premium-modal-footer {
+  padding: 16px 32px 28px;
+  text-align: center;
+}
+
+.premium-modal-guarantee {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+.premium-modal-guarantee span {
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM LOCK BADGE
+   ═══════════════════════════════════════════ */
+
+.premium-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  pointer-events: none;
+  margin-left: 6px;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM LOCKED STATE
+   Applied to buttons/cards with [data-premium]
+   ═══════════════════════════════════════════ */
+
+.premium-locked {
+  position: relative;
+  opacity: 0.55;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.premium-locked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(248, 249, 252, 0.1);
+  pointer-events: none;
+}
+
+/* Make the wrapper clickable even when locked  */
+[data-premium-gate] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-premium-gate] .premium-locked {
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM USER BADGE (Topbar & Lobby)
+   ═══════════════════════════════════════════ */
+
+.premium-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 10px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  border-radius: var(--radius-full);
+  margin-left: 8px;
+  vertical-align: middle;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  animation: premiumBadgePulse 2s ease-in-out infinite;
+}
+
+@keyframes premiumBadgePulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2); }
+  50% { box-shadow: 0 2px 16px rgba(245, 158, 11, 0.4); }
+}
+
+/* Lobby participant premium badge */
+.lobby-participant-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 8px;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  border-radius: var(--radius-full);
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM FEATURE GATE WRAPPER
+   Wraps locked buttons to intercept clicks
+   ═══════════════════════════════════════════ */
+
+.premium-gate-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.premium-gate-wrap.is-locked .premium-gate-target {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.premium-gate-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+.premium-gate-overlay:hover .premium-lock-badge {
+  transform: scale(1.08);
+}
+
+.premium-gate-overlay .premium-lock-badge {
+  font-size: 0.68rem;
+  padding: 4px 14px;
+  transition: transform var(--transition-fast);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — Upgrade Modal
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .premium-modal-overlay {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .premium-modal {
+    max-height: 92vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  .premium-modal-header {
+    padding: 24px 20px 0;
+  }
+
+  .premium-modal-title {
+    font-size: 1.35rem;
+  }
+
+  .premium-modal-context {
+    margin: 12px 20px 0;
+  }
+
+  .premium-plans {
+    grid-template-columns: 1fr;
+    padding: 20px 20px;
+    gap: 12px;
+  }
+
+  .premium-plan-card {
+    padding: 20px 16px;
+  }
+
+  .premium-plan-price {
+    font-size: 1.8rem;
+  }
+
+  .premium-benefits {
+    padding: 0 20px 8px;
+  }
+
+  .premium-benefits-list {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .premium-modal-footer {
+    padding: 12px 20px 24px;
+  }
+}

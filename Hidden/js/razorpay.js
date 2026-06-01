@@ -4,6 +4,7 @@
 
 import { showToast } from './utils.js';
 import { auth } from './firebase-config.js';
+import { activatePremium, closeUpgradeModal, initUpgradeModalBindings } from './premium-service.js';
 
 // ─── Load Razorpay Checkout Script ───
 let razorpayScriptLoaded = false;
@@ -162,6 +163,11 @@ async function handlePayment(plan, btn) {
           if (verifyData.verified) {
             showToast(`🎉 Payment successful! ${PLAN_CONFIG[plan].label} is now active.`, 'success');
             setPremiumState(plan);
+
+            // Persist to Firestore & unlock all features instantly
+            const firestorePlan = plan === 'sixmonths' ? 'sixMonth' : 'monthly';
+            await activatePremium(firestorePlan);
+            closeUpgradeModal();
           } else {
             showToast('Payment verification failed. Contact support.', 'error');
           }
@@ -209,6 +215,26 @@ export function initRazorpay() {
 
   // Restore premium state from sessionStorage (if user already paid this session)
   restorePremiumState();
+
+  // Initialize upgrade modal event listeners
+  initUpgradeModalBindings();
+
+  // Wire upgrade modal plan buttons to handlePayment
+  const premiumBtnMonthly = document.getElementById('premium-btn-monthly');
+  const premiumBtnSixmonths = document.getElementById('premium-btn-sixmonths');
+
+  if (premiumBtnMonthly) {
+    premiumBtnMonthly.addEventListener('click', (e) => {
+      e.preventDefault();
+      handlePayment('monthly', premiumBtnMonthly);
+    });
+  }
+  if (premiumBtnSixmonths) {
+    premiumBtnSixmonths.addEventListener('click', (e) => {
+      e.preventDefault();
+      handlePayment('sixmonths', premiumBtnSixmonths);
+    });
+  }
 
   // Preload Razorpay script when user hovers over pricing section
   const pricingSection = document.getElementById('pricing');

@@ -17,6 +17,7 @@ import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/admin.css';
 import '../css/faq.css';
+import '../css/premium.css';
 import '../css/responsive.css';
 
 // Module imports

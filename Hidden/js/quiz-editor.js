@@ -7,6 +7,7 @@ import { getCurrentUser } from './auth.js';
 import { saveQuizToFirestore, startQuiz, getMyQuizzes, deleteQuiz } from './quiz-service.js';
 import { generateWithGemini } from './gemini-service.js';
 import { TEAM_PRESETS, buildTeamConfig } from './team-battle-service.js';
+import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal } from './premium-service.js';
 
 let quizQuestions = [];
 let activeSlideIndex = 0;
@@ -252,6 +253,10 @@ export function initQuizEditor() {
     // Bind Team Battle buttons
     container.querySelectorAll('.mq-team-battle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        if (!checkTeamBattleLimit()) {
+          openUpgradeModal('teamBattle');
+          return;
+        }
         if (qeTeamPanel) {
           activeTeamBattleQuizId = btn.dataset.id;
           qeTeamPanel.style.display = '';
@@ -505,7 +510,13 @@ export function initQuizEditor() {
   const qeAiClose = document.getElementById('qe-ai-close');
   const qeAiGenerate = document.getElementById('qe-ai-generate');
 
-  if (qeAiBtn) qeAiBtn.addEventListener('click', () => { if (qeAiPanel) qeAiPanel.style.display = ''; });
+  if (qeAiBtn) qeAiBtn.addEventListener('click', () => {
+    if (!canUseFeature('aiGeneration')) {
+      openUpgradeModal('ai');
+      return;
+    }
+    if (qeAiPanel) qeAiPanel.style.display = '';
+  });
   if (qeAiClose) qeAiClose.addEventListener('click', () => { if (qeAiPanel) qeAiPanel.style.display = 'none'; });
 
   document.querySelectorAll('.qe-diff-btn').forEach(btn => {
@@ -545,6 +556,10 @@ export function initQuizEditor() {
 
   if (btnStartTeamBattle) {
     btnStartTeamBattle.addEventListener('click', () => {
+      if (!checkTeamBattleLimit()) {
+        openUpgradeModal('teamBattle');
+        return;
+      }
       if (qeTeamPanel) {
         activeTeamBattleQuizId = null; // Use current editor state
         qeTeamPanel.style.display = '';
@@ -602,6 +617,9 @@ export function initQuizEditor() {
         // Start as team mode
         const quizCode = await startQuiz(quizIdToStart, 'team', teamConfig);
         showToast(`⚔️ Team Battle is live! Code: ${quizCode}`);
+
+        // Increment team battle counter for free users
+        await incrementTeamBattleCount();
 
         // Hide team panel
         if (qeTeamPanel) qeTeamPanel.style.display = 'none';

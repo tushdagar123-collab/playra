@@ -8,6 +8,7 @@ import '../css/dashboard.css';
 import '../css/quiz-editor.css';
 import '../css/lobby.css';
 import '../css/team-battle.css';
+import '../css/premium.css';
 import '../css/auth.css';
 import '../css/responsive.css';
 

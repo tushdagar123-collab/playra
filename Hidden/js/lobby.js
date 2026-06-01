@@ -24,6 +24,7 @@ import {
 import { buildTeamLeaderboard, getTeamCounts } from './team-battle-service.js';
 import { renderTeamSelection } from './team-select.js';
 import { openResultsModal, closeResultsModal, downloadResultsPDF } from './quiz-results.js';
+import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium } from './premium-service.js';
 
 const AVATAR_COLORS = [
   '#635bff', '#00d4aa', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -576,6 +577,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const unsubParticipants = listenToParticipants(quizId, (participants) => {
     currentParticipants = participants;
     if (countEl) countEl.textContent = participants.length;
+
+    // ── Participant limit check for free hosts ──
+    if (role === 'host' && !checkParticipantLimit(participants.length)) {
+      showToast('You have reached the free participant limit (30). Upgrade to Premium to continue.', 'error');
+    }
+
     if (!list) return;
     list.innerHTML = '';
     participants.forEach((p, i) => {
@@ -809,15 +816,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // View Results handlers
     if (btnViewResults) {
-      btnViewResults.onclick = () => openResultsModal(lastQuizData, currentParticipants);
+      btnViewResults.onclick = () => {
+        if (!canUseFeature('exportResults')) {
+          openUpgradeModal('export');
+          return;
+        }
+        openResultsModal(lastQuizData, currentParticipants);
+      };
     }
     if (btnViewResultsTeam) {
-      btnViewResultsTeam.onclick = () => openResultsModal(lastQuizData, currentParticipants);
+      btnViewResultsTeam.onclick = () => {
+        if (!canUseFeature('exportResults')) {
+          openUpgradeModal('export');
+          return;
+        }
+        openResultsModal(lastQuizData, currentParticipants);
+      };
     }
 
     // Download PDF handlers
     if (btnDownloadPDF) {
       btnDownloadPDF.onclick = async () => {
+        if (!canUseFeature('exportResults')) {
+          openUpgradeModal('export');
+          return;
+        }
         btnDownloadPDF.disabled = true;
         btnDownloadPDF.textContent = '⏳ Generating…';
         try {
@@ -834,6 +857,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     if (btnDownloadPDFTeam) {
       btnDownloadPDFTeam.onclick = async () => {
+        if (!canUseFeature('exportResults')) {
+          openUpgradeModal('export');
+          return;
+        }
         btnDownloadPDFTeam.disabled = true;
         btnDownloadPDFTeam.textContent = '⏳ Generating…';
         try {

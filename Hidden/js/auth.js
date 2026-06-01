@@ -4,6 +4,7 @@
 
 import { auth, db } from './firebase-config.js';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { initPremium, resetPremium } from './premium-service.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -89,7 +90,10 @@ async function handleGoogleSignIn(context, setLoggedInNav, errorId) {
         role:         isAdmin ? 'admin' : 'user',
         status:       'active',
         authProvider: 'google',
-        createdAt:    serverTimestamp()
+        createdAt:    serverTimestamp(),
+        userPlan:     'free',
+        planExpiresAt: null,
+        teamBattleCount: 0
       });
     }
 
@@ -108,6 +112,8 @@ async function handleGoogleSignIn(context, setLoggedInNav, errorId) {
       const dashUser = document.getElementById('dashboard-user');
       if (dashUser) dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
       showDashboard('overlay-quiz-dashboard');
+      // Initialize premium state after dashboard is shown
+      initPremium(user.uid);
       showToast(context === 'signup'
         ? 'Account created with Google! Welcome to Playra.'
         : 'Signed in with Google! Welcome back.'
@@ -229,7 +235,10 @@ export function initAuth() {
             email: user.email,
             role: user.email === 'admin@playra.com' ? 'admin' : 'user',
             status: 'active',
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            userPlan: 'free',
+            planExpiresAt: null,
+            teamBattleCount: 0
           });
         }
 
@@ -241,6 +250,7 @@ export function initAuth() {
         if (dashUser) dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
         showDashboard('overlay-quiz-dashboard');
         setLoggedInNav(true);
+        initPremium(user.uid);
         showToast('Logged in successfully! Welcome to your dashboard.');
       } catch (err) {
         btn.classList.remove('loading');
@@ -336,7 +346,10 @@ export function initAuth() {
             email: user.email,
             role: isAdmin ? 'admin' : 'user',
             status: 'active',
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            userPlan: 'free',
+            planExpiresAt: null,
+            teamBattleCount: 0
           });
         }
 
@@ -425,7 +438,10 @@ export function initAuth() {
           email: email,
           role: email === 'admin@playra.com' ? 'admin' : 'user',
           status: 'active',
-          createdAt: serverTimestamp()
+          createdAt: serverTimestamp(),
+          userPlan: 'free',
+          planExpiresAt: null,
+          teamBattleCount: 0
         });
 
         _currentUser = userCredential.user;
@@ -440,6 +456,7 @@ export function initAuth() {
           if (dashUser) dashUser.textContent = `👋 Welcome, ${name}!`;
           showDashboard('overlay-quiz-dashboard');
           setLoggedInNav(true);
+          initPremium(userCredential.user.uid);
         }, 300);
       } catch (err) {
         btn.classList.remove('loading');
@@ -513,6 +530,7 @@ export function initAuth() {
     btnDashboardLogout.addEventListener('click', async () => {
       await signOut(auth);
       _currentUser = null;
+      resetPremium();
       hideDashboard('overlay-quiz-dashboard');
       setLoggedInNav(false);
       showToast('You have been logged out.');
@@ -524,6 +542,7 @@ export function initAuth() {
     btnAdminLogout.addEventListener('click', async () => {
       await signOut(auth);
       _currentUser = null;
+      resetPremium();
       hideDashboard('overlay-admin-panel');
       setLoggedInNav(false);
       showToast('Admin session ended.');
@@ -538,6 +557,7 @@ export function initAuth() {
       if (toggle) toggle.classList.remove('active');
       await signOut(auth);
       _currentUser = null;
+      resetPremium();
       hideDashboard('overlay-quiz-dashboard');
       hideDashboard('overlay-admin-panel');
       setLoggedInNav(false);
