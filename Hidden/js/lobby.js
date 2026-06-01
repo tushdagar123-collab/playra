@@ -23,6 +23,7 @@ import {
 } from './quiz-service.js';
 import { buildTeamLeaderboard, getTeamCounts } from './team-battle-service.js';
 import { renderTeamSelection } from './team-select.js';
+import { openResultsModal, closeResultsModal, downloadResultsPDF } from './quiz-results.js';
 
 const AVATAR_COLORS = [
   '#635bff', '#00d4aa', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -786,6 +787,84 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   }
+
+  // ══════════════════════════════════════════
+  //  RESULTS & PDF BUTTONS (Host only)
+  // ══════════════════════════════════════════
+
+  function bindResultsButtons() {
+    if (role !== 'host') return;
+
+    // Classic mode buttons
+    const btnViewResults = document.getElementById('btn-view-results');
+    const btnDownloadPDF = document.getElementById('btn-download-pdf');
+    // Team mode buttons
+    const btnViewResultsTeam = document.getElementById('btn-view-results-team');
+    const btnDownloadPDFTeam = document.getElementById('btn-download-pdf-team');
+
+    // Show all host-only buttons
+    [btnViewResults, btnDownloadPDF, btnViewResultsTeam, btnDownloadPDFTeam].forEach(btn => {
+      if (btn) btn.style.display = '';
+    });
+
+    // View Results handlers
+    if (btnViewResults) {
+      btnViewResults.onclick = () => openResultsModal(lastQuizData, currentParticipants);
+    }
+    if (btnViewResultsTeam) {
+      btnViewResultsTeam.onclick = () => openResultsModal(lastQuizData, currentParticipants);
+    }
+
+    // Download PDF handlers
+    if (btnDownloadPDF) {
+      btnDownloadPDF.onclick = async () => {
+        btnDownloadPDF.disabled = true;
+        btnDownloadPDF.textContent = '⏳ Generating…';
+        try {
+          await downloadResultsPDF(lastQuizData, currentParticipants);
+          showToast('PDF downloaded!');
+        } catch (err) {
+          console.error('PDF generation failed:', err);
+          showToast('PDF download failed', 'error');
+        } finally {
+          btnDownloadPDF.disabled = false;
+          btnDownloadPDF.textContent = '📄 Download PDF';
+        }
+      };
+    }
+    if (btnDownloadPDFTeam) {
+      btnDownloadPDFTeam.onclick = async () => {
+        btnDownloadPDFTeam.disabled = true;
+        btnDownloadPDFTeam.textContent = '⏳ Generating…';
+        try {
+          await downloadResultsPDF(lastQuizData, currentParticipants);
+          showToast('PDF downloaded!');
+        } catch (err) {
+          console.error('PDF generation failed:', err);
+          showToast('PDF download failed', 'error');
+        } finally {
+          btnDownloadPDFTeam.disabled = false;
+          btnDownloadPDFTeam.textContent = '📄 Download PDF';
+        }
+      };
+    }
+
+    // Close modal handlers
+    const btnCloseResults = document.getElementById('btn-close-results');
+    const btnCloseResultsBottom = document.getElementById('btn-close-results-bottom');
+    if (btnCloseResults) btnCloseResults.onclick = closeResultsModal;
+    if (btnCloseResultsBottom) btnCloseResultsBottom.onclick = closeResultsModal;
+
+    // Close on overlay click
+    const modalOverlay = document.getElementById('results-modal');
+    if (modalOverlay) {
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeResultsModal();
+      });
+    }
+  }
+
+  bindResultsButtons();
 
   // ══════════════════════════════════════════
   //  LEAVE LOBBY

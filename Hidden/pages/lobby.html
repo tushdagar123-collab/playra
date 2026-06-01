@@ -111,6 +111,8 @@
                 <!-- Leaderboard rendered dynamically -->
               </div>
               <div class="game-ended-actions">
+                <button class="btn btn--results" id="btn-view-results" data-host-only style="display:none;">📋 View Results</button>
+                <button class="btn btn--pdf" id="btn-download-pdf" data-host-only style="display:none;">📄 Download PDF</button>
                 <a href="/" class="btn btn--primary">Back to Home</a>
               </div>
             </div>
@@ -154,6 +156,8 @@
                 <!-- All teams final ranking -->
               </div>
               <div class="game-ended-actions">
+                <button class="btn btn--results" id="btn-view-results-team" data-host-only style="display:none;">📋 View Results</button>
+                <button class="btn btn--pdf" id="btn-download-pdf-team" data-host-only style="display:none;">📄 Download PDF</button>
                 <a href="/" class="btn btn--primary">Back to Home</a>
               </div>
             </div>
@@ -190,6 +194,41 @@
           </h3>
         </div>
         <ul class="lobby-participants-list" id="lobby-participants-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RESULTS MODAL ═══ -->
+  <div class="results-modal-overlay" id="results-modal">
+    <div class="results-modal">
+      <div class="results-modal-header">
+        <h2 class="results-modal-title">Quiz Results</h2>
+        <button class="results-modal-close" id="btn-close-results" title="Close">&times;</button>
+      </div>
+
+      <div class="results-winner-highlight" style="display:none;"></div>
+
+      <div class="results-summary-stats"></div>
+
+      <div class="results-table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Correct</th>
+              <th>Wrong</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="results-modal-footer">
+        <span class="results-modal-timestamp"></span>
+        <button class="btn btn--outline btn--sm" id="btn-close-results-bottom">Close</button>
       </div>
     </div>
   </div>
