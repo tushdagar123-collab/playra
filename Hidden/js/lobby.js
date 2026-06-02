@@ -8,6 +8,7 @@ import '../css/navbar.css';
 import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/responsive.css';
+import '../css/premium.css';
 
 import { showToast } from './utils.js';
 import {
@@ -814,22 +815,37 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (btn) btn.style.display = '';
     });
 
-    // View Results handlers
+    // ── Apply visual lock on Download PDF for free users ──
+    const isFreeUser = !canUseFeature('exportResults');
+    [btnDownloadPDF, btnDownloadPDFTeam].forEach(btn => {
+      if (!btn) return;
+      if (isFreeUser) {
+        btn.classList.add('premium-pdf-locked');
+        btn.style.opacity = '0.55';
+        btn.style.position = 'relative';
+        // Add lock badge if not already present
+        if (!btn.querySelector('.premium-lock-badge')) {
+          const badge = document.createElement('span');
+          badge.className = 'premium-lock-badge';
+          badge.textContent = '🔒 Premium PDF Export';
+          btn.appendChild(badge);
+        }
+      } else {
+        btn.classList.remove('premium-pdf-locked');
+        btn.style.opacity = '';
+        const badge = btn.querySelector('.premium-lock-badge');
+        if (badge) badge.remove();
+      }
+    });
+
+    // View Results handlers — FREE for all users
     if (btnViewResults) {
       btnViewResults.onclick = () => {
-        if (!canUseFeature('exportResults')) {
-          openUpgradeModal('export');
-          return;
-        }
         openResultsModal(lastQuizData, currentParticipants);
       };
     }
     if (btnViewResultsTeam) {
       btnViewResultsTeam.onclick = () => {
-        if (!canUseFeature('exportResults')) {
-          openUpgradeModal('export');
-          return;
-        }
         openResultsModal(lastQuizData, currentParticipants);
       };
     }
