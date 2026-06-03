@@ -25,7 +25,7 @@ import {
 import { buildTeamLeaderboard, getTeamCounts } from './team-battle-service.js';
 import { renderTeamSelection } from './team-select.js';
 import { openResultsModal, closeResultsModal, downloadResultsPDF } from './quiz-results.js';
-import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium } from './premium-service.js';
+import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium, initUpgradeModalBindings } from './premium-service.js';
 
 const AVATAR_COLORS = [
   '#635bff', '#00d4aa', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -43,6 +43,9 @@ function getInitials(n) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize premium upgrade modal bindings (close, overlay click, ESC)
+  initUpgradeModalBindings();
+
   const params = new URLSearchParams(window.location.search);
   const quizId = params.get('quizId') || sessionStorage.getItem('playra_lobby_quizId');
   const role = params.get('role') || sessionStorage.getItem('playra_lobby_role') || 'player';
@@ -819,22 +822,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isFreeUser = !canUseFeature('exportResults');
     [btnDownloadPDF, btnDownloadPDFTeam].forEach(btn => {
       if (!btn) return;
+      // Remove any old lock state first
+      btn.classList.remove('premium-locked-btn', 'premium-pdf-locked');
+      const oldTag = btn.querySelector('.premium-lock-tag');
+      if (oldTag) oldTag.remove();
+      const oldBadge = btn.querySelector('.premium-lock-badge');
+      if (oldBadge) oldBadge.remove();
+      btn.style.opacity = '';
+      btn.style.position = '';
+
       if (isFreeUser) {
-        btn.classList.add('premium-pdf-locked');
-        btn.style.opacity = '0.55';
-        btn.style.position = 'relative';
-        // Add lock badge if not already present
-        if (!btn.querySelector('.premium-lock-badge')) {
-          const badge = document.createElement('span');
-          badge.className = 'premium-lock-badge';
-          badge.textContent = '🔒 Premium PDF Export';
-          btn.appendChild(badge);
-        }
-      } else {
-        btn.classList.remove('premium-pdf-locked');
-        btn.style.opacity = '';
-        const badge = btn.querySelector('.premium-lock-badge');
-        if (badge) badge.remove();
+        btn.classList.add('premium-locked-btn');
+        // Ensure button text is clean (no duplicated badges)
+        btn.textContent = '📄 Download PDF';
+        // Add floating lock tag above corner
+        const tag = document.createElement('span');
+        tag.className = 'premium-lock-tag';
+        tag.textContent = '🔒 Premium';
+        btn.appendChild(tag);
       }
     });
 

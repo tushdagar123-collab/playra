@@ -327,20 +327,20 @@ function _applyPremiumUI() {
   // ── Lock indicators on premium buttons ──
   document.querySelectorAll('[data-premium]').forEach(el => {
     const feature = el.dataset.premium;
-    if (premium || canUseFeature(feature)) {
-      el.classList.remove('premium-locked');
-      // Remove lock badge if exists
-      const lockBadge = el.querySelector('.premium-lock-badge');
-      if (lockBadge) lockBadge.remove();
-    } else {
-      el.classList.add('premium-locked');
-      // Add lock badge if not already present
-      if (!el.querySelector('.premium-lock-badge')) {
-        const badge = document.createElement('span');
-        badge.className = 'premium-lock-badge';
-        badge.textContent = '⭐ Premium';
-        el.appendChild(badge);
-      }
+    // Clean up old lock state
+    el.classList.remove('premium-locked', 'premium-locked-btn');
+    const oldBadge = el.querySelector('.premium-lock-badge');
+    if (oldBadge) oldBadge.remove();
+    const oldTag = el.querySelector('.premium-lock-tag');
+    if (oldTag) oldTag.remove();
+
+    if (!premium && !canUseFeature(feature)) {
+      el.classList.add('premium-locked-btn');
+      // Add floating lock tag if not already present
+      const tag = document.createElement('span');
+      tag.className = 'premium-lock-tag';
+      tag.textContent = '🔒 Premium';
+      el.appendChild(tag);
     }
   });
 }
@@ -349,10 +349,12 @@ function _applyPremiumUI() {
  * Unlock all premium features visually (after payment).
  */
 function _unlockAllFeatures() {
-  document.querySelectorAll('.premium-locked').forEach(el => {
-    el.classList.remove('premium-locked');
+  document.querySelectorAll('.premium-locked, .premium-locked-btn').forEach(el => {
+    el.classList.remove('premium-locked', 'premium-locked-btn');
     const lockBadge = el.querySelector('.premium-lock-badge');
     if (lockBadge) lockBadge.remove();
+    const lockTag = el.querySelector('.premium-lock-tag');
+    if (lockTag) lockTag.remove();
   });
 }
 

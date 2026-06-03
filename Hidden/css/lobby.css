@@ -1290,6 +1290,9 @@
   justify-content: center;
   gap: 12px;
   flex-wrap: wrap;
+  overflow: visible;
+  padding-top: 14px;
+  margin-top: 10px;
 }
 
 .btn--results {
@@ -1309,6 +1312,8 @@
   color: #fff;
   border: none;
   box-shadow: 0 4px 16px rgba(0, 212, 170, 0.3);
+  position: relative;
+  overflow: visible;
 }
 
 .btn--pdf:hover {

@@ -510,6 +510,25 @@ export function initQuizEditor() {
   const qeAiClose = document.getElementById('qe-ai-close');
   const qeAiGenerate = document.getElementById('qe-ai-generate');
 
+  // ── Apply premium lock visual to AI button ──
+  function applyAiPremiumLock() {
+    if (!qeAiBtn) return;
+    // Clean up any existing lock state
+    qeAiBtn.classList.remove('premium-locked-btn');
+    const oldTag = qeAiBtn.querySelector('.premium-lock-tag');
+    if (oldTag) oldTag.remove();
+
+    if (!canUseFeature('aiGeneration')) {
+      qeAiBtn.classList.add('premium-locked-btn');
+      const tag = document.createElement('span');
+      tag.className = 'premium-lock-tag';
+      tag.textContent = '🔒 Premium';
+      qeAiBtn.appendChild(tag);
+    }
+  }
+
+  applyAiPremiumLock();
+
   if (qeAiBtn) qeAiBtn.addEventListener('click', () => {
     if (!canUseFeature('aiGeneration')) {
       openUpgradeModal('ai');

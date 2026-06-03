@@ -230,8 +230,8 @@
   background: var(--color-primary-bg);
 }
 
-.qe-ai-trigger { margin-top: 12px; }
-.qe-ai-btn { width: 100%; justify-content: center; }
+.qe-ai-trigger { margin-top: 12px; overflow: visible; position: relative; }
+.qe-ai-btn { width: 100%; justify-content: center; overflow: visible; position: relative; }
 
 /* Right: Question Editor */
 .qe-editor {

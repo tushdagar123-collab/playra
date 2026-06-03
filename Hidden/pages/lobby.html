@@ -233,6 +233,58 @@
     </div>
   </div>
 
+  <!-- ═══ PREMIUM UPGRADE MODAL ═══ -->
+  <div class="premium-modal-overlay" id="premium-upgrade-modal">
+    <div class="premium-modal">
+      <div class="premium-modal-header">
+        <button class="premium-modal-close" aria-label="Close">✕</button>
+        <span class="premium-modal-icon">⭐</span>
+        <h2 class="premium-modal-title">Upgrade to Premium</h2>
+        <p class="premium-modal-subtitle">Unlock the full power of Playra — AI generation, PDF exports, unlimited quizzes & more.</p>
+      </div>
+
+      <p class="premium-modal-context"></p>
+
+      <div class="premium-plans">
+        <div class="premium-plan-card premium-plan-card--popular">
+          <span class="premium-plan-popular-tag">⭐ Most Popular</span>
+          <div class="premium-plan-name">Monthly</div>
+          <div class="premium-plan-price"><span class="premium-plan-price-currency">₹</span>99</div>
+          <div class="premium-plan-period">per month</div>
+          <button class="btn btn--gradient-primary premium-plan-btn" id="premium-btn-monthly" data-plan="monthly">
+            Upgrade — ₹99/mo
+          </button>
+        </div>
+
+        <div class="premium-plan-card">
+          <div class="premium-plan-name">6 Months</div>
+          <div class="premium-plan-price"><span class="premium-plan-price-currency">₹</span>499</div>
+          <div class="premium-plan-period">for 6 months</div>
+          <span class="premium-plan-savings">Save ₹95 vs monthly</span>
+          <button class="btn btn--gradient-accent premium-plan-btn" id="premium-btn-sixmonths" data-plan="sixmonths">
+            Get 6 Months — ₹499
+          </button>
+        </div>
+      </div>
+
+      <div class="premium-benefits">
+        <div class="premium-benefits-title">Everything included</div>
+        <div class="premium-benefits-list">
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> AI Question Generation</div>
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> Export PDF / Results</div>
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> Unlimited Participants</div>
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> Unlimited Team Battles</div>
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> Premium ⭐ Badge</div>
+          <div class="premium-benefit-item"><span class="premium-benefit-check">✓</span> Priority Support</div>
+        </div>
+      </div>
+
+      <div class="premium-modal-footer">
+        <p class="premium-modal-guarantee">🔒 <span>Secure payment</span> via Razorpay. Cancel anytime.</p>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/js/lobby.js"></script>
 </body>
 </html>
