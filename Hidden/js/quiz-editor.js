@@ -7,7 +7,7 @@ import { getCurrentUser } from './auth.js';
 import { saveQuizToFirestore, startQuiz, getMyQuizzes, deleteQuiz } from './quiz-service.js';
 import { generateWithGemini } from './gemini-service.js';
 import { TEAM_PRESETS, buildTeamConfig } from './team-battle-service.js';
-import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal } from './premium-service.js';
+import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal, onPlanChange } from './premium-service.js';
 
 let quizQuestions = [];
 let activeSlideIndex = 0;
@@ -528,6 +528,8 @@ export function initQuizEditor() {
   }
 
   applyAiPremiumLock();
+  // Re-apply whenever the premium plan loads or changes (async Firestore init)
+  onPlanChange(() => applyAiPremiumLock());
 
   if (qeAiBtn) qeAiBtn.addEventListener('click', () => {
     if (!canUseFeature('aiGeneration')) {

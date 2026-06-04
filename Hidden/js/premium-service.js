@@ -303,26 +303,41 @@ export function initUpgradeModalBindings() {
 // ══════════════════════════════════════════
 
 /**
+ * Inject or remove the ⭐ Premium badge inside a single container element.
+ * Idempotent — safe to call multiple times.
+ * @param {Element} container - The element to append the badge into.
+ * @param {boolean} premium   - Whether the user is premium.
+ */
+function _injectBadgeInto(container, premium) {
+  if (!container) return;
+  const existing = container.querySelector('.premium-user-badge');
+  if (existing) existing.remove();
+  if (premium) {
+    const badge = document.createElement('span');
+    badge.className = 'premium-user-badge';
+    badge.textContent = '⭐ Premium';
+    container.appendChild(badge);
+  }
+}
+
+/**
  * Apply premium visual indicators across the app.
  * Called after plan is loaded or changed.
+ *
+ * Targets:
+ *  - #dashboard-user  (Dashboard / Create Quiz overlay)
+ *  - [data-premium-badge-slot]  (any page can opt-in by adding this attribute)
  */
 function _applyPremiumUI() {
   const premium = isPremium();
 
-  // ── Premium badge in dashboard topbar ──
-  const dashUser = document.getElementById('dashboard-user');
-  if (dashUser) {
-    // Remove existing badge if any
-    const existingBadge = dashUser.querySelector('.premium-user-badge');
-    if (existingBadge) existingBadge.remove();
+  // ── Premium badge in dashboard topbar (#dashboard-user) ──
+  _injectBadgeInto(document.getElementById('dashboard-user'), premium);
 
-    if (premium) {
-      const badge = document.createElement('span');
-      badge.className = 'premium-user-badge';
-      badge.textContent = '⭐ Premium';
-      dashUser.appendChild(badge);
-    }
-  }
+  // ── Premium badge in any slot on any page ──
+  document.querySelectorAll('[data-premium-badge-slot]').forEach(slot => {
+    _injectBadgeInto(slot, premium);
+  });
 
   // ── Lock indicators on premium buttons ──
   document.querySelectorAll('[data-premium]').forEach(el => {
@@ -343,6 +358,15 @@ function _applyPremiumUI() {
       el.appendChild(tag);
     }
   });
+}
+
+/**
+ * Public helper — re-apply premium badge to all slots.
+ * Call this from any page after premium state is available.
+ * Useful for pages (e.g. lobby) that load premium state on-demand.
+ */
+export function applyPremiumBadge() {
+  _applyPremiumUI();
 }
 
 /**

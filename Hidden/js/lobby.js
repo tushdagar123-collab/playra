@@ -25,7 +25,8 @@ import {
 import { buildTeamLeaderboard, getTeamCounts } from './team-battle-service.js';
 import { renderTeamSelection } from './team-select.js';
 import { openResultsModal, closeResultsModal, downloadResultsPDF } from './quiz-results.js';
-import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium, initUpgradeModalBindings } from './premium-service.js';
+import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium, initPremium, applyPremiumBadge, initUpgradeModalBindings, onPlanChange } from './premium-service.js';
+import { auth } from './firebase-config.js';
 
 const AVATAR_COLORS = [
   '#635bff', '#00d4aa', '#f59e0b', '#ef4444', '#8b5cf6',
@@ -104,6 +105,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (hostControls) hostControls.style.display = '';
     if (waitingState) waitingState.style.display = 'none';
     if (lobbyPlayerName) lobbyPlayerName.textContent = 'Host';
+
+    // Show the premium badge slot and load host's premium plan
+    const lobbyBadgeSlot = document.getElementById('lobby-premium-badge');
+    const resultsBadgeSlot = document.getElementById('results-premium-badge');
+    if (lobbyBadgeSlot) lobbyBadgeSlot.style.display = '';
+    if (resultsBadgeSlot) resultsBadgeSlot.style.display = '';
+
+    // Wait for Firebase auth to resolve the current host user, then init premium
+    const unsubAuth = auth.onAuthStateChanged(async (user) => {
+      unsubAuth(); // one-shot: unsubscribe immediately
+      if (user) {
+        await initPremium(user.uid);
+        applyPremiumBadge();
+      }
+    });
   } else {
     if (hostControls) hostControls.style.display = 'none';
     if (waitingState) waitingState.style.display = '';
@@ -913,6 +929,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   bindResultsButtons();
+  // Re-apply lock state when premium plan loads asynchronously
+  onPlanChange(() => bindResultsButtons());
 
   // ══════════════════════════════════════════
   //  LEAVE LOBBY

@@ -56,6 +56,12 @@
   z-index: 2;
 }
 
+.lobby-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 /* ─── Body: 2-column split ─── */
 .lobby-body {
   flex: 1;

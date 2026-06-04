@@ -13,7 +13,10 @@
   <div class="lobby-page">
     <div class="lobby-topbar">
       <a href="/" class="nav-logo" id="lobby-logo"><img src="/images/logo.png" class="logo-img" alt="" /> Playra</a>
-      <a href="/" class="btn btn--outline dashboard-logout-btn" id="btn-lobby-leave">Leave Lobby</a>
+      <div class="lobby-topbar-right">
+        <span id="lobby-premium-badge" data-premium-badge-slot style="display:none;"></span>
+        <a href="/" class="btn btn--outline dashboard-logout-btn" id="btn-lobby-leave">Leave Lobby</a>
+      </div>
     </div>
 
     <div class="lobby-body">
@@ -203,6 +206,7 @@
     <div class="results-modal">
       <div class="results-modal-header">
         <h2 class="results-modal-title">Quiz Results</h2>
+        <span id="results-premium-badge" data-premium-badge-slot style="display:none;"></span>
         <button class="results-modal-close" id="btn-close-results" title="Close">&times;</button>
       </div>
 
