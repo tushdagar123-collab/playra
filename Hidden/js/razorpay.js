@@ -31,12 +31,12 @@ function loadRazorpayScript() {
 // ─── Plan Configuration ───
 const PLAN_CONFIG = {
   monthly: {
-    label: 'Monthly Premium',
+    label:         'Monthly Premium',
     displayAmount: '₹99/month',
   },
-  sixmonths: {
-    label: '6 Months Premium',
-    displayAmount: '₹499 for 6 months',
+  premiumpass: {
+    label:         'Premium Pass',
+    displayAmount: '₹39 one-time',
   },
 };
 
@@ -51,8 +51,8 @@ function setPremiumState(plan) {
 
   // Update pricing cards to show "Active" state
   const cardMap = {
-    monthly: '#pricing-monthly',
-    sixmonths: '#pricing-sixmonths',
+    monthly:     '#pricing-monthly',
+    premiumpass: '#pricing-premiumpass',
   };
 
   const activeCard = document.querySelector(cardMap[plan]);
@@ -164,8 +164,8 @@ async function handlePayment(plan, btn) {
             showToast(`🎉 Payment successful! ${PLAN_CONFIG[plan].label} is now active.`, 'success');
             setPremiumState(plan);
 
-            // Persist to Firestore & unlock all features instantly
-            const firestorePlan = plan === 'sixmonths' ? 'sixMonth' : 'monthly';
+            // Map Razorpay plan key → Firestore plan name
+            const firestorePlan = plan === 'premiumpass' ? 'premiumPass' : 'monthly';
             await activatePremium(firestorePlan);
             closeUpgradeModal();
           } else {
@@ -221,7 +221,7 @@ export function initRazorpay() {
 
   // Wire upgrade modal plan buttons to handlePayment
   const premiumBtnMonthly = document.getElementById('premium-btn-monthly');
-  const premiumBtnSixmonths = document.getElementById('premium-btn-sixmonths');
+
 
   if (premiumBtnMonthly) {
     premiumBtnMonthly.addEventListener('click', (e) => {
@@ -229,10 +229,12 @@ export function initRazorpay() {
       handlePayment('monthly', premiumBtnMonthly);
     });
   }
-  if (premiumBtnSixmonths) {
-    premiumBtnSixmonths.addEventListener('click', (e) => {
+
+  const premiumBtnPremiumPass = document.getElementById('premium-btn-premiumpass');
+  if (premiumBtnPremiumPass) {
+    premiumBtnPremiumPass.addEventListener('click', (e) => {
       e.preventDefault();
-      handlePayment('sixmonths', premiumBtnSixmonths);
+      handlePayment('premiumpass', premiumBtnPremiumPass);
     });
   }
 

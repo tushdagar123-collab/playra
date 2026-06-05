@@ -7,7 +7,7 @@ import { getCurrentUser } from './auth.js';
 import { saveQuizToFirestore, startQuiz, getMyQuizzes, deleteQuiz } from './quiz-service.js';
 import { generateWithGemini } from './gemini-service.js';
 import { TEAM_PRESETS, buildTeamConfig } from './team-battle-service.js';
-import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal, onPlanChange } from './premium-service.js';
+import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal, onPlanChange, getUserPlan, consumeClassicCredit, consumeTeamBattleCredit } from './premium-service.js';
 
 let quizQuestions = [];
 let activeSlideIndex = 0;
@@ -490,6 +490,12 @@ export function initQuizEditor() {
         const quizCode = await startQuiz(currentQuizId);
         console.log('[Editor] Quiz started! Code:', quizCode);
 
+        // Consume a Classic credit for Premium Pass users
+        const planNow = getUserPlan();
+        if (planNow?.plan === 'premiumPass') {
+          await consumeClassicCredit();
+        }
+
         showToast(`Quiz is live! Code: ${quizCode}`);
         sessionStorage.setItem('playra_lobby_quizId', currentQuizId);
         sessionStorage.setItem('playra_lobby_role', 'host');
@@ -639,8 +645,13 @@ export function initQuizEditor() {
         const quizCode = await startQuiz(quizIdToStart, 'team', teamConfig);
         showToast(`⚔️ Team Battle is live! Code: ${quizCode}`);
 
-        // Increment team battle counter for free users
-        await incrementTeamBattleCount();
+        // Consume the right credit based on plan
+        const planNow = getUserPlan();
+        if (planNow?.plan === 'premiumPass') {
+          await consumeTeamBattleCredit();
+        } else {
+          await incrementTeamBattleCount(); // free-user counter
+        }
 
         // Hide team panel
         if (qeTeamPanel) qeTeamPanel.style.display = 'none';
