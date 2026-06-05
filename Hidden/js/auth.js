@@ -164,6 +164,9 @@ export function initAuth() {
     _currentUser = user;
     if (user) {
       setLoggedInNav(true);
+      // Ensure premium state is always loaded on page load/refresh,
+      // not only after an explicit login action.
+      initPremium(user.uid);
     } else {
       setLoggedInNav(false);
     }
