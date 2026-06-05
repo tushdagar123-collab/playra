@@ -4,7 +4,7 @@
 
 import { auth, db } from './firebase-config.js';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { initPremium, resetPremium } from './premium-service.js';
+import { initPremium, resetPremium, applyPremiumBadge } from './premium-service.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -110,7 +110,10 @@ async function handleGoogleSignIn(context, setLoggedInNav, errorId) {
       showToast('Admin access granted. Welcome to the Admin Panel.');
     } else {
       const dashUser = document.getElementById('dashboard-user');
-      if (dashUser) dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
+      if (dashUser) {
+        dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
+        applyPremiumBadge();
+      }
       showDashboard('overlay-quiz-dashboard');
       // Initialize premium state after dashboard is shown
       initPremium(user.uid);
@@ -187,7 +190,10 @@ export function initAuth() {
       // If already logged in, go straight to dashboard
       if (_currentUser) {
         const dashUser = document.getElementById('dashboard-user');
-        if (dashUser) dashUser.textContent = `👋 Welcome, ${_currentUser.displayName || _currentUser.email}!`;
+        if (dashUser) {
+          dashUser.textContent = `👋 Welcome, ${_currentUser.displayName || _currentUser.email}!`;
+          applyPremiumBadge();
+        }
         showDashboard('overlay-quiz-dashboard');
         return;
       }
@@ -250,7 +256,10 @@ export function initAuth() {
         btn.innerHTML = original;
         closeAllModals();
         const dashUser = document.getElementById('dashboard-user');
-        if (dashUser) dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
+        if (dashUser) {
+          dashUser.textContent = `👋 Welcome, ${user.displayName || user.email}!`;
+          applyPremiumBadge();
+        }
         showDashboard('overlay-quiz-dashboard');
         setLoggedInNav(true);
         initPremium(user.uid);
@@ -456,7 +465,10 @@ export function initAuth() {
         // Auto-log them in and show dashboard
         setTimeout(() => {
           const dashUser = document.getElementById('dashboard-user');
-          if (dashUser) dashUser.textContent = `👋 Welcome, ${name}!`;
+          if (dashUser) {
+            dashUser.textContent = `👋 Welcome, ${name}!`;
+            applyPremiumBadge();
+          }
           showDashboard('overlay-quiz-dashboard');
           setLoggedInNav(true);
           initPremium(userCredential.user.uid);
