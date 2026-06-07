@@ -73,7 +73,7 @@
   box-shadow: 0 0 0 4px rgba(99,91,255,0.12), var(--shadow-xl);
 }
 
-/* 6 Months — "Best Value" */
+/* Premium Pass — "Best Value" */
 .pricing-card--value {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 4px rgba(0,212,170,0.08), var(--shadow-md);

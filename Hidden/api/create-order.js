@@ -12,11 +12,11 @@ const PLANS = {
     name: 'Playra Monthly',
     description: 'Premium plan — 1 month',
   },
-  sixmonths: {
-    amount: 49900,       // ₹499 in paise
+  premiumpass: {
+    amount: 3900,        // ₹39 in paise
     currency: 'INR',
-    name: 'Playra 6 Months',
-    description: 'Premium plan — 6 months',
+    name: 'Playra Premium Pass',
+    description: 'Premium Pass — credit-based',
   },
 };
 
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
   const { plan } = req.body || {};
 
   if (!plan || !PLANS[plan]) {
-    return res.status(400).json({ error: 'Invalid plan. Use "monthly" or "sixmonths".' });
+    return res.status(400).json({ error: 'Invalid plan. Use "monthly" or "premiumpass".' });
   }
 
   const planInfo = PLANS[plan];
