@@ -262,6 +262,34 @@
     </div>
   </div>
 
+  <!-- Query Reply Modal -->
+  <div class="admin-modal-overlay" id="overlay-query-reply">
+    <div class="admin-modal admin-modal--reply">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title">Reply to Query</h3>
+        <button class="admin-modal-close" id="btn-close-reply-modal">✕</button>
+      </div>
+      <div class="admin-modal-body">
+        <div class="reply-modal-sender">
+          <span class="reply-modal-name" id="reply-modal-name">—</span>
+          <span class="reply-modal-email" id="reply-modal-email">—</span>
+        </div>
+        <div class="reply-modal-orig">
+          <span class="reply-modal-orig-label">Original Message:</span>
+          <p class="reply-modal-orig-text" id="reply-modal-orig-message"></p>
+        </div>
+        <div class="settings-form-group">
+          <label for="reply-message-input">Your Reply</label>
+          <textarea id="reply-message-input" class="settings-input reply-textarea" rows="5" placeholder="Type your reply here…"></textarea>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="admin-btn" id="btn-cancel-reply">Cancel</button>
+        <button class="admin-btn admin-btn--success" id="btn-send-reply">Send Reply</button>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/js/admin.js"></script>
 </body>
 </html>

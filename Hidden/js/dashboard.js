@@ -9,17 +9,20 @@ import '../css/quiz-editor.css';
 import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/premium.css';
+import '../css/account.css';
 import '../css/auth.css';
 import '../css/responsive.css';
 
 import { initQuizEditor } from './quiz-editor.js';
 import { showToast } from './utils.js';
+import { setupAccountPlanListener } from './account-service.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize the quiz editor
   initQuizEditor();
 
   showToast('Welcome to your dashboard!');
+  setupAccountPlanListener();
 
   // ─── Mobile Sidebar Toggle ───
   const sidebar = document.getElementById('dashboard-sidebar');

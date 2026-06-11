@@ -5,6 +5,7 @@
 import { showToast } from './utils.js';
 import { auth } from './firebase-config.js';
 import { activatePremium, closeUpgradeModal, initUpgradeModalBindings } from './premium-service.js';
+import { storePaymentRecord } from './account-service.js';
 
 // ─── Load Razorpay Checkout Script ───
 let razorpayScriptLoaded = false;
@@ -167,6 +168,19 @@ async function handlePayment(plan, btn) {
             // Map Razorpay plan key → Firestore plan name
             const firestorePlan = plan === 'premiumpass' ? 'premiumPass' : 'monthly';
             await activatePremium(firestorePlan);
+
+            // Store payment record in Firestore for billing history
+            if (auth.currentUser) {
+              storePaymentRecord({
+                userId: auth.currentUser.uid,
+                paymentId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+                plan: firestorePlan,
+                amount: orderData.amount,
+                currency: orderData.currency,
+              });
+            }
+
             closeUpgradeModal();
           } else {
             showToast('Payment verification failed. Contact support.', 'error');

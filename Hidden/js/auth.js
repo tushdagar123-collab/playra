@@ -5,6 +5,7 @@
 import { auth, db } from './firebase-config.js';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { initPremium, resetPremium, applyPremiumBadge } from './premium-service.js';
+import { initAccountView } from './account-service.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -117,6 +118,7 @@ async function handleGoogleSignIn(context, setLoggedInNav, errorId) {
       showDashboard('overlay-quiz-dashboard');
       // Initialize premium state after dashboard is shown
       initPremium(user.uid);
+      initAccountView();
       showToast(context === 'signup'
         ? 'Account created with Google! Welcome to Playra.'
         : 'Signed in with Google! Welcome back.'
@@ -170,6 +172,7 @@ export function initAuth() {
       // Ensure premium state is always loaded on page load/refresh,
       // not only after an explicit login action.
       initPremium(user.uid);
+      initAccountView();
     } else {
       setLoggedInNav(false);
     }
@@ -263,6 +266,7 @@ export function initAuth() {
         showDashboard('overlay-quiz-dashboard');
         setLoggedInNav(true);
         initPremium(user.uid);
+        initAccountView();
         showToast('Logged in successfully! Welcome to your dashboard.');
       } catch (err) {
         btn.classList.remove('loading');
@@ -472,6 +476,7 @@ export function initAuth() {
           showDashboard('overlay-quiz-dashboard');
           setLoggedInNav(true);
           initPremium(userCredential.user.uid);
+          initAccountView();
         }, 300);
       } catch (err) {
         btn.classList.remove('loading');

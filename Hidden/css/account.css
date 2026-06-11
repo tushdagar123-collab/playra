@@ -1,0 +1,435 @@
+/* ══════════════════════════════════════════
+   PLAYRA — ACCOUNT & USAGE TAB
+   ══════════════════════════════════════════ */
+
+/* ── Layout ── */
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.account-full-width {
+  grid-column: 1 / -1;
+}
+
+/* ── Profile Card ── */
+.account-profile-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.account-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.account-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.account-profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.account-profile-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 2px 0;
+}
+
+.account-profile-email {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 6px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-profile-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.account-meta-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(99, 91, 255, 0.1);
+  color: var(--color-primary);
+}
+
+.account-meta-tag--google {
+  background: rgba(66, 133, 244, 0.1);
+  color: #4285F4;
+}
+
+/* ── Plan Status Card ── */
+.account-plan-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.account-plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.account-plan-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.plan-badge--free {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+}
+
+.plan-badge--pass {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
+  color: #f59e0b;
+}
+
+.plan-badge--monthly {
+  background: linear-gradient(135deg, rgba(99, 91, 255, 0.15), rgba(139, 92, 246, 0.15));
+  color: var(--color-primary);
+}
+
+.account-plan-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.account-plan-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.account-plan-detail strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.account-plan-upgrade {
+  margin-top: 4px;
+}
+
+.account-plan-upgrade .btn {
+  width: 100%;
+}
+
+/* ── Usage Stats ── */
+.account-usage-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.account-stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.account-stat-icon {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.account-stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.account-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Section Title ── */
+.account-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.account-section-title svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-primary);
+}
+
+/* ── Billing History Table ── */
+.account-billing-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.account-billing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.account-billing-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.account-billing-table td {
+  padding: 12px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.account-billing-table tr:last-child td {
+  border-bottom: none;
+}
+
+.billing-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.billing-status--success {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+.billing-status--failed {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.billing-empty,
+.queries-user-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-secondary);
+}
+
+.billing-empty-icon,
+.queries-user-empty-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.billing-empty h4,
+.queries-user-empty h4 {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin: 0 0 4px 0;
+}
+
+.billing-empty p,
+.queries-user-empty p {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* ── Loading skeleton ── */
+.account-skeleton {
+  height: 16px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--color-surface) 25%, rgba(255,255,255,0.06) 50%, var(--color-surface) 75%);
+  background-size: 200% 100%;
+  animation: account-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes account-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── My Queries Section ── */
+.account-queries-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.account-query-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.account-query-item:last-child {
+  border-bottom: none;
+}
+
+.account-query-message {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  margin: 0 0 6px 0;
+  line-height: 1.5;
+}
+
+.account-query-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  color: var(--color-text-secondary);
+}
+
+.account-query-status {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.account-query-status--pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.account-query-status--read {
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+
+.account-query-status--resolved {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+/* Legacy classes kept for backward compat */
+.account-query-status--unread {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+/* ── Admin Reply Box ── */
+.account-query-reply {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: rgba(99, 91, 255, 0.06);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 8px 8px 0;
+}
+
+.account-query-reply-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.account-query-reply-text {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .account-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .account-usage-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .account-profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .account-profile-meta {
+    justify-content: center;
+  }
+
+  .account-billing-table th:nth-child(4),
+  .account-billing-table td:nth-child(4) {
+    display: none;
+  }
+
+  .account-plan-card,
+  .account-billing-card,
+  .account-queries-card {
+    padding: 18px;
+  }
+}

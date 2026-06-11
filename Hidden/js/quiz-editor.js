@@ -8,6 +8,7 @@ import { saveQuizToFirestore, startQuiz, getMyQuizzes, deleteQuiz } from './quiz
 import { generateWithGemini } from './gemini-service.js';
 import { TEAM_PRESETS, buildTeamConfig } from './team-battle-service.js';
 import { canUseFeature, checkTeamBattleLimit, incrementTeamBattleCount, openUpgradeModal, onPlanChange, getUserPlan, consumeClassicCredit, consumeTeamBattleCredit } from './premium-service.js';
+import { initAccountView } from './account-service.js';
 
 let quizQuestions = [];
 let activeSlideIndex = 0;
@@ -31,14 +32,15 @@ export function initQuizEditor() {
   const sidebarCreate = document.getElementById('sidebar-create');
   const sidebarMyQuizzes = document.getElementById('sidebar-my-quizzes');
   const sidebarAnalytics = document.getElementById('sidebar-analytics');
+  const sidebarAccount = document.getElementById('sidebar-account');
   const btnNewQuiz = document.getElementById('btn-new-quiz');
   const qeBack = document.getElementById('qe-back');
   const qeSlideList = document.getElementById('qe-slide-list');
   const qeEditorInner = document.getElementById('qe-editor-inner');
   const qeProgress = document.getElementById('qe-progress');
 
-  const allViews = [viewDashHome, viewQuizEditor, viewMyQuizzes, viewAnalytics];
-  const allSidebarLinks = [sidebarDashboard, sidebarCreate, sidebarMyQuizzes, sidebarAnalytics];
+  const allViews = [viewDashHome, viewQuizEditor, viewMyQuizzes, viewAnalytics, document.getElementById('view-account')];
+  const allSidebarLinks = [sidebarDashboard, sidebarCreate, sidebarMyQuizzes, sidebarAnalytics, sidebarAccount];
 
   function showView(viewEl, sidebarEl) {
     allViews.forEach(v => { if (v) v.style.display = 'none'; });
@@ -51,6 +53,7 @@ export function initQuizEditor() {
   function showDashHomeView() { showView(viewDashHome, sidebarDashboard); }
   function showMyQuizzesView() { showView(viewMyQuizzes, sidebarMyQuizzes); loadMyQuizzes(); }
   function showAnalyticsView() { showView(viewAnalytics, sidebarAnalytics); loadAnalytics(); }
+  function showAccountView() { showView(document.getElementById('view-account'), sidebarAccount); initAccountView(); }
 
   async function loadAnalytics() {
     const user = getCurrentUser();
@@ -115,6 +118,7 @@ export function initQuizEditor() {
   if (sidebarDashboard) sidebarDashboard.addEventListener('click', (e) => { e.preventDefault(); showDashHomeView(); });
   if (sidebarMyQuizzes) sidebarMyQuizzes.addEventListener('click', (e) => { e.preventDefault(); showMyQuizzesView(); });
   if (sidebarAnalytics) sidebarAnalytics.addEventListener('click', (e) => { e.preventDefault(); showAnalyticsView(); });
+  if (sidebarAccount) sidebarAccount.addEventListener('click', (e) => { e.preventDefault(); showAccountView(); });
   if (qeBack) qeBack.addEventListener('click', showDashHomeView);
 
   // Wire up View All button on Dashboard

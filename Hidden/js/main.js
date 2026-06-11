@@ -18,6 +18,7 @@ import '../css/team-battle.css';
 import '../css/admin.css';
 import '../css/faq.css';
 import '../css/premium.css';
+import '../css/account.css';
 import '../css/responsive.css';
 
 // Module imports
@@ -29,6 +30,7 @@ import { db } from './firebase-config.js';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { showToast } from './utils.js';
 import { initRazorpay } from './razorpay.js';
+import { initAccountView, setupAccountPlanListener } from './account-service.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // ─── Mobile Navigation ───
@@ -141,12 +143,19 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = true;
 
       try {
+        // Import auth to capture userId if logged in
+        const { auth: firebaseAuth } = await import('./firebase-config.js');
+        const currentUser = firebaseAuth.currentUser;
+
         await addDoc(collection(db, 'contactMessages'), {
+          userId: currentUser ? currentUser.uid : null,
           name,
           email,
           message,
           createdAt: serverTimestamp(),
-          status: 'unread'
+          status: 'Pending',
+          adminReply: '',
+          repliedAt: null
         });
 
         submitBtn.innerHTML = '✓ Message Sent!';
@@ -207,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initJoinQuiz();
   initAdminController(true);
   initRazorpay();
+  setupAccountPlanListener();
 
   // ─── FAQ Accordion ───
   const faqItems = document.querySelectorAll('.faq-item');

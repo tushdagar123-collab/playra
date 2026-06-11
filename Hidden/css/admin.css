@@ -662,14 +662,25 @@ input:checked + .slider:before {
   flex-shrink: 0;
 }
 
-.query-card-status--unread {
-  background: rgba(99, 91, 255, 0.1);
-  color: var(--color-primary);
+.query-card-status--pending {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
 }
 
 .query-card-status--read {
-  background: rgba(0, 212, 170, 0.1);
-  color: #00b893;
+  background: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+}
+
+.query-card-status--resolved {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+}
+
+/* Legacy classes */
+.query-card-status--unread {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
 }
 
 .query-card-body {
@@ -711,15 +722,56 @@ input:checked + .slider:before {
 
 /* Mark as read button */
 .admin-btn--read {
-  color: var(--color-primary);
-  border-color: rgba(99, 91, 255, 0.2);
-  background: rgba(99, 91, 255, 0.02);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.2);
+  background: rgba(59, 130, 246, 0.02);
 }
 
 .admin-btn--read:hover {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+/* Reply button */
+.admin-btn--reply {
+  color: var(--color-primary);
+  border-color: rgba(99, 91, 255, 0.2);
+  background: rgba(99, 91, 255, 0.04);
+}
+
+.admin-btn--reply:hover {
   background: var(--color-primary);
   color: #fff;
   border-color: var(--color-primary);
+}
+
+/* Existing admin reply display within query card */
+.query-reply-sent {
+  margin: 10px 0 16px;
+  padding: 10px 16px;
+  background: rgba(99, 91, 255, 0.06);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 8px 8px 0;
+}
+
+.query-reply-sent-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.query-reply-sent-text {
+  font-size: 0.88rem;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Queries empty state */
@@ -747,4 +799,98 @@ input:checked + .slider:before {
   max-width: 360px;
   margin: 0 auto;
   line-height: 1.5;
+}
+
+/* ── Reply Modal Styles ── */
+.admin-modal--reply {
+  max-width: 560px;
+}
+
+.reply-modal-sender {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.reply-modal-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.reply-modal-email {
+  font-size: 0.82rem;
+  color: var(--color-primary);
+}
+
+.reply-modal-orig {
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: rgba(245, 158, 11, 0.05);
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+}
+
+.reply-modal-orig-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f59e0b;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.reply-modal-orig-text {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.reply-textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+/* ── Responsive Query Cards ── */
+@media (max-width: 640px) {
+  .query-card {
+    padding: 16px;
+  }
+
+  .query-card-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .query-card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .query-card-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .admin-btn {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+  }
+
+  .admin-modal {
+    margin: 16px;
+    padding: 20px;
+  }
 }

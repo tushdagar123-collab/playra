@@ -562,6 +562,9 @@ function renderQuizzesTable() {
 //  TAB 5: CUSTOMER QUERIES
 // ══════════════════════════════════════════
 
+// Currently open reply query ID
+let _replyTargetId = null;
+
 function renderQueriesList() {
   const container = document.querySelector('#admin-queries-list');
   const searchText = (document.querySelector('#queries-search-input')?.value || '').toLowerCase().trim();
@@ -591,12 +594,28 @@ function renderQueriesList() {
 
   filtered.forEach((msg, index) => {
     const card = document.createElement('div');
-    card.className = `query-card ${msg.status === 'unread' ? 'query-card--unread' : ''}`;
+
+    // Normalise legacy status values
+    const rawStatus = msg.status || 'Pending';
+    const status = rawStatus === 'unread' ? 'Pending' : rawStatus === 'read' ? 'Read' : rawStatus;
+
+    card.className = `query-card ${status === 'Pending' ? 'query-card--unread' : ''}`;
     card.style.animationDelay = `${index * 0.05}s`;
 
-    const statusClass = msg.status === 'unread' ? 'query-card-status--unread' : 'query-card-status--read';
-    const statusIcon = msg.status === 'unread' ? '●' : '✓';
-    const statusLabel = msg.status === 'unread' ? 'Unread' : 'Read';
+    let statusClass, statusIcon, statusLabel;
+    if (status === 'Resolved') {
+      statusClass = 'query-card-status--resolved';
+      statusIcon = '✅';
+      statusLabel = 'Resolved';
+    } else if (status === 'Read') {
+      statusClass = 'query-card-status--read';
+      statusIcon = '🔵';
+      statusLabel = 'Read';
+    } else {
+      statusClass = 'query-card-status--pending';
+      statusIcon = '🟡';
+      statusLabel = 'Pending';
+    }
 
     let formattedDate = '—';
     if (msg.createdAt) {
@@ -608,9 +627,22 @@ function renderQueriesList() {
       });
     }
 
-    const markReadBtn = msg.status === 'unread'
-      ? `<button class="admin-btn admin-btn--read btn-mark-read" data-id="${msg.id}">✓ Mark as Read</button>`
-      : `<span class="admin-badge admin-badge--active" style="font-size:0.72rem;">✓ Read</span>`;
+    // Action buttons
+    const markReadBtn = status !== 'Read' && status !== 'Resolved'
+      ? `<button class="admin-btn admin-btn--read btn-mark-read" data-id="${msg.id}">✓ Mark Read</button>`
+      : '';
+
+    const markResolvedBtn = status !== 'Resolved'
+      ? `<button class="admin-btn admin-btn--success btn-mark-resolved" data-id="${msg.id}">✔ Resolve</button>`
+      : '';
+
+    // Admin reply display (if already replied)
+    const replyDisplayHTML = msg.adminReply
+      ? `<div class="query-reply-sent">
+           <span class="query-reply-sent-label">💬 Admin Reply:</span>
+           <p class="query-reply-sent-text">${escapeHtml(msg.adminReply)}</p>
+         </div>`
+      : '';
 
     card.innerHTML = `
       <div class="query-card-header">
@@ -621,6 +653,7 @@ function renderQueriesList() {
         <span class="query-card-status ${statusClass}">${statusIcon} ${statusLabel}</span>
       </div>
       <div class="query-card-body">${escapeHtml(msg.message || '')}</div>
+      ${replyDisplayHTML}
       <div class="query-card-footer">
         <span class="query-card-date">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -628,6 +661,8 @@ function renderQueriesList() {
         </span>
         <div class="query-card-actions">
           ${markReadBtn}
+          ${markResolvedBtn}
+          <button class="admin-btn admin-btn--reply btn-reply-query" data-id="${msg.id}" data-name="${escapeHtml(msg.name || 'Anonymous')}" data-email="${escapeHtml(msg.email || '')}" data-message="${escapeHtml(msg.message || '')}">💬 Reply</button>
           <button class="admin-btn admin-btn--danger btn-delete-query" data-id="${msg.id}">Delete</button>
         </div>
       </div>
@@ -641,9 +676,20 @@ function renderQueriesList() {
     btn.addEventListener('click', () => markQueryAsRead(btn.dataset.id));
   });
 
+  // Bind mark-as-resolved
+  container.querySelectorAll('.btn-mark-resolved').forEach(btn => {
+    btn.addEventListener('click', () => markQueryResolved(btn.dataset.id));
+  });
+
+  // Bind reply
+  container.querySelectorAll('.btn-reply-query').forEach(btn => {
+    btn.addEventListener('click', () => openReplyModal(btn.dataset.id, btn.dataset.name, btn.dataset.email, btn.dataset.message));
+  });
+
   // Bind delete
   container.querySelectorAll('.btn-delete-query').forEach(btn => {
     btn.addEventListener('click', async () => {
+      if (!confirm('Delete this message permanently?')) return;
       try {
         await deleteDoc(doc(db, 'contactMessages', btn.dataset.id));
         showToast('Message deleted.', 'success');
@@ -655,6 +701,45 @@ function renderQueriesList() {
   });
 }
 
+function openReplyModal(id, name, email, message) {
+  _replyTargetId = id;
+  const el = (sel) => document.querySelector(sel);
+  if (el('#reply-modal-name')) el('#reply-modal-name').textContent = name;
+  if (el('#reply-modal-email')) el('#reply-modal-email').textContent = email;
+  if (el('#reply-modal-orig-message')) el('#reply-modal-orig-message').textContent = message;
+  if (el('#reply-message-input')) el('#reply-message-input').value = '';
+  openAdminModal('overlay-query-reply');
+}
+
+async function sendAdminReply() {
+  if (!_replyTargetId) return;
+  const textarea = document.querySelector('#reply-message-input');
+  const replyText = (textarea?.value || '').trim();
+  if (!replyText) {
+    showToast('Please enter a reply message.', 'error');
+    return;
+  }
+
+  const btn = document.querySelector('#btn-send-reply');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    await updateDoc(doc(db, 'contactMessages', _replyTargetId), {
+      adminReply: replyText,
+      repliedAt: serverTimestamp(),
+      status: 'Read'
+    });
+    showToast('Reply sent successfully.', 'success');
+    closeAdminModal('overlay-query-reply');
+    _replyTargetId = null;
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to send reply.', 'error');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Reply'; }
+  }
+}
+
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
@@ -663,7 +748,7 @@ function escapeHtml(str) {
 
 async function markQueryAsRead(msgId) {
   try {
-    await updateDoc(doc(db, 'contactMessages', msgId), { status: 'read' });
+    await updateDoc(doc(db, 'contactMessages', msgId), { status: 'Read' });
     showToast('Message marked as read.', 'success');
   } catch (err) {
     console.error(err);
@@ -671,13 +756,26 @@ async function markQueryAsRead(msgId) {
   }
 }
 
+async function markQueryResolved(msgId) {
+  try {
+    await updateDoc(doc(db, 'contactMessages', msgId), { status: 'Resolved' });
+    showToast('Message marked as resolved.', 'success');
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to update message status.', 'error');
+  }
+}
+
 function updateUnreadBadge() {
-  const unreadCount = queriesList.filter(m => m.status === 'unread').length;
+  const pendingCount = queriesList.filter(m => {
+    const s = m.status || 'Pending';
+    return s === 'Pending' || s === 'unread';
+  }).length;
   const badges = document.querySelectorAll('#queries-unread-badge');
 
   badges.forEach(badge => {
-    if (unreadCount > 0) {
-      badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+    if (pendingCount > 0) {
+      badge.textContent = pendingCount > 99 ? '99+' : pendingCount;
       badge.style.display = 'inline-flex';
     } else {
       badge.style.display = 'none';
@@ -971,6 +1069,15 @@ function setupModals() {
   if (btnCloseQuiz) btnCloseQuiz.addEventListener('click', () => closeAdminModal('overlay-quiz-edit'));
   if (btnCancelQuiz) btnCancelQuiz.addEventListener('click', () => closeAdminModal('overlay-quiz-edit'));
   if (btnSaveQuiz) btnSaveQuiz.addEventListener('click', saveQuizEditChanges);
+
+  // Query Reply Modal
+  const btnCloseReply = document.querySelector('#btn-close-reply-modal');
+  const btnCancelReply = document.querySelector('#btn-cancel-reply');
+  const btnSendReply = document.querySelector('#btn-send-reply');
+
+  if (btnCloseReply) btnCloseReply.addEventListener('click', () => closeAdminModal('overlay-query-reply'));
+  if (btnCancelReply) btnCancelReply.addEventListener('click', () => closeAdminModal('overlay-query-reply'));
+  if (btnSendReply) btnSendReply.addEventListener('click', sendAdminReply);
 }
 
 function openAdminModal(id) {
