@@ -10,6 +10,7 @@ import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/premium.css';
 import '../css/account.css';
+import '../css/onboarding.css';
 import '../css/auth.css';
 import '../css/responsive.css';
 

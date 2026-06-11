@@ -6,6 +6,7 @@ import { auth, db } from './firebase-config.js';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { initPremium, resetPremium, applyPremiumBadge } from './premium-service.js';
 import { initAccountView } from './account-service.js';
+import { checkOnboarding } from './onboarding.js';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -123,6 +124,8 @@ async function handleGoogleSignIn(context, setLoggedInNav, errorId) {
         ? 'Account created with Google! Welcome to Playra.'
         : 'Signed in with Google! Welcome back.'
       );
+      // Show onboarding wizard for new users
+      checkOnboarding(user);
     }
 
   } catch (err) {
@@ -268,6 +271,8 @@ export function initAuth() {
         initPremium(user.uid);
         initAccountView();
         showToast('Logged in successfully! Welcome to your dashboard.');
+        // Show onboarding wizard for new users
+        checkOnboarding(user);
       } catch (err) {
         btn.classList.remove('loading');
         btn.innerHTML = original;
@@ -477,6 +482,8 @@ export function initAuth() {
           setLoggedInNav(true);
           initPremium(userCredential.user.uid);
           initAccountView();
+          // Show onboarding wizard for new users
+          checkOnboarding(userCredential.user);
         }, 300);
       } catch (err) {
         btn.classList.remove('loading');
