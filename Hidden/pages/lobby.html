@@ -80,7 +80,17 @@
                  <button class="btn btn--primary btn--lg" id="btn-submit-answer" disabled style="min-width: 240px;">Submit Answer</button>
               </div>
 
-              <!-- Participant Feedback Message / Host Status -->
+              <!-- Live Answer Progress Indicator (shown to everyone during active question) -->
+              <div class="game-answer-progress" id="game-answer-progress" style="display:none;">
+                <div class="game-answer-progress-inner">
+                  <span class="game-answer-progress-label" id="game-answer-progress-label">👥 0 / 0 Answered</span>
+                </div>
+                <div class="game-answer-progress-track">
+                  <div class="game-answer-progress-fill" id="game-answer-progress-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <!-- Participant Feedback Message (player submission tick) -->
               <div class="game-answer-status" id="game-answer-status" style="display:none;">
                 <span class="game-answer-icon" id="game-answer-icon">✓</span>
                 <span class="game-answer-msg" id="game-answer-msg">Answer submitted!</span>

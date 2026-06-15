@@ -355,6 +355,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Feedback & Stats
     if (isResults) {
       if (answerStatus) answerStatus.style.display = 'none';
+      // Hide progress in results state
+      const progressEl = document.getElementById('game-answer-progress');
+      if (progressEl) progressEl.style.display = 'none';
+
       if (statsContainer) {
         statsContainer.style.display = '';
         const counts = [0, 0, 0, 0];
@@ -374,17 +378,32 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     } else {
       if (statsContainer) statsContainer.style.display = 'none';
-      
-      if (role === 'host') {
-        const answerCount = Object.keys(answers).length;
-        const totalPlayers = currentParticipants.length;
-        if (answerStatus) {
-          answerStatus.style.display = '';
-          const icon = answerStatus.querySelector('.game-answer-icon');
-          const msg = answerStatus.querySelector('.game-answer-msg');
-          if (icon) icon.textContent = '📊';
-          if (msg) msg.textContent = `${answerCount} / ${totalPlayers} answered`;
+
+      // ── Live Answer Progress (shown to ALL during active question) ──
+      const answerCount = Object.keys(answers).length;
+      const totalPlayers = currentParticipants.length;
+      const progressEl = document.getElementById('game-answer-progress');
+      const progressLabel = document.getElementById('game-answer-progress-label');
+      const progressFill = document.getElementById('game-answer-progress-fill');
+
+      if (progressEl) {
+        progressEl.style.display = '';
+        const allAnswered = totalPlayers > 0 && answerCount >= totalPlayers;
+        if (allAnswered) {
+          progressEl.classList.add('game-answer-progress--complete');
+          if (progressLabel) progressLabel.textContent = '✅ Everyone Has Answered!';
+          if (progressFill) progressFill.style.width = '100%';
+        } else {
+          progressEl.classList.remove('game-answer-progress--complete');
+          if (progressLabel) progressLabel.textContent = `👥 ${answerCount} / ${totalPlayers} Answered`;
+          const pct = totalPlayers > 0 ? Math.round((answerCount / totalPlayers) * 100) : 0;
+          if (progressFill) progressFill.style.width = `${pct}%`;
         }
+      }
+
+      // ── Player submission tick (kept for players only) ──
+      if (role === 'host') {
+        if (answerStatus) answerStatus.style.display = 'none';
       } else if (hasSubmittedAnswer) {
         if (answerStatus) {
           answerStatus.style.display = '';
@@ -403,6 +422,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   //  RENDER: LEADERBOARD CHART
   // ══════════════════════════════════════════
 
+  // ── Score count-up helper ──
+  function animateCountUp(el, target, duration, delay) {
+    if (!el || target <= 0) { if (el) el.textContent = target; return; }
+    setTimeout(() => {
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, delay);
+  }
+
   function renderLeaderboard(quizData) {
     const leaderboard = document.getElementById('game-leaderboard-chart');
     if (!leaderboard) return;
@@ -418,24 +454,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Take top 5 for bar chart
     const topEntries = entries.slice(0, 5);
-    const maxScore = Math.max(...topEntries.map(e => e.score), 10); // avoid div by 0
+    const maxScore = Math.max(...topEntries.map(e => e.score), 10);
     
     if (topEntries.length === 0) {
       leaderboard.innerHTML = '<p style="color:var(--color-text-secondary); align-self:center;">No participants yet.</p>';
       return;
     }
 
+    // Render bars at height 0 with stagger delays
     leaderboard.innerHTML = topEntries.map((e, i) => {
-        const heightPct = Math.max((e.score / maxScore) * 100, 5); // min 5% height
         const color = getAvatarColor(e.name);
+        const delay = i * 120;
+        const isTop = i === 0;
         return `
-        <div class="game-lb-bar-container">
-            <div class="game-lb-bar" style="height: ${heightPct}%; background: ${color};">
-                <span class="game-lb-bar-score">${e.score}</span>
+        <div class="game-lb-bar-container" style="--bar-delay: ${delay}ms;">
+            <div class="game-lb-bar${isTop ? ' game-lb-bar--top' : ''}" data-target-height="${Math.max((e.score / maxScore) * 100, 5)}" style="height: 0; background: ${color}; --bar-delay: ${delay}ms;">
+                <span class="game-lb-bar-score" style="--bar-delay: ${delay}ms;">0</span>
             </div>
             <span class="game-lb-bar-name" title="${e.name}">${e.name}</span>
         </div>`;
     }).join('');
+
+    // Trigger animations after one frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        leaderboard.querySelectorAll('.game-lb-bar').forEach((bar, i) => {
+          const targetH = bar.getAttribute('data-target-height');
+          bar.style.height = `${targetH}%`;
+        });
+        // Count up scores
+        leaderboard.querySelectorAll('.game-lb-bar-score').forEach((el, i) => {
+          animateCountUp(el, topEntries[i].score, 900, i * 120 + 400);
+        });
+      });
+    });
   }
 
   // ══════════════════════════════════════════
@@ -488,16 +540,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     const teamLB = buildTeamLeaderboard(currentParticipants, quizData.scores || {}, quizData.teamConfig);
     const maxScore = Math.max(...teamLB.map(t => t.totalScore), 10);
 
-    chartEl.innerHTML = teamLB.map(t => {
-      const heightPct = Math.max((t.totalScore / maxScore) * 100, 5);
+    chartEl.innerHTML = teamLB.map((t, i) => {
+      const delay = i * 120;
+      const isTop = i === 0;
       return `
-        <div class="game-lb-bar-container">
-          <div class="game-lb-bar" style="height: ${heightPct}%; background: ${t.color};">
-            <span class="game-lb-bar-score">${t.totalScore}</span>
+        <div class="game-lb-bar-container" style="--bar-delay: ${delay}ms;">
+          <div class="game-lb-bar${isTop ? ' game-lb-bar--top' : ''}" data-target-height="${Math.max((t.totalScore / maxScore) * 100, 5)}" style="height: 0; background: ${t.color}; --bar-delay: ${delay}ms;">
+            <span class="game-lb-bar-score" style="--bar-delay: ${delay}ms;">0</span>
           </div>
           <span class="game-lb-bar-name" title="${t.name}">${t.emoji} ${t.name}</span>
         </div>`;
     }).join('');
+
+    // Trigger bar rise animations
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        chartEl.querySelectorAll('.game-lb-bar').forEach((bar) => {
+          bar.style.height = `${bar.getAttribute('data-target-height')}%`;
+        });
+        chartEl.querySelectorAll('.game-lb-bar-score').forEach((el, i) => {
+          animateCountUp(el, teamLB[i].totalScore, 900, i * 120 + 400);
+        });
+      });
+    });
 
     if (detailsEl) {
       detailsEl.innerHTML = teamLB.map(t => {
