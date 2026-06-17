@@ -58,7 +58,18 @@
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg> Account</a>
+        <a href="#" class="sidebar-link" id="sidebar-queries"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg> My Queries</a>
+        <a href="#" class="sidebar-link" id="sidebar-billing"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+            <line x1="1" y1="10" x2="23" y2="10" />
+          </svg> Billing</a>
       </div>
+      <!-- Mobile sidebar backdrop -->
+      <div class="dashboard-sidebar-overlay" id="dashboard-sidebar-overlay"></div>
       <div class="dashboard-content">
 
         <!-- ── VIEW 1: Dashboard Home ── -->
@@ -328,6 +339,46 @@
 
         <!-- ── VIEW 5: Account ── -->
         <div id="view-account" style="display:none;"></div>
+
+        <!-- ── VIEW 6: My Queries ── -->
+        <div id="view-queries" style="display:none;">
+          <h1 class="dashboard-title">My Queries</h1>
+          <p class="dashboard-subtitle">Browse frequently asked questions and get answers about Playra.</p>
+          <div class="queries-view-cta">
+            <a href="/pages/faq.html" class="btn btn--primary" id="btn-open-faq" target="_blank"
+              rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="width:18px;height:18px;">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+              Open FAQ &amp; Q&amp;A
+            </a>
+          </div>
+          <div class="queries-cards">
+            <div class="dash-card">
+              <div class="dash-card-icon">💬</div>
+              <h3>Still have questions?</h3>
+              <p>Browse our FAQ for answers on quiz creation, Team Battle mode, participant limits, billing, and more.</p>
+              <a href="/pages/faq.html" class="btn btn--outline btn--sm" id="btn-faq-link" target="_blank"
+                rel="noopener noreferrer">Go to FAQ →</a>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-icon">✉️</div>
+              <h3>Contact Support</h3>
+              <p>Didn't find what you're looking for? Our support team is ready to help you.</p>
+              <a href="/#contact" class="btn btn--outline btn--sm" id="btn-contact-support">Contact Us →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── VIEW 7: Billing ── -->
+        <div id="view-billing" style="display:none;">
+          <h1 class="dashboard-title">Billing &amp; Plans</h1>
+          <p class="dashboard-subtitle">Manage your subscription and explore premium features.</p>
+          <div id="billing-account-slot"></div>
+        </div>
 
       </div>
     </div>

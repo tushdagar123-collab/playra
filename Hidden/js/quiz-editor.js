@@ -33,14 +33,16 @@ export function initQuizEditor() {
   const sidebarMyQuizzes = document.getElementById('sidebar-my-quizzes');
   const sidebarAnalytics = document.getElementById('sidebar-analytics');
   const sidebarAccount = document.getElementById('sidebar-account');
+  const sidebarQueries = document.getElementById('sidebar-queries');
+  const sidebarBilling = document.getElementById('sidebar-billing');
   const btnNewQuiz = document.getElementById('btn-new-quiz');
   const qeBack = document.getElementById('qe-back');
   const qeSlideList = document.getElementById('qe-slide-list');
   const qeEditorInner = document.getElementById('qe-editor-inner');
   const qeProgress = document.getElementById('qe-progress');
 
-  const allViews = [viewDashHome, viewQuizEditor, viewMyQuizzes, viewAnalytics, document.getElementById('view-account')];
-  const allSidebarLinks = [sidebarDashboard, sidebarCreate, sidebarMyQuizzes, sidebarAnalytics, sidebarAccount];
+  const allViews = [viewDashHome, viewQuizEditor, viewMyQuizzes, viewAnalytics, document.getElementById('view-account'), document.getElementById('view-queries'), document.getElementById('view-billing')];
+  const allSidebarLinks = [sidebarDashboard, sidebarCreate, sidebarMyQuizzes, sidebarAnalytics, sidebarAccount, sidebarQueries, sidebarBilling];
 
   function showView(viewEl, sidebarEl) {
     allViews.forEach(v => { if (v) v.style.display = 'none'; });
@@ -54,6 +56,8 @@ export function initQuizEditor() {
   function showMyQuizzesView() { showView(viewMyQuizzes, sidebarMyQuizzes); loadMyQuizzes(); }
   function showAnalyticsView() { showView(viewAnalytics, sidebarAnalytics); loadAnalytics(); }
   function showAccountView() { showView(document.getElementById('view-account'), sidebarAccount); initAccountView(); }
+  function showQueriesView() { showView(document.getElementById('view-queries'), sidebarQueries); }
+  function showBillingView() { showView(document.getElementById('view-billing'), sidebarBilling); initAccountView(document.getElementById('billing-account-slot')); }
 
   async function loadAnalytics() {
     const user = getCurrentUser();
@@ -119,6 +123,8 @@ export function initQuizEditor() {
   if (sidebarMyQuizzes) sidebarMyQuizzes.addEventListener('click', (e) => { e.preventDefault(); showMyQuizzesView(); });
   if (sidebarAnalytics) sidebarAnalytics.addEventListener('click', (e) => { e.preventDefault(); showAnalyticsView(); });
   if (sidebarAccount) sidebarAccount.addEventListener('click', (e) => { e.preventDefault(); showAccountView(); });
+  if (sidebarQueries) sidebarQueries.addEventListener('click', (e) => { e.preventDefault(); showQueriesView(); });
+  if (sidebarBilling) sidebarBilling.addEventListener('click', (e) => { e.preventDefault(); showBillingView(); });
   if (qeBack) qeBack.addEventListener('click', showDashHomeView);
 
   // Wire up View All button on Dashboard

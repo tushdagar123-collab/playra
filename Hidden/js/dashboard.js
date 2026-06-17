@@ -19,60 +19,59 @@ import { showToast } from './utils.js';
 import { setupAccountPlanListener } from './account-service.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize the quiz editor
+  // Initialize the quiz editor (wires up all sidebar link view-switching)
   initQuizEditor();
 
   showToast('Welcome to your dashboard!');
   setupAccountPlanListener();
 
   // ─── Mobile Sidebar Toggle ───
-  const sidebar = document.getElementById('dashboard-sidebar');
+  const sidebar  = document.getElementById('dashboard-sidebar');
   const toggleBtn = document.getElementById('dashboard-sidebar-toggle');
-  const closeBtn = document.getElementById('dashboard-sidebar-close');
-
-  // On mobile: move sidebar to <body> so overflow:hidden on .dashboard-page
-  // doesn't clip the position:fixed sidebar
-  function setupSidebarForMobile() {
-    if (window.innerWidth <= 768 && sidebar && sidebar.parentElement !== document.body) {
-      document.body.appendChild(sidebar);
-    }
-  }
-
-  setupSidebarForMobile();
-  window.addEventListener('resize', setupSidebarForMobile);
+  const closeBtn  = document.getElementById('dashboard-sidebar-close');
+  const overlay   = document.getElementById('dashboard-sidebar-overlay');
 
   function openSidebar() {
-    sidebar?.classList.add('open');
-    document.body.classList.add('sidebar-overlay-active');
+    if (!sidebar) return;
+    sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('active');
+    document.body.classList.add('sidebar-open');
   }
 
   function closeSidebar() {
-    sidebar?.classList.remove('open');
-    document.body.classList.remove('sidebar-overlay-active');
+    if (!sidebar) return;
+    sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+    document.body.classList.remove('sidebar-open');
   }
 
+  // Hamburger button opens sidebar
   toggleBtn?.addEventListener('click', (e) => {
     e.stopPropagation();
-    openSidebar();
+    if (sidebar?.classList.contains('open')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
   });
 
+  // Close (×) button inside sidebar
   closeBtn?.addEventListener('click', closeSidebar);
 
-  // Close sidebar when a nav link is clicked (mobile)
+  // Tapping the backdrop overlay closes sidebar
+  overlay?.addEventListener('click', closeSidebar);
+
+  // Close sidebar when any nav link is clicked on mobile
   sidebar?.querySelectorAll('.sidebar-link').forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= 768) closeSidebar();
     });
   });
 
-  // Close sidebar when clicking outside (backdrop)
-  document.addEventListener('click', (e) => {
-    if (
-      sidebar?.classList.contains('open') &&
-      !sidebar.contains(e.target) &&
-      !toggleBtn?.contains(e.target)
-    ) {
+  // Keyboard: Escape key closes sidebar
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidebar?.classList.contains('open')) {
       closeSidebar();
     }
   });
-});
+});

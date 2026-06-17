@@ -620,14 +620,19 @@
   background: var(--color-surface-hover);
 }
 
-/* Backdrop overlay when sidebar is open */
-.sidebar-overlay-active::before {
-  content: '';
+/* Real overlay div — more reliable than ::before on all mobile browsers */
+.dashboard-sidebar-overlay {
+  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(10, 37, 64, 0.4);
+  background: rgba(10, 37, 64, 0.45);
   z-index: 1199;
   animation: backdropFadeIn 0.25s ease;
+  cursor: pointer;
+}
+
+.dashboard-sidebar-overlay.active {
+  display: block;
 }
 
 @keyframes backdropFadeIn {
@@ -653,17 +658,19 @@
   /* Sidebar: hidden off-screen by default, slides in as overlay */
   .dashboard-sidebar {
     position: fixed;
-    top: var(--nav-height);
+    top: 0;
     left: 0;
     bottom: 0;
-    width: 260px;
-    z-index: 9999;   /* High enough to clear everything */
+    width: 280px;
+    max-width: 85vw;
+    z-index: 1300;   /* Above overlay (1199) and everything else */
     transform: translateX(-100%);
     visibility: hidden;
     transition: transform 0.3s var(--ease-out), visibility 0.3s;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.15);
+    box-shadow: 4px 0 32px rgba(0,0,0,0.22);
     overflow-y: auto;
     background: var(--color-surface);
+    padding-top: calc(var(--nav-height) + 8px);
   }
 
   .dashboard-sidebar.open {
@@ -812,3 +819,24 @@
     gap: 12px;
   }
 }
+
+/* ══════════════════════════════════════════
+   MY QUERIES VIEW
+   ══════════════════════════════════════════ */
+.queries-view-cta {
+  margin-bottom: 32px;
+}
+
+.queries-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .queries-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
