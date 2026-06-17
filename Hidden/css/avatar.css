@@ -1,0 +1,199 @@
+/* ══════════════════════════════════════════
+   PLAYRA — AVATAR SELECTION STYLES
+   Premium avatar picker for Join Quiz modal
+   ══════════════════════════════════════════ */
+
+/* ── Section wrapper ── */
+.avatar-section {
+  margin-top: 12px;
+}
+
+.avatar-section-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+/* ── Grid layout: 6 columns on desktop, 4 on mobile ── */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  justify-items: center;
+  overflow: visible;
+}
+
+/* ── Individual avatar option ── */
+.avatar-option {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  background: var(--color-surface);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.avatar-option:hover {
+  transform: scale(1.12);
+  border-color: rgba(99, 91, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(99, 91, 255, 0.2);
+}
+
+.avatar-option:active {
+  transform: scale(1.05);
+}
+
+/* ── Selected state ── */
+.avatar-option--selected {
+  border-color: var(--color-primary, #635bff);
+  box-shadow:
+    0 0 0 2px rgba(99, 91, 255, 0.2),
+    0 4px 20px rgba(99, 91, 255, 0.35);
+  transform: scale(1.08);
+}
+
+.avatar-option--selected::after {
+  content: '✓';
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 17px;
+  height: 17px;
+  background: var(--color-primary, #635bff);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  border: 2px solid var(--color-surface, #fff);
+  z-index: 2;
+}
+
+/* ── Avatar image inside the option ── */
+.avatar-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Tooltip label on hover ── */
+.avatar-option .avatar-tooltip {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-text, #1a1a2e);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.avatar-option:hover .avatar-tooltip {
+  opacity: 1;
+}
+
+/* ── Random Avatar button ── */
+.avatar-random-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 7px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary, #635bff);
+  background: rgba(99, 91, 255, 0.08);
+  border: 1.5px solid rgba(99, 91, 255, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.avatar-random-btn:hover {
+  background: rgba(99, 91, 255, 0.14);
+  border-color: rgba(99, 91, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 91, 255, 0.15);
+}
+
+.avatar-random-btn:active {
+  transform: translateY(0);
+}
+
+.avatar-random-btn .avatar-random-icon {
+  font-size: 1rem;
+  animation: none;
+}
+
+.avatar-random-btn:hover .avatar-random-icon {
+  animation: avatarDiceSpin 0.5s ease;
+}
+
+@keyframes avatarDiceSpin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* ── Avatar display in participant lists (lobby, leaderboard, results) ── */
+.participant-avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(99, 91, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Smaller variant for tables and compact lists */
+.participant-avatar-img--sm {
+  width: 28px;
+  height: 28px;
+  border-width: 1.5px;
+}
+
+/* Larger variant for winner highlights */
+.participant-avatar-img--lg {
+  width: 52px;
+  height: 52px;
+  border-width: 3px;
+  border-color: rgba(99, 91, 255, 0.25);
+  box-shadow: 0 4px 16px rgba(99, 91, 255, 0.2);
+}
+
+/* ── Results table avatar cell ── */
+.results-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.results-name-cell .participant-avatar-img--sm {
+  flex-shrink: 0;
+}
+
+/* ── Winner highlight avatar ── */
+.results-winner-avatar {
+  flex-shrink: 0;
+}

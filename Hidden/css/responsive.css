@@ -189,6 +189,17 @@
     font-size: 0.85rem;
   }
 
+  /* Avatar grid: 4 columns on tablet */
+  .avatar-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .avatar-option {
+    width: 56px;
+    height: 56px;
+  }
+
   /* ══════════════════════════════════════════
      DASHBOARD — topbar only (sidebar handled in dashboard.css)
      ══════════════════════════════════════════ */
@@ -557,5 +568,28 @@
   /* Team battle grid: 1 column */
   .team-select-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Avatar grid: 4 columns, smaller on mobile */
+  .avatar-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .avatar-option {
+    width: 52px;
+    height: 52px;
+    border-width: 2px;
+  }
+
+  .avatar-option--selected::after {
+    width: 16px;
+    height: 16px;
+    font-size: 0.55rem;
+  }
+
+  .avatar-random-btn {
+    font-size: 0.75rem;
+    padding: 6px 14px;
   }
 }

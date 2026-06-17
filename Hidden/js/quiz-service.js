@@ -240,15 +240,21 @@ export async function findLiveQuizByCode(code) {
  * Add a participant to a quiz's participants subcollection.
  * @param {string} quizId
  * @param {string} playerName
+ * @param {string|null} avatarId — Selected avatar ID (e.g. 'tech-student-m')
  * @returns {string} The participant document ID
  */
-export async function joinQuiz(quizId, playerName) {
-  const participantsRef = collection(db, 'quizzes', quizId, 'participants');
-  const docRef = await addDoc(participantsRef, {
+export async function joinQuiz(quizId, playerName, avatarId = null) {
+  const participantData = {
     name: playerName,
     score: 0,
     joinedAt: serverTimestamp()
-  });
+  };
+  if (avatarId) {
+    participantData.avatarId = avatarId;
+  }
+
+  const participantsRef = collection(db, 'quizzes', quizId, 'participants');
+  const docRef = await addDoc(participantsRef, participantData);
   return docRef.id;
 }
 

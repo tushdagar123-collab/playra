@@ -3,6 +3,8 @@
    View Results Modal + PDF Export
    ══════════════════════════════════════════ */
 
+import { getAvatarById } from './avatar-data.js';
+
 // ══════════════════════════════════════════
 //  HELPERS
 // ══════════════════════════════════════════
@@ -20,7 +22,7 @@ function computeAnalytics(quizData, participants) {
     const correct = Math.round(score / 10);
     const wrong = totalQuestions - correct;
     const accuracy = Math.round((correct / totalQuestions) * 100);
-    return { id: p.id, name: p.name, score, correct, wrong, accuracy };
+    return { id: p.id, name: p.name, score, correct, wrong, accuracy, avatarId: p.avatarId || null };
   });
 
   // Sort descending by score, then alphabetically
@@ -112,8 +114,12 @@ export function openResultsModal(quizData, participants) {
     if (entries.length > 0) {
       const winner = entries[0];
       winnerEl.style.display = '';
+      const winnerAvatar = winner.avatarId ? getAvatarById(winner.avatarId) : null;
+      const winnerAvatarHTML = winnerAvatar
+        ? `<img class="participant-avatar-img participant-avatar-img--lg results-winner-avatar" src="${winnerAvatar.src}" alt="${winnerAvatar.label}" />`
+        : `<div class="results-winner-badge">🥇</div>`;
       winnerEl.innerHTML = `
-        <div class="results-winner-badge">🥇</div>
+        ${winnerAvatarHTML}
         <div class="results-winner-info">
           <span class="results-winner-label">Winner</span>
           <span class="results-winner-name">${winner.name}</span>
@@ -131,9 +137,13 @@ export function openResultsModal(quizData, participants) {
     tbody.innerHTML = entries.map(e => {
       const medal = medals[e.rank] || `#${e.rank}`;
       const accuracyClass = e.accuracy >= 80 ? 'accuracy--high' : e.accuracy >= 50 ? 'accuracy--mid' : 'accuracy--low';
+      const avatar = e.avatarId ? getAvatarById(e.avatarId) : null;
+      const avatarHTML = avatar
+        ? `<img class="participant-avatar-img participant-avatar-img--sm" src="${avatar.src}" alt="${avatar.label}" />`
+        : '';
       return `<tr>
         <td class="results-rank-cell">${medal}</td>
-        <td class="results-name-cell">${e.name}</td>
+        <td class="results-name-cell">${avatarHTML}<span>${e.name}</span></td>
         <td>${e.score}</td>
         <td class="results-correct-cell">${e.correct}</td>
         <td class="results-wrong-cell">${e.wrong}</td>
@@ -318,14 +328,18 @@ export async function downloadResultsPDF(quizData, participants) {
   doc.text('Leaderboard', margin, y);
   y += 6;
 
-  const tableBody = entries.map(e => [
-    `#${e.rank}`,
-    e.name,
-    `${e.score} pts`,
-    `${e.correct}`,
-    `${e.wrong}`,
-    `${e.accuracy}%`
-  ]);
+  const tableBody = entries.map(e => {
+    const avatarLabel = e.avatarId ? (getAvatarById(e.avatarId)?.label || '') : '';
+    const displayName = avatarLabel ? `${e.name} (${avatarLabel})` : e.name;
+    return [
+      `#${e.rank}`,
+      displayName,
+      `${e.score} pts`,
+      `${e.correct}`,
+      `${e.wrong}`,
+      `${e.accuracy}%`
+    ];
+  });
 
   doc.autoTable({
     startY: y,

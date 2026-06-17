@@ -7,6 +7,35 @@ import {
   showFormError, clearFormErrors
 } from './utils.js';
 import { findLiveQuizByCode, joinQuiz } from './quiz-service.js';
+import { AVATARS, getRandomAvatar } from './avatar-data.js';
+
+let selectedAvatarId = null;
+
+/**
+ * Render the avatar grid inside the Join Quiz modal.
+ */
+function renderAvatarGrid() {
+  const grid = document.getElementById('jq-avatar-grid');
+  if (!grid) return;
+
+  grid.innerHTML = AVATARS.map(avatar => `
+    <button type="button"
+            class="avatar-option${selectedAvatarId === avatar.id ? ' avatar-option--selected' : ''}"
+            data-avatar-id="${avatar.id}"
+            title="${avatar.label}">
+      <img src="${avatar.src}" alt="${avatar.label}" loading="lazy" />
+      <span class="avatar-tooltip">${avatar.label}</span>
+    </button>
+  `).join('');
+
+  // Bind click handlers
+  grid.querySelectorAll('.avatar-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedAvatarId = btn.dataset.avatarId;
+      renderAvatarGrid(); // re-render to update selection state
+    });
+  });
+}
 
 export function initJoinQuiz() {
   const btnJoinQuiz = document.getElementById('btn-join-quiz');
@@ -47,6 +76,19 @@ export function initJoinQuiz() {
     });
   }
 
+  // ── Render avatar grid ──
+  renderAvatarGrid();
+
+  // ── Random Avatar button ──
+  const randomBtn = document.getElementById('jq-avatar-random');
+  if (randomBtn) {
+    randomBtn.addEventListener('click', () => {
+      const avatar = getRandomAvatar(selectedAvatarId);
+      selectedAvatarId = avatar.id;
+      renderAvatarGrid();
+    });
+  }
+
   async function handleJoinSubmit(e, mode) {
     e.preventDefault();
     const name = document.getElementById('jq-name').value.trim();
@@ -59,6 +101,12 @@ export function initJoinQuiz() {
     if (!name) { showFormError(errorId, 'Name is required.', ['jq-name']); return; }
     if (!code || code.length !== 4 || !/^\d{4}$/.test(code)) {
       showFormError(errorId, 'Invalid Quiz Code. Please enter a 4-digit code.', ['jq-code']);
+      return;
+    }
+
+    // Avatar validation
+    if (!selectedAvatarId) {
+      showFormError(errorId, 'Please choose an avatar before joining.', []);
       return;
     }
 
@@ -82,13 +130,14 @@ export function initJoinQuiz() {
         return;
       }
 
-      const participantId = await joinQuiz(quiz.id, name);
+      const participantId = await joinQuiz(quiz.id, name, selectedAvatarId);
 
       sessionStorage.setItem('playra_lobby_quizId', quiz.id);
       sessionStorage.setItem('playra_lobby_name', name);
       sessionStorage.setItem('playra_lobby_role', 'player');
       sessionStorage.setItem('playra_lobby_participantId', participantId);
       sessionStorage.setItem('playra_lobby_mode', mode);
+      sessionStorage.setItem('playra_lobby_avatarId', selectedAvatarId);
 
       btn.classList.remove('loading');
       btn.innerHTML = original;

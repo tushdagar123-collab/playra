@@ -9,6 +9,7 @@ import '../css/lobby.css';
 import '../css/team-battle.css';
 import '../css/responsive.css';
 import '../css/premium.css';
+import '../css/avatar.css';
 
 import { showToast } from './utils.js';
 import {
@@ -26,6 +27,7 @@ import { buildTeamLeaderboard, getTeamCounts } from './team-battle-service.js';
 import { renderTeamSelection } from './team-select.js';
 import { openResultsModal, closeResultsModal, downloadResultsPDF } from './quiz-results.js';
 import { canUseFeature, checkParticipantLimit, openUpgradeModal, isPremium, initPremium, applyPremiumBadge, initUpgradeModalBindings, onPlanChange } from './premium-service.js';
+import { getAvatarById } from './avatar-data.js';
 import { auth } from './firebase-config.js';
 
 const AVATAR_COLORS = [
@@ -41,6 +43,19 @@ function getAvatarColor(n) {
 
 function getInitials(n) {
   return n.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+}
+
+/**
+ * Build avatar HTML — uses illustrated image if avatarId exists, otherwise color+initials.
+ */
+function buildAvatarHTML(name, avatarId, sizeClass = '') {
+  const avatar = avatarId ? getAvatarById(avatarId) : null;
+  if (avatar) {
+    return `<img class="participant-avatar-img ${sizeClass}" src="${avatar.src}" alt="${avatar.label}" />`;
+  }
+  const color = getAvatarColor(name);
+  const initials = getInitials(name);
+  return `<div class="lobby-participant-avatar" style="background: ${color};">${initials}</div>`;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -446,7 +461,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const scores = quizData.scores || {};
     let entries = currentParticipants.map(p => ({
         name: p.name,
-        score: scores[p.id] || 0
+        score: scores[p.id] || 0,
+        avatarId: p.avatarId || null
     }));
     
     // Sort descending
@@ -506,7 +522,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const scores = quizData.scores || {};
       const entries = currentParticipants.map(p => ({
         name: p.name,
-        score: scores[p.id] || 0
+        score: scores[p.id] || 0,
+        avatarId: p.avatarId || null
       }));
       entries.sort((a, b) => b.score - a.score);
 
@@ -515,11 +532,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         leaderboard.innerHTML = entries.map((e, i) => {
           const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i + 1}`;
-          const color = getAvatarColor(e.name);
-          const initials = getInitials(e.name);
+          const avatarHTML = buildAvatarHTML(e.name, e.avatarId);
           return `<div class="game-leaderboard-row ${i < 3 ? 'game-leaderboard-row--top' : ''}">
             <span class="game-leaderboard-rank">${medal}</span>
-            <div class="lobby-participant-avatar" style="background:${color};">${initials}</div>
+            ${avatarHTML}
             <span class="game-leaderboard-name">${e.name}</span>
             <span class="game-leaderboard-score">${e.score} pts</span>
           </div>`;
@@ -685,7 +701,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       li.innerHTML = `
-        <div class="lobby-participant-avatar" style="background: ${color};">${initials}</div>
+        ${buildAvatarHTML(p.name, p.avatarId)}
         <span class="lobby-participant-name">${p.name}</span>
         ${tagHTML}
         ${removeHTML}`;
@@ -1014,6 +1030,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     sessionStorage.removeItem('playra_lobby_participantId');
     sessionStorage.removeItem('playra_lobby_teamId');
     sessionStorage.removeItem('playra_lobby_mode');
+    sessionStorage.removeItem('playra_lobby_avatarId');
     showToast('You left the quiz lobby.');
     window.location.href = '/';
   }
@@ -1079,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             removeHTML = `<button class="lobby-participant-remove" data-pid="${p.id}" title="Remove player">✕</button>`;
           }
           li.innerHTML = `
-            <div class="lobby-participant-avatar" style="background: ${color};">${initials}</div>
+            ${buildAvatarHTML(p.name, p.avatarId)}
             <span class="lobby-participant-name">${p.name}</span>
             ${tagHTML}
             ${removeHTML}`;
@@ -1104,7 +1121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const color = getAvatarColor(p.name);
         const initials = getInitials(p.name);
         li.innerHTML = `
-          <div class="lobby-participant-avatar" style="background: ${color};">${initials}</div>
+          ${buildAvatarHTML(p.name, p.avatarId)}
           <span class="lobby-participant-name">${p.name}</span>`;
         list.appendChild(li);
       });

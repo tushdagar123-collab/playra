@@ -20,6 +20,7 @@ import '../css/faq.css';
 import '../css/premium.css';
 import '../css/account.css';
 import '../css/onboarding.css';
+import '../css/avatar.css';
 import '../css/responsive.css';
 
 // Module imports

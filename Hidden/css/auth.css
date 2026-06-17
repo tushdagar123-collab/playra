@@ -6,7 +6,7 @@
   inset: 0;
   z-index: 2000;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: rgba(10, 37, 64, 0.45);
   backdrop-filter: blur(12px);
@@ -15,6 +15,7 @@
   visibility: hidden;
   transition: opacity 0.35s var(--ease-out), visibility 0.35s;
   padding: 24px;
+  overflow-y: auto;
 }
 
 .auth-overlay.active {
@@ -29,11 +30,14 @@
   padding: 48px 40px 40px;
   max-width: 440px;
   width: 100%;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   box-shadow: var(--shadow-xl), 0 0 80px rgba(99, 91, 255, 0.08);
   border: 1px solid var(--color-border);
   transform: translateY(30px) scale(0.96);
   transition: transform 0.4s var(--ease-spring), opacity 0.35s var(--ease-out);
   opacity: 0;
+  margin: auto 0;
 }
 
 .auth-overlay.active .auth-modal {
@@ -314,6 +318,20 @@
   padding: 14px 20px;
   font-size: 0.9rem;
   border-radius: var(--radius-md) !important;
+}
+
+/* Compact overrides for Join Quiz modal to reduce total height */
+.jq-modal {
+  padding-top: 40px;
+  padding-bottom: 32px;
+}
+
+.jq-modal .auth-modal-header {
+  margin-bottom: 20px;
+}
+
+.jq-modal .auth-form {
+  gap: 14px;
 }
 
 .auth-logo-img {
