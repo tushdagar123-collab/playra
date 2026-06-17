@@ -10,6 +10,9 @@
   background: var(--gradient-hero);
   overflow: hidden;
   position: relative;
+  /* Prevent pull-to-refresh while reading questions */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .lobby-page::before {
@@ -88,10 +91,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* flex-start (not center) so tall cards always start from top, never clip */
+  justify-content: flex-start;
   gap: 32px;
   padding: 40px 32px;
   min-height: 0;
+  /* Smooth inertia scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 /* ─── RIGHT PANEL (≈30%) ─── */
@@ -473,8 +480,41 @@
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.5;
-  margin-bottom: 28px;
+  /* margin-bottom handled by .game-question-scroll */
+  margin-bottom: 0;
   text-align: center;
+}
+
+/* ─── Scrollable Question Text Container ─── */
+.game-question-scroll {
+  /* Max height caps the question zone; overflows scroll */
+  max-height: 180px;
+  overflow-y: auto;
+  /* Smooth iOS inertia, no pull-to-refresh bleed */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  margin-bottom: 28px;
+  /* Subtle scroll hint shadow at bottom when overflowing */
+  background:
+    linear-gradient(rgba(255,255,255,0) 80%, rgba(255,255,255,0.95) 100%) center bottom / 100% 40px no-repeat,
+    linear-gradient(rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 20%) center top / 100% 40px no-repeat;
+  background-attachment: local, local;
+  border-radius: var(--radius-sm);
+  padding: 4px 0;
+  /* Thin custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.game-question-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.game-question-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.game-question-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
 }
 
 .game-options {
@@ -1079,6 +1119,16 @@
 
   .game-question-text {
     font-size: 1.05rem;
+  }
+
+  /* On mobile: expand left panel more for game screens so card isn't clipped */
+  .lobby-left {
+    max-height: 68vh;
+  }
+
+  /* Tighter question scroll on mobile — more room for options */
+  .game-question-scroll {
+    max-height: 130px;
   }
 
   .game-ended-title {

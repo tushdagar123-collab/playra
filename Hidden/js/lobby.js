@@ -271,6 +271,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       selectedOptionIndex = null;
       hasSubmittedAnswer = false;
       isTimeUp = false;
+      
+      // Reset question scroll to top
+      const scrollContainer = document.getElementById('game-question-scroll');
+      if (scrollContainer) {
+        scrollContainer.scrollTop = 0;
+      }
     }
 
     // Check Firebase for participant's answer
